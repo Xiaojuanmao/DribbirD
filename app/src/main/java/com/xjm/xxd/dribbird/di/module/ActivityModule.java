@@ -24,4 +24,5 @@ public class ActivityModule {
     BaseActivity activity() {
         return this.activity;
     }
+
 }

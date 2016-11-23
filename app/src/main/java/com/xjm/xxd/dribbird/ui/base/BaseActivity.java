@@ -67,6 +67,7 @@ public abstract class BaseActivity<BAP extends BaseActivityPresenter> extends Ap
         }
     }
 
+    protected
     @NonNull
     ApplicationComponent getApplicationComponent() {
         return DribApp.getInstance().getApplicationComponent();
