@@ -3,6 +3,8 @@ package com.xjm.xxd.dribbird.di.module;
 import android.content.Context;
 
 import com.xjm.xxd.dribbird.DribApp;
+import com.xjm.xxd.dribbird.api.DribbleApi;
+import com.xjm.xxd.dribbird.api.RetrofitManager;
 import com.xjm.xxd.dribbird.bus.RxBus;
 
 import javax.inject.Singleton;
@@ -39,6 +41,18 @@ public class ApplicationModule {
     @Singleton
     RxBus provideRxBus() {
         return RxBus.getInstance();
+    }
+
+    @Provides
+    @Singleton
+    DribbleApi provideDribbleApi(RetrofitManager manager) {
+        return manager.create(DribbleApi.class);
+    }
+
+    @Provides
+    @Singleton
+    RetrofitManager provideRetrofitManager() {
+        return RetrofitManager.getInstance();
     }
 
 }

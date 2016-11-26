@@ -1,7 +1,6 @@
 package com.xjm.xxd.dribbird.ui;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 
 import com.xjm.xxd.dribbird.R;
@@ -17,7 +16,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity<MainActivityPresenter> implements
+public class MainActivity extends BaseActivity implements
         MainActivityView {
 
     @BindView(R.id.tool_bar)
@@ -34,11 +33,13 @@ public class MainActivity extends BaseActivity<MainActivityPresenter> implements
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initViews();
+
+        mPresenter.bindIView(this);
+        mPresenter.startLoadData();
     }
 
     private void initViews() {
         setSupportActionBar(mToolbar);
-
     }
 
     @Override
@@ -49,12 +50,6 @@ public class MainActivity extends BaseActivity<MainActivityPresenter> implements
                 .activityModule(new ActivityModule(this))
                 .build();
         mComponent.inject(this);
-    }
-
-    @NonNull
-    @Override
-    protected MainActivityPresenter getPresenter() {
-        return mPresenter;
     }
 
 }

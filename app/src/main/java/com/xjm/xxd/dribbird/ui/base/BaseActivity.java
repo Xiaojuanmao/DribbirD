@@ -7,15 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.xjm.xxd.dribbird.DribApp;
 import com.xjm.xxd.dribbird.di.component.ApplicationComponent;
-import com.xjm.xxd.dribbird.presenter.activity.BaseActivityPresenter;
 
 /**
  * Created by queda on 2016/11/21.
  */
 
-public abstract class BaseActivity<BAP extends BaseActivityPresenter> extends AppCompatActivity {
-
-    private BAP mBaseActivityPresenter;
+public abstract class BaseActivity extends AppCompatActivity {
 
     private final String TAG = getTag();
 
@@ -23,48 +20,6 @@ public abstract class BaseActivity<BAP extends BaseActivityPresenter> extends Ap
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         startInject();
-        mBaseActivityPresenter = getPresenter();
-        mBaseActivityPresenter.onCreate(savedInstanceState);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (mBaseActivityPresenter != null) {
-            mBaseActivityPresenter.onStart();
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (mBaseActivityPresenter != null) {
-            mBaseActivityPresenter.onResume();
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (mBaseActivityPresenter != null) {
-            mBaseActivityPresenter.onPause();
-        }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (mBaseActivityPresenter != null) {
-            mBaseActivityPresenter.onStop();
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mBaseActivityPresenter != null) {
-            mBaseActivityPresenter.onDestroy();
-        }
     }
 
     protected
@@ -79,8 +34,6 @@ public abstract class BaseActivity<BAP extends BaseActivityPresenter> extends Ap
     protected void startInject() {
 
     }
-
-    protected abstract @NonNull BAP getPresenter();
 
     protected String getTag() {
         return this.getClass().getSimpleName();
