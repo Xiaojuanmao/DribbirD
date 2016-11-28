@@ -10,5 +10,4 @@ import com.xjm.xxd.dribbird.view.MainActivityView;
 
 public interface IMainActivityPresenter extends IPresenter<MainActivityView> {
 
-    void startLoadData();
 }

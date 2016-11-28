@@ -1,5 +1,7 @@
 package com.xjm.xxd.dribbird.api;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.Gson;
 
 import okhttp3.OkHttpClient;
@@ -31,7 +33,8 @@ public class RetrofitManager {
     private RetrofitManager() {
         mGson = new Gson();
         mHttpClient = buildOkHttpClient();
-        mRetrofit = buildRetrofit();
+        mRetrofit = buildRetrofit(ApiConstants.BASE_URL);
+
     }
 
     /**
@@ -50,10 +53,10 @@ public class RetrofitManager {
      * according to httpclient、rx、gson ect
      * @return retrofit instance
      */
-    private Retrofit buildRetrofit() {
+    private Retrofit buildRetrofit(@NonNull String baseUrl) {
         Retrofit.Builder builder = new Retrofit.Builder();
         builder.client(mHttpClient)
-                .baseUrl(ApiConstants.BASE_URL)
+                .baseUrl(baseUrl)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(mGson));
 
