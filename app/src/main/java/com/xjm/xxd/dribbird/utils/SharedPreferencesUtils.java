@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import com.xjm.xxd.dribbird.DribApp;
 
 
-public class SharedPreferencesUitl {
+public class SharedPreferencesUtils {
 
     private static final String SYS_CONFIG_PREFS_NAME = "sysconfig";
 

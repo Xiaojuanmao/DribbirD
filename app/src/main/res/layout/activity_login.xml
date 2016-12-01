@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
+    android:id="@+id/activity_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.xjm.xxd.dribbird.ui.MainActivity">
+    tools:context="com.xjm.xxd.dribbird.login.LoginActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@id/tool_bar"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
-        android:fitsSystemWindows="true"
-        android:layout_height="wrap_content"/>
+        android:fitsSystemWindows="true" />
+
+    <WebView
+        android:id="@+id/web_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tool_bar" />
 
 </RelativeLayout>

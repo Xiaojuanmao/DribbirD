@@ -6,6 +6,8 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.xjm.xxd.dribbird.api.ApiConstants;
 import com.xjm.xxd.dribbird.api.okhttp.OkHttpManager;
+import com.xjm.xxd.dribbird.utils.SharedPreferConstants;
+import com.xjm.xxd.dribbird.utils.SharedPreferencesUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -51,14 +53,14 @@ public class TokenManager {
     }
 
     public static boolean isMatchRedirectUrl(String targetStr) {
-        return !TextUtils.isEmpty(targetStr) && targetStr.contains(ApiConstants.DEFAULT_REDIRECT_URI_PRE);
+        return !TextUtils.isEmpty(targetStr) && targetStr.startsWith(ApiConstants.DEFAULT_REDIRECT_URI_PRE);
     }
 
     public static
     @Nullable
-    boolean requestForToken(String returnCode) {
+    TokenBean requestForToken(String returnCode) {
         if (TextUtils.isEmpty(returnCode)) {
-            return false;
+            return null;
         }
         Map<String, String> params = new HashMap<>();
         params.put(ApiConstants.CLIENT_ID, ApiConstants.DRIBBLE_CLIENT_ID);
@@ -68,16 +70,16 @@ public class TokenManager {
                 ApiConstants.OAUTH_BASE_URL + ApiConstants.TOKEN,
                 params);
         if (response == null) {
-            return false;
+            return null;
         }
         ResponseBody responseBody = response.body();
         if (responseBody == null) {
-            return false;
+            return null;
         }
         Gson gson = OkHttpManager.getInstance().getGson();
         TokenBean tokenBean = gson.fromJson(responseBody.charStream(), TokenBean.class);
-
-        return true;
+        SharedPreferencesUtils.setDefaultString(SharedPreferConstants.TOKEN_BEAN, gson.toJson(tokenBean));
+        return tokenBean;
     }
 
 }
