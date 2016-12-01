@@ -1,15 +1,17 @@
 package com.xjm.xxd.dribbird.ui;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
-import android.webkit.HttpAuthHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.xjm.xxd.dribbird.R;
+import com.xjm.xxd.dribbird.account.TokenManager;
 import com.xjm.xxd.dribbird.api.ApiConstants;
 import com.xjm.xxd.dribbird.di.component.ActivityComponent;
 import com.xjm.xxd.dribbird.di.component.DaggerActivityComponent;
@@ -45,14 +47,7 @@ public class MainActivity extends BaseActivity implements
 
         mPresenter.bindIView(this);
 
-        StringBuilder builder = new StringBuilder(ApiConstants.OAUTH_BASE_URL);
-        builder.append(ApiConstants.AUTHORIZE)
-                .append(ApiConstants.QUESTION_MARK)
-                .append(ApiConstants.CLIENT_ID)
-                .append(ApiConstants.EQUAL)
-                .append(ApiConstants.DRIBBLE_CLIENT_ID);
-        mWebView.loadUrl(builder.toString());
-
+        mWebView.loadUrl(TokenManager.getDribbleOAuth2Url());
     }
 
     private void initViews() {
@@ -65,20 +60,31 @@ public class MainActivity extends BaseActivity implements
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return true;
+
+                if (!TextUtils.isEmpty(url)) {
+                    if (url.equals(TokenManager.getDribbleOAuth2Url())) {
+                        // 当前加载的url为请求认证授权的url，直接加载
+                        view.loadUrl(url);
+                        return true;
+                    }
+
+                    if (url.equals(ApiConstants.DEFAULT_REDIRECT_URI)) {
+                        // 当前url为重定向的url，用户已授权
+                        Log.e("here", "url : " + url);
+                        return true;
+                    }
+                }
+                return false;
             }
 
             @Override
-            public void onReceivedLoginRequest(WebView view, String realm, String account, String args) {
-                Log.e("here", "onReceivedLoginRequest, realm : " + realm);
-                super.onReceivedLoginRequest(view, realm, account, args);
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
             }
 
             @Override
-            public void onReceivedHttpAuthRequest(WebView view, HttpAuthHandler handler, String host, String realm) {
-                Log.e("here", "onReceivedHttpAuthRequest, host : " + host);
-                super.onReceivedHttpAuthRequest(view, handler, host, realm);
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
             }
 
         });
