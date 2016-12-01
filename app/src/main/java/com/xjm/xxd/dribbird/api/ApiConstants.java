@@ -20,9 +20,10 @@ public class ApiConstants {
     public static final String AUTHORIZE = "authorize";
     public static final String CLIENT_ID = "client_id";
     public static final String REDIRECT_URI = "redirect_uri";
+    public static final String CODE = "code";
     public static final String TOKEN = "token";
 
-    public static final String DEFAULT_REDIRECT_URI = "http://xiaojuanmao.github.io";
+    public static final String DEFAULT_REDIRECT_URI_PRE = "http://xiaojuanmao.github.io";
 
     // application api
     public static final String BASE_URL = "https://api.dribbble.com/v1/";

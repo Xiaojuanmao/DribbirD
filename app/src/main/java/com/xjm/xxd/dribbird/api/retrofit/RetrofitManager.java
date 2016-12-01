@@ -1,8 +1,9 @@
-package com.xjm.xxd.dribbird.api;
+package com.xjm.xxd.dribbird.api.retrofit;
 
 import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
+import com.xjm.xxd.dribbird.api.ApiConstants;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

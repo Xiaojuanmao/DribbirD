@@ -3,7 +3,7 @@ package com.xjm.xxd.dribbird.di.component;
 import android.content.Context;
 
 import com.xjm.xxd.dribbird.DribApp;
-import com.xjm.xxd.dribbird.api.DribbleApi;
+import com.xjm.xxd.dribbird.api.retrofit.DribbleApi;
 import com.xjm.xxd.dribbird.bus.RxBus;
 import com.xjm.xxd.dribbird.di.module.ApplicationModule;
 

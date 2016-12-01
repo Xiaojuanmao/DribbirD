@@ -1,10 +1,10 @@
 package com.xjm.xxd.dribbird.ui;
 
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -47,7 +47,7 @@ public class MainActivity extends BaseActivity implements
 
         mPresenter.bindIView(this);
 
-        mWebView.loadUrl(TokenManager.getDribbleOAuth2Url());
+        mWebView.loadUrl(TokenManager.getOAuth2Url());
     }
 
     private void initViews() {
@@ -60,20 +60,20 @@ public class MainActivity extends BaseActivity implements
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-
                 if (!TextUtils.isEmpty(url)) {
-                    if (url.equals(TokenManager.getDribbleOAuth2Url())) {
-                        // 当前加载的url为请求认证授权的url，直接加载
-                        view.loadUrl(url);
-                        return true;
-                    }
+                    // url is match with oauth request url
+                    if (TokenManager.isMatchRedirectUrl(url)) {
+                        // get the return code
+                        Uri uri = Uri.parse(url);
+                        String returnCode = uri.getQueryParameter(ApiConstants.CODE);
+                        if (!TextUtils.isEmpty(returnCode)) {
+                            // request for access token with return code
 
-                    if (url.equals(ApiConstants.DEFAULT_REDIRECT_URI)) {
-                        // 当前url为重定向的url，用户已授权
-                        Log.e("here", "url : " + url);
+                        }
                         return true;
                     }
                 }
+                view.loadUrl(url);
                 return false;
             }
 
