@@ -13,7 +13,7 @@ public class MainActivityPresenter implements IMainActivityPresenter {
     private MainActivityView mView;
 
     @Inject
-    MainActivityPresenter() {
+    public MainActivityPresenter() {
         super();
     }
 

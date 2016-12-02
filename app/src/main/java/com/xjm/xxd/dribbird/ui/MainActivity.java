@@ -4,10 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 import com.xjm.xxd.dribbird.R;
-import com.xjm.xxd.dribbird.di.component.ActivityComponent;
-import com.xjm.xxd.dribbird.di.component.DaggerActivityComponent;
-import com.xjm.xxd.dribbird.di.module.ActivityModule;
-import com.xjm.xxd.dribbird.presenter.activity.MainActivityPresenter;
+import com.xjm.xxd.dribbird.presenter.activity.IMainActivityPresenter;
 import com.xjm.xxd.dribbird.ui.base.BaseActivity;
 import com.xjm.xxd.dribbird.view.MainActivityView;
 
@@ -23,15 +20,15 @@ public class MainActivity extends BaseActivity implements
     Toolbar mToolbar;
 
     @Inject
-    MainActivityPresenter mPresenter;
-
-    private ActivityComponent mComponent;
+    IMainActivityPresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        getActivityComponent().inject(this);
+
         initViews();
 
         mPresenter.bindIView(this);
@@ -41,16 +38,6 @@ public class MainActivity extends BaseActivity implements
     private void initViews() {
         setSupportActionBar(mToolbar);
 
-    }
-
-    @Override
-    protected void startInject() {
-        super.startInject();
-        mComponent = DaggerActivityComponent.builder()
-                .applicationComponent(getApplicationComponent())
-                .activityModule(new ActivityModule(this))
-                .build();
-        mComponent.inject(this);
     }
 
 }

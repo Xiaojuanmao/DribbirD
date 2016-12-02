@@ -3,12 +3,15 @@ package com.xjm.xxd.dribbird.login;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.xjm.xxd.dribbird.account.TokenBean;
 import com.xjm.xxd.dribbird.account.TokenManager;
 import com.xjm.xxd.dribbird.api.ApiConstants;
+
+import java.lang.ref.WeakReference;
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -22,6 +25,14 @@ import rx.schedulers.Schedulers;
  *         email: daque@hustunique.com
  */
 public class LoginWebViewClient extends WebViewClient {
+
+    private WeakReference<LoginWebViewClientCallback> mCallback;
+
+    private static final String TAG = LoginWebViewClient.class.getSimpleName();
+
+    public LoginWebViewClient(LoginWebViewClientCallback callback) {
+        mCallback = new WeakReference<>(callback);
+    }
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -46,16 +57,23 @@ public class LoginWebViewClient extends WebViewClient {
                                 public void call(TokenBean tokenBean) {
                                     if (tokenBean != null) {
                                         // authentic success
-
+                                        if (mCallback != null && mCallback.get() != null) {
+                                            mCallback.get().loginSuccess(tokenBean);
+                                        }
                                     } else {
                                         // auth failed
-
+                                        if (mCallback != null && mCallback.get() != null) {
+                                            mCallback.get().loginFailed();
+                                        }
                                     }
                                 }
                             }, new Action1<Throwable>() {
                                 @Override
                                 public void call(Throwable throwable) {
-
+                                    Log.w(TAG, "LoginWebViewClient request for access token error ", throwable);
+                                    if (mCallback != null && mCallback.get() != null) {
+                                        mCallback.get().loginFailed();
+                                    }
                                 }
                             });
                 }

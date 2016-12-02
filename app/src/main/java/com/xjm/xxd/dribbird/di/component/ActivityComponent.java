@@ -2,6 +2,7 @@ package com.xjm.xxd.dribbird.di.component;
 
 import com.xjm.xxd.dribbird.di.PerActivity;
 import com.xjm.xxd.dribbird.di.module.ActivityModule;
+import com.xjm.xxd.dribbird.login.LoginActivity;
 import com.xjm.xxd.dribbird.ui.MainActivity;
 
 import dagger.Component;
@@ -15,5 +16,7 @@ import dagger.Component;
 public interface ActivityComponent {
 
     void inject(MainActivity activity);
+
+    void inject(LoginActivity activity);
 
 }
