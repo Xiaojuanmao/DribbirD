@@ -108,8 +108,17 @@ public class WidgetGroupManager implements IGroupManager {
     }
 
     @Override
+    public void saveWidgetConfig() {
+        if (mConfig != null) {
+            mConfig.save();
+        }
+    }
+
+    @Override
     public void destroy() {
-        mConfig.save();
+        if (mConfig != null) {
+            mConfig.save();
+        }
     }
 
 }

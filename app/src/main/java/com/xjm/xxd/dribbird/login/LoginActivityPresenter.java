@@ -31,4 +31,9 @@ public class LoginActivityPresenter implements ILoginActivityPresenter {
 
     }
 
+    @Override
+    public void onDestroy() {
+
+    }
+
 }

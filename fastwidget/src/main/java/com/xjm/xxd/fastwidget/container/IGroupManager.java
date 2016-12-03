@@ -14,5 +14,7 @@ interface IGroupManager {
 
     void removeWidget(BaseWidget widget);
 
+    void saveWidgetConfig();
+
     void destroy();
 }

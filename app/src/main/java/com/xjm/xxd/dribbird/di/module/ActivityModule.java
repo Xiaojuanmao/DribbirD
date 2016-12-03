@@ -5,6 +5,8 @@ import com.xjm.xxd.dribbird.login.ILoginActivityPresenter;
 import com.xjm.xxd.dribbird.login.LoginActivityPresenter;
 import com.xjm.xxd.dribbird.presenter.activity.IMainActivityPresenter;
 import com.xjm.xxd.dribbird.presenter.activity.MainActivityPresenter;
+import com.xjm.xxd.dribbird.splash.ISplashActivityPresenter;
+import com.xjm.xxd.dribbird.splash.SplashActivityPresenter;
 import com.xjm.xxd.dribbird.ui.base.BaseActivity;
 
 import dagger.Module;
@@ -27,6 +29,11 @@ public class ActivityModule {
     @PerActivity
     BaseActivity activity() {
         return this.activity;
+    }
+
+    @Provides
+    ISplashActivityPresenter provideSplashActivityPresenter() {
+        return new SplashActivityPresenter();
     }
 
     @Provides

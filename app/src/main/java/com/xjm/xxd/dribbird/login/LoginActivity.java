@@ -1,5 +1,6 @@
 package com.xjm.xxd.dribbird.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -62,6 +63,14 @@ public class LoginActivity extends BaseActivity implements
     @Override
     public void loginFailed() {
 
+    }
+
+    public static void open(BaseActivity activity) {
+        if (activity == null) {
+            return;
+        }
+        Intent intent = new Intent(activity, LoginActivity.class);
+        activity.startActivity(intent);
     }
 
 }

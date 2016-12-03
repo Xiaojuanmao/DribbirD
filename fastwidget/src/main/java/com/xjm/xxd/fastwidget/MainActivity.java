@@ -18,8 +18,9 @@ public class MainActivity extends AppCompatActivity {
     WidgetGroupContainer mContainer;
 
     private static final int MENU_ID_MANAGE = 0;
-    private static final int MENU_ID_WEATHER = 1;
-    private static final int MENU_ID_TIME = 2;
+    private static final int MENU_ID_SAVE = 1;
+    private static final int MENU_ID_WEATHER = 2;
+    private static final int MENU_ID_TIME = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add(Menu.NONE, MENU_ID_MANAGE, Menu.NONE, "管理");
+        menu.add(Menu.NONE, MENU_ID_SAVE, Menu.NONE, "保存");
         menu.add(Menu.NONE, MENU_ID_WEATHER, Menu.NONE, "天氣");
         menu.add(Menu.NONE, MENU_ID_TIME, Menu.NONE, "時間");
         return super.onCreateOptionsMenu(menu);
@@ -40,7 +42,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case MENU_ID_MANAGE:
+                // TODO : 彈出管理widget的界面
+                break;
 
+            case MENU_ID_SAVE:
+                mContainer.saveWidgetConfigs();
                 break;
 
             case MENU_ID_WEATHER:

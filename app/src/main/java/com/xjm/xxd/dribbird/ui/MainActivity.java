@@ -28,11 +28,9 @@ public class MainActivity extends BaseActivity implements
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         getActivityComponent().inject(this);
-
-        initViews();
-
         mPresenter.bindIView(this);
 
+        initViews();
     }
 
     private void initViews() {

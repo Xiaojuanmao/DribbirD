@@ -10,4 +10,5 @@ public interface IPresenter<IV extends IView> {
 
     void bindIView(IV iView);
 
+    void onDestroy();
 }

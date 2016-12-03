@@ -59,7 +59,6 @@ public class WidgetGroupContainer extends ScrollView
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        mManager.destroy();
     }
 
     @Override
@@ -80,6 +79,12 @@ public class WidgetGroupContainer extends ScrollView
 
     public void addWidget(BaseWidget baseWidget) {
         mManager.addWidget(baseWidget, true);
+    }
+
+    public void saveWidgetConfigs() {
+        if (mManager != null) {
+            mManager.saveWidgetConfig();
+        }
     }
 
     public void removeWidget(BaseWidget baseWidget) {

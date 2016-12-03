@@ -4,6 +4,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.xjm.xxd.dribbird.api.ApiConstants;
 import com.xjm.xxd.dribbird.api.okhttp.OkHttpManager;
 import com.xjm.xxd.dribbird.utils.SharedPreferConstants;
@@ -54,6 +55,25 @@ public class TokenManager {
 
     public static boolean isMatchRedirectUrl(String targetStr) {
         return !TextUtils.isEmpty(targetStr) && targetStr.startsWith(ApiConstants.DEFAULT_REDIRECT_URI_PRE);
+    }
+
+    /**
+     * return if there is a local token
+     * @return
+     */
+    public static boolean hasAvaliableToken() {
+        String tokenBean = SharedPreferencesUtils.getDefaultString(SharedPreferConstants.TOKEN_BEAN, "");
+        if (TextUtils.isEmpty(tokenBean)) {
+            return false;
+        }
+        Gson gson = OkHttpManager.getInstance().getGson();
+        try {
+            gson.fromJson(tokenBean, TokenBean.class);
+        } catch (JsonSyntaxException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
     public static
