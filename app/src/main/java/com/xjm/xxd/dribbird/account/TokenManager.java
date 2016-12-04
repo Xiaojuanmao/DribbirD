@@ -27,6 +27,8 @@ public class TokenManager {
 
     private static String mOAuthUrl;
 
+    private static TokenBean mTokenBean;
+
     /**
      * build oauth2 authentication url
      *
@@ -68,12 +70,31 @@ public class TokenManager {
         }
         Gson gson = OkHttpManager.getInstance().getGson();
         try {
-            gson.fromJson(tokenBean, TokenBean.class);
+            mTokenBean = gson.fromJson(tokenBean, TokenBean.class);
         } catch (JsonSyntaxException e) {
             e.printStackTrace();
             return false;
         }
         return true;
+    }
+
+    public static
+    @Nullable
+    TokenBean getTokenBean() {
+        if (mTokenBean == null) {
+            String tokenBean = SharedPreferencesUtils.getDefaultString(SharedPreferConstants.TOKEN_BEAN, "");
+            if (TextUtils.isEmpty(tokenBean)) {
+                return null;
+            }
+            Gson gson = OkHttpManager.getInstance().getGson();
+            try {
+                mTokenBean = gson.fromJson(tokenBean, TokenBean.class);
+            } catch (JsonSyntaxException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+        return mTokenBean;
     }
 
     public static

@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import com.xjm.xxd.dribbird.R;
 import com.xjm.xxd.dribbird.login.LoginActivity;
+import com.xjm.xxd.dribbird.ui.MainActivity;
 import com.xjm.xxd.dribbird.ui.base.BaseActivity;
 
 import javax.inject.Inject;
@@ -63,7 +64,8 @@ public class SplashActivity extends BaseActivity implements
 
     @Override
     public void jumpToMainPage() {
-
+        MainActivity.open(this);
+        finish();
     }
 
 }

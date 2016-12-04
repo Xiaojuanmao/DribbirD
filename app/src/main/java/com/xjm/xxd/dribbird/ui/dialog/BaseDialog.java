@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.xjm.xxd.dribbird.R;
@@ -15,6 +16,9 @@ import com.xjm.xxd.dribbird.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
 /**
  * Created by queda on 2016/12/4.
@@ -26,7 +30,11 @@ public class BaseDialog extends DialogFragment {
     LinearLayout mTitleRoot;
     @BindView(R.id.dialog_title)
     TextView mTitleTv;
-    @BindView(R.id.dialog_title_message)
+    @BindView(R.id.dialog_message_root)
+    LinearLayout mMessageRoot;
+    @BindView(R.id.dialog_message_progressbar)
+    ProgressBar mProgressBar;
+    @BindView(R.id.dialog_message)
     TextView mMessageTv;
     @BindView(R.id.dialog_manipulate_root)
     LinearLayout mManipulateRoot;
@@ -37,6 +45,7 @@ public class BaseDialog extends DialogFragment {
 
     private String mTitle;
     private String mMessage;
+    private boolean mHasProgressbar;
 
     private BaseDialogCallback mCallback;
 
@@ -48,6 +57,12 @@ public class BaseDialog extends DialogFragment {
         setTitle(mTitle);
         setMessage(mMessage);
         setCallback(mCallback);
+        enableProgressbar(mHasProgressbar);
+        if (mProgressBar.getVisibility() == GONE && mMessageTv.getVisibility() == GONE) {
+            mMessageRoot.setVisibility(GONE);
+        } else {
+            mMessageRoot.setVisibility(VISIBLE);
+        }
         return view;
     }
 
@@ -80,6 +95,10 @@ public class BaseDialog extends DialogFragment {
         mCallback = callback;
     }
 
+    public void progressBar(boolean enable) {
+        mHasProgressbar = enable;
+    }
+
     private void setTitle(String title) {
         if (TextUtils.isEmpty(title)) {
             enableTitle(false);
@@ -109,25 +128,35 @@ public class BaseDialog extends DialogFragment {
 
     private void enableMessage(boolean enable) {
         if (enable) {
-            mMessageTv.setVisibility(View.VISIBLE);
+            mMessageTv.setVisibility(VISIBLE);
         } else {
-            mMessageTv.setVisibility(View.GONE);
+            mMessageTv.setVisibility(GONE);
+        }
+    }
+
+    private void enableProgressbar(boolean enable) {
+        if (enable) {
+            mProgressBar.setVisibility(VISIBLE);
+            mHasProgressbar = true;
+        } else {
+            mProgressBar.setVisibility(GONE);
+            mHasProgressbar = false;
         }
     }
 
     private void enableTitle(boolean enable) {
         if (enable) {
-            mTitleRoot.setVisibility(View.VISIBLE);
+            mTitleRoot.setVisibility(VISIBLE);
         } else {
-            mTitleRoot.setVisibility(View.GONE);
+            mTitleRoot.setVisibility(GONE);
         }
     }
 
     private void enableManipulateRoot(boolean enable) {
         if (enable) {
-            mManipulateRoot.setVisibility(View.VISIBLE);
+            mManipulateRoot.setVisibility(VISIBLE);
         } else {
-            mManipulateRoot.setVisibility(View.GONE);
+            mManipulateRoot.setVisibility(GONE);
         }
     }
 
@@ -136,6 +165,7 @@ public class BaseDialog extends DialogFragment {
         private String mTitle;
         private String mMessage;
         private BaseDialogCallback mCallback;
+        private boolean mHasProgressBar;
 
         public Builder title(String title) {
             mTitle = title;
@@ -152,11 +182,17 @@ public class BaseDialog extends DialogFragment {
             return this;
         }
 
+        public Builder progressBar(boolean enable) {
+            mHasProgressBar = enable;
+            return this;
+        }
+
         public BaseDialog build() {
             BaseDialog baseDialog = new BaseDialog();
             baseDialog.title(mTitle);
             baseDialog.message(mMessage);
             baseDialog.callback(mCallback);
+            baseDialog.progressBar(mHasProgressBar);
             return baseDialog;
         }
     }

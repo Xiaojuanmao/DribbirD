@@ -8,9 +8,11 @@ import android.text.TextUtils;
 import android.webkit.WebSettings;
 
 import com.xjm.xxd.dribbird.R;
+import com.xjm.xxd.dribbird.ui.MainActivity;
 import com.xjm.xxd.dribbird.ui.base.BaseActivity;
 import com.xjm.xxd.dribbird.ui.dialog.BaseDialog;
 import com.xjm.xxd.dribbird.ui.widget.ProgressWebView;
+import com.xjm.xxd.dribbird.utils.ToastUtils;
 
 import javax.inject.Inject;
 
@@ -59,6 +61,7 @@ public class LoginActivity extends BaseActivity implements
     }
 
     private void initViews() {
+        mToolbar.setTitle(R.string.title_login);
         setSupportActionBar(mToolbar);
 
         WebSettings settings = mWebView.getSettings();
@@ -82,9 +85,10 @@ public class LoginActivity extends BaseActivity implements
         }
         if (mBaseDialog == null) {
             BaseDialog.Builder builder = new BaseDialog.Builder();
+            builder.progressBar(true);
             mBaseDialog = builder.build();
         }
-        mBaseDialog.title(msg);
+        mBaseDialog.message(msg);
         mBaseDialog.show(getSupportFragmentManager(), TAG);
     }
 
@@ -105,12 +109,14 @@ public class LoginActivity extends BaseActivity implements
 
     @Override
     public void loginSuccess() {
-
+        ToastUtils.show(this, R.string.authentication_success);
+        MainActivity.open(this);
+        finish();
     }
 
     @Override
     public void loginFailed() {
-
+        ToastUtils.show(this, R.string.authentication_failed);
     }
 
     public static void open(BaseActivity activity) {

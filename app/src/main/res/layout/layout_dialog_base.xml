@@ -28,25 +28,42 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/dialog_title_message"
+    <LinearLayout
+        android:id="@+id/dialog_message_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/dialog_title_root"
         android:layout_centerHorizontal="true"
         android:layout_margin="8dp"
         android:gravity="center"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:text="This is messagehis is message, This is message"
-        android:textColor="@color/colorPrimary"
-        android:textSize="18sp" />
+        android:orientation="horizontal"
+        android:padding="20dp">
+
+        <ProgressBar
+            android:id="@+id/dialog_message_progressbar"
+            android:layout_width="40dp"
+            android:visibility="gone"
+            android:layout_gravity="center_vertical"
+            android:layout_height="40dp"
+            android:indeterminateDrawable="@drawable/drawable_base_dialog_progressbar" />
+
+        <TextView
+            android:id="@+id/dialog_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:text="This is messagehis is message, This is message"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/dialog_manipulate_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/dialog_title_message"
+        android:layout_below="@id/dialog_message_root"
         android:orientation="horizontal">
 
         <TextView

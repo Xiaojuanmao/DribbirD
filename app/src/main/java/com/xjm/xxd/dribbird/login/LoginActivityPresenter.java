@@ -1,6 +1,7 @@
 package com.xjm.xxd.dribbird.login;
 
 import android.support.annotation.StringRes;
+import android.util.Log;
 
 import com.xjm.xxd.dribbird.account.TokenBean;
 import com.xjm.xxd.dribbird.account.TokenManager;
@@ -40,12 +41,12 @@ public class LoginActivityPresenter implements ILoginActivityPresenter {
 
     @Override
     public void loginSuccess(TokenBean tokenBean) {
-
+        mView.loginSuccess();
     }
 
     @Override
     public void loginFailed() {
-
+        mView.loginFailed();
     }
 
     @Override
