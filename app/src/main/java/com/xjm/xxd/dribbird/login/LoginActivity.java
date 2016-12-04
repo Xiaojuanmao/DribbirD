@@ -2,13 +2,15 @@ package com.xjm.xxd.dribbird.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.StringRes;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.webkit.WebSettings;
-import android.webkit.WebView;
 
 import com.xjm.xxd.dribbird.R;
 import com.xjm.xxd.dribbird.ui.base.BaseActivity;
+import com.xjm.xxd.dribbird.ui.dialog.BaseDialog;
+import com.xjm.xxd.dribbird.ui.widget.ProgressWebView;
 
 import javax.inject.Inject;
 
@@ -21,10 +23,15 @@ public class LoginActivity extends BaseActivity implements
     @BindView(R.id.tool_bar)
     Toolbar mToolbar;
     @BindView(R.id.web_view)
-    WebView mWebView;
+    ProgressWebView mWebView;
 
     @Inject
     ILoginActivityPresenter mPresenter;
+
+    private BaseDialog mBaseDialog;
+    private LoginWebViewClient mWebViewClient;
+
+    private static final String TAG = LoginActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +46,25 @@ public class LoginActivity extends BaseActivity implements
         mPresenter.init();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mPresenter != null) {
+            mPresenter.onDestroy();
+        }
+
+        if (mWebViewClient != null) {
+            mWebViewClient.onDestroy();
+        }
+    }
+
     private void initViews() {
         setSupportActionBar(mToolbar);
 
         WebSettings settings = mWebView.getSettings();
         settings.setJavaScriptEnabled(true);
-        mWebView.setWebViewClient(new LoginWebViewClient(mPresenter));
+        mWebViewClient = new LoginWebViewClient(mPresenter);
+        mWebView.setWebViewClient(mWebViewClient);
     }
 
     @Override
@@ -53,6 +73,34 @@ public class LoginActivity extends BaseActivity implements
             return;
         }
         mWebView.loadUrl(url);
+    }
+
+    @Override
+    public void showLoading(String msg) {
+        if (TextUtils.isEmpty(msg)) {
+            return;
+        }
+        if (mBaseDialog == null) {
+            BaseDialog.Builder builder = new BaseDialog.Builder();
+            mBaseDialog = builder.build();
+        }
+        mBaseDialog.title(msg);
+        mBaseDialog.show(getSupportFragmentManager(), TAG);
+    }
+
+    @Override
+    public void showLoading(@StringRes int strId) {
+        if (strId <= 0) {
+            return;
+        }
+        showLoading(getString(strId));
+    }
+
+    @Override
+    public void hideLoading() {
+        if (mBaseDialog != null && mBaseDialog.isVisible()) {
+            mBaseDialog.dismiss();
+        }
     }
 
     @Override

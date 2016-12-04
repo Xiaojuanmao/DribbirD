@@ -1,5 +1,7 @@
 package com.xjm.xxd.dribbird.login;
 
+import android.support.annotation.StringRes;
+
 import com.xjm.xxd.dribbird.account.TokenBean;
 
 /**
@@ -7,6 +9,11 @@ import com.xjm.xxd.dribbird.account.TokenBean;
  */
 
 public interface LoginWebViewClientCallback {
+
+    void showLoading(String msg);
+    void showLoading(@StringRes int strId);
+
+    void hideLoading();
 
     void loginSuccess(TokenBean tokenBean);
 

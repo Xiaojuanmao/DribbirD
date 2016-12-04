@@ -1,5 +1,7 @@
 package com.xjm.xxd.dribbird.login;
 
+import android.support.annotation.StringRes;
+
 import com.xjm.xxd.dribbird.view.IView;
 
 /**
@@ -9,6 +11,11 @@ import com.xjm.xxd.dribbird.view.IView;
 public interface LoginActivityView extends IView {
 
     void loadUrl(String url);
+
+    void showLoading(String msg);
+    void showLoading(@StringRes int strId);
+
+    void hideLoading();
 
     void loginSuccess();
 

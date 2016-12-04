@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">DribbirD</string>
+
+    <!--BaseDialog-->
+    <string name="dialog_ensure">确定</string>
+    <string name="dialog_cancel">取消</string>
+
+    <!--LoginActivity-->
+    <string name="being_authorized">正在授权&#8230;&#8230;</string>
+
 </resources>

@@ -1,5 +1,7 @@
 package com.xjm.xxd.dribbird.login;
 
+import android.support.annotation.StringRes;
+
 import com.xjm.xxd.dribbird.account.TokenBean;
 import com.xjm.xxd.dribbird.account.TokenManager;
 
@@ -19,6 +21,21 @@ public class LoginActivityPresenter implements ILoginActivityPresenter {
     @Override
     public void init() {
         mView.loadUrl(TokenManager.getOAuth2Url());
+    }
+
+    @Override
+    public void showLoading(String msg) {
+        mView.showLoading(msg);
+    }
+
+    @Override
+    public void showLoading(@StringRes int strId) {
+        mView.showLoading(strId);
+    }
+
+    @Override
+    public void hideLoading() {
+        mView.hideLoading();
     }
 
     @Override

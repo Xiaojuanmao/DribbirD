@@ -1,8 +1,8 @@
 package com.xjm.xxd.dribbird.ui.widget;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
@@ -30,7 +30,7 @@ public class ProgressWebView extends WebView {
     }
 
     public ProgressWebView(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
+        this(context, attrs, Resources.getSystem().getIdentifier("webViewStyle","attr","android"));
     }
 
     public ProgressWebView(Context context, AttributeSet attrs, int defStyleAttr) {

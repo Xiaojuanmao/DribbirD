@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_login"
     android:layout_width="match_parent"
@@ -13,10 +14,11 @@
         android:background="?attr/colorPrimary"
         android:fitsSystemWindows="true" />
 
-    <WebView
+    <com.xjm.xxd.dribbird.ui.widget.ProgressWebView
         android:id="@+id/web_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tool_bar" />
+        android:layout_below="@id/tool_bar"
+        app:pwb_progressBarDrawable="@drawable/drawable_login_activity_web_view_progress" />
 
 </RelativeLayout>

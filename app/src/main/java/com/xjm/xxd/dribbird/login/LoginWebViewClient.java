@@ -7,6 +7,7 @@ import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.xjm.xxd.dribbird.R;
 import com.xjm.xxd.dribbird.account.TokenBean;
 import com.xjm.xxd.dribbird.account.TokenManager;
 import com.xjm.xxd.dribbird.api.ApiConstants;
@@ -14,6 +15,7 @@ import com.xjm.xxd.dribbird.api.ApiConstants;
 import java.lang.ref.WeakReference;
 
 import rx.Observable;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
@@ -25,6 +27,8 @@ import rx.schedulers.Schedulers;
  *         email: daque@hustunique.com
  */
 public class LoginWebViewClient extends WebViewClient {
+
+    private Subscription mAuthSubscription;
 
     private WeakReference<LoginWebViewClientCallback> mCallback;
 
@@ -44,7 +48,10 @@ public class LoginWebViewClient extends WebViewClient {
                 String returnCode = uri.getQueryParameter(ApiConstants.CODE);
                 if (!TextUtils.isEmpty(returnCode)) {
                     // request for access token with return code
-                    Observable.just(returnCode)
+                    if (mCallback != null && mCallback.get() != null) {
+                        mCallback.get().showLoading(R.string.being_authorized);
+                    }
+                    mAuthSubscription = Observable.just(returnCode)
                             .map(new Func1<String, TokenBean>() {
                                 @Override
                                 public TokenBean call(String s) {
@@ -55,6 +62,9 @@ public class LoginWebViewClient extends WebViewClient {
                             .subscribe(new Action1<TokenBean>() {
                                 @Override
                                 public void call(TokenBean tokenBean) {
+                                    if (mCallback != null && mCallback.get() != null) {
+                                        mCallback.get().hideLoading();
+                                    }
                                     if (tokenBean != null) {
                                         // authentic success
                                         if (mCallback != null && mCallback.get() != null) {
@@ -72,6 +82,7 @@ public class LoginWebViewClient extends WebViewClient {
                                 public void call(Throwable throwable) {
                                     Log.w(TAG, "LoginWebViewClient request for access token error ", throwable);
                                     if (mCallback != null && mCallback.get() != null) {
+                                        mCallback.get().hideLoading();
                                         mCallback.get().loginFailed();
                                     }
                                 }
@@ -81,7 +92,7 @@ public class LoginWebViewClient extends WebViewClient {
             }
         }
         view.loadUrl(url);
-        return false;
+        return true;
     }
 
     @Override
@@ -92,6 +103,12 @@ public class LoginWebViewClient extends WebViewClient {
     @Override
     public void onPageFinished(WebView view, String url) {
         super.onPageFinished(view, url);
+    }
+
+    public void onDestroy() {
+        if (mAuthSubscription != null && mAuthSubscription.isUnsubscribed()) {
+            mAuthSubscription.unsubscribe();
+        }
     }
 
 }
