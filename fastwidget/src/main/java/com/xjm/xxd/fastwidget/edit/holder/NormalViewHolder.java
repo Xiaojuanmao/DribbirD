@@ -65,4 +65,9 @@ public class NormalViewHolder extends RecyclerView.ViewHolder implements View.On
                 break;
         }
     }
+
+    public boolean isAdded() {
+        return mIsAdded;
+    }
+
 }

@@ -14,6 +14,7 @@ import com.xjm.xxd.fastwidget.widget.TimeWidget;
 import com.xjm.xxd.fastwidget.widget.WeatherWidget;
 import com.xjm.xxd.fastwidget.widget.WidgetConfig;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -217,7 +218,20 @@ public class EditWidgetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 mItemCallback.onRemoveClicked(config);
             }
         }
+    }
 
+    @Override
+    public void onSwapItem(int firstPos, int secondPos) {
+
+        int firstType = getItemViewType(firstPos);
+        int secondType = getItemViewType(secondPos);
+
+        if (firstType == secondType) {
+            Collections.swap(mShownWidgetConfig, firstPos, secondPos);
+            if (mItemCallback != null) {
+                mItemCallback.onSwapItem(firstPos, secondPos);
+            }
+        }
     }
 
     public void bindShownWidgetConfigs(List<WidgetConfig> shownConfigs) {

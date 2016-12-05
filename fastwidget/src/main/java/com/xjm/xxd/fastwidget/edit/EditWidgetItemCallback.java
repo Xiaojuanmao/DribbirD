@@ -12,4 +12,5 @@ public interface EditWidgetItemCallback {
 
     void onRemoveClicked(WidgetConfig config);
 
+    void onSwapItem(int firstPos, int secondPos);
 }

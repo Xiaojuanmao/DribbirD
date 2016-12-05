@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 
 import com.xjm.xxd.fastwidget.R;
 import com.xjm.xxd.fastwidget.container.IContainerEditor;
+import com.xjm.xxd.fastwidget.edit.holder.NormalViewHolder;
 import com.xjm.xxd.fastwidget.widget.WidgetConfig;
 
 import java.lang.ref.WeakReference;
@@ -63,9 +64,6 @@ public class EditWidgetView extends RelativeLayout implements IEditView {
         ButterKnife.bind(this, view);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        mTouchCallback = new EditItemTouchHelperCallback();
-        mItemTouchHelper = new ItemTouchHelper(mTouchCallback);
-        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
 
     @Override
@@ -75,6 +73,25 @@ public class EditWidgetView extends RelativeLayout implements IEditView {
         mManager.bindView(this);
         mAdapter = new EditWidgetAdapter(LayoutInflater.from(getContext()), mManager);
         mRecyclerView.setAdapter(mAdapter);
+        mTouchCallback = new EditItemTouchHelperCallback(mAdapter, mManager);
+        mItemTouchHelper = new ItemTouchHelper(mTouchCallback);
+        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
+        mRecyclerView.addOnItemTouchListener(new OnRecyclerItemClickListener(mRecyclerView) {
+            @Override
+            public void onItemClick(RecyclerView.ViewHolder vh) {
+
+            }
+
+            @Override
+            public void onItemLongClick(RecyclerView.ViewHolder vh) {
+                if (vh instanceof NormalViewHolder) {
+                    NormalViewHolder viewHolder = ((NormalViewHolder) vh);
+                    if (viewHolder.isAdded()) {
+                        mItemTouchHelper.startDrag(vh);
+                    }
+                }
+            }
+        });
     }
 
     @Override

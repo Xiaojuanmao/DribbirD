@@ -95,6 +95,10 @@ public class EditWidgetManager implements IEditManager {
         if (mEditor != null) {
             mEditor.onWidgetRemoved(config);
         }
+    }
+
+    @Override
+    public void onSwapItem(int firstPos, int secondPos) {
 
     }
 
