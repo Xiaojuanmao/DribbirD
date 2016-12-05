@@ -1,6 +1,7 @@
 package com.xjm.xxd.fastwidget.widget;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +47,7 @@ public abstract class BaseWidget implements IWidget {
             mConfig = new WidgetConfig();
             mConfig.setWidgetClassName(this.getClass().getCanonicalName());
         }
+        perfectConfigInfo(mConfig);
         return mConfig;
     }
 
@@ -69,4 +71,5 @@ public abstract class BaseWidget implements IWidget {
 
     protected abstract View createView(LayoutInflater layoutInflater);
 
+    protected abstract void perfectConfigInfo(@NonNull WidgetConfig config);
 }

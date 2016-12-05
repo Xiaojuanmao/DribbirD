@@ -20,7 +20,7 @@ public interface IGroupConfig {
 
     // 从配置文件中取出添加过的widget信息
     @NonNull
-    List<WidgetConfig> getConfigs();
+    List<WidgetConfig> getConfigs(boolean isNeedReload);
 
     // 将当前配置保存起来
     void save();

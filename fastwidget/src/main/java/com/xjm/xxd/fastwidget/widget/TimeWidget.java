@@ -1,5 +1,6 @@
 package com.xjm.xxd.fastwidget.widget;
 
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -23,6 +24,9 @@ public class TimeWidget extends BaseWidget {
     @BindView(R.id.progress_bar)
     ProgressBar mProgressBar;
 
+    public static final String WIDGET_NAME = "时钟插件";
+    public static final int WIDGET_ICON_ID = R.drawable.ic_widget_time;
+
     @Override
     protected View createView(LayoutInflater layoutInflater) {
         if (layoutInflater == null) {
@@ -43,6 +47,12 @@ public class TimeWidget extends BaseWidget {
                 mTextClock.setVisibility(View.VISIBLE);
             }
         }, 3000);
+    }
+
+    @Override
+    protected void perfectConfigInfo(@NonNull WidgetConfig config) {
+        config.setWidgetName(WIDGET_NAME);
+        config.setWidgetIconId(WIDGET_ICON_ID);
     }
 
 }

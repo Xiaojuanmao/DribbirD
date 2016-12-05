@@ -35,7 +35,7 @@ public class WidgetGroupManager implements IGroupManager {
     }
 
     private void initWithConfig() {
-        List<WidgetConfig> configList = mConfig.getConfigs();
+        List<WidgetConfig> configList = mConfig.getConfigs(false);
         if (!configList.isEmpty()) {
             for (WidgetConfig config : configList) {
                 String widgetClassName = config.getWidgetClassName();

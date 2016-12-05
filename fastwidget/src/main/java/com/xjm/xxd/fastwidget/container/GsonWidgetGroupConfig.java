@@ -56,22 +56,37 @@ public class GsonWidgetGroupConfig implements IGroupConfig {
 
     @NonNull
     @Override
-    public List<WidgetConfig> getConfigs() {
-        if (mConfigs == null) {
-            mConfigs = new LinkedList<>();
-            SharedPreferences preferences = getSharedPreferences();
-            if (preferences != null) {
-                String configStr = preferences.getString(ADDED_WIDGET_LIST, "");
-                if (!TextUtils.isEmpty(configStr)) {
-                    Type type = new TypeToken<LinkedList<WidgetConfig>>(){}.getType();
-                    LinkedList<WidgetConfig> configFromFile = mGson.fromJson(configStr, type);
-                    if (configFromFile != null && (!configFromFile.isEmpty())) {
-                        mConfigs.addAll(configFromFile);
-                    }
-                }
+    public List<WidgetConfig> getConfigs(boolean isNeedReload) {
+        if (isNeedReload) {
+            if (mConfigs == null) {
+                mConfigs = new LinkedList<>();
+            } else {
+                mConfigs.clear();
+            }
+            mConfigs.addAll(loadConfigs());
+        } else {
+            if (mConfigs == null) {
+                mConfigs = new LinkedList<>();
+                mConfigs.addAll(loadConfigs());
             }
         }
         return mConfigs;
+    }
+
+    private List<WidgetConfig> loadConfigs() {
+        List<WidgetConfig> result = new LinkedList<>();
+        SharedPreferences preferences = getSharedPreferences();
+        if (preferences != null) {
+            String configStr = preferences.getString(ADDED_WIDGET_LIST, "");
+            if (!TextUtils.isEmpty(configStr)) {
+                Type type = new TypeToken<LinkedList<WidgetConfig>>(){}.getType();
+                LinkedList<WidgetConfig> configFromFile = mGson.fromJson(configStr, type);
+                if (configFromFile != null && (!configFromFile.isEmpty())) {
+                    result.addAll(configFromFile);
+                }
+            }
+        }
+        return result;
     }
 
     @Override
