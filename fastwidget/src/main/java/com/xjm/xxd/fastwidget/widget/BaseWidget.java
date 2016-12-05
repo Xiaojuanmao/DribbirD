@@ -69,6 +69,27 @@ public abstract class BaseWidget implements IWidget {
         return null;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || !(o instanceof BaseWidget)) {
+            return false;
+        }
+        BaseWidget target = ((BaseWidget) o);
+        WidgetConfig targetConfig = target.getConfig();
+        if (targetConfig == null || getConfig() == null) {
+            return false;
+        }
+        return targetConfig.equals(getConfig());
+    }
+
+    @Override
+    public int hashCode() {
+        final int PRIME = 31;
+        int result = 1;
+        result = PRIME * result + getConfig().hashCode();
+        return result;
+    }
+
     protected abstract View createView(LayoutInflater layoutInflater);
 
     protected abstract void perfectConfigInfo(@NonNull WidgetConfig config);

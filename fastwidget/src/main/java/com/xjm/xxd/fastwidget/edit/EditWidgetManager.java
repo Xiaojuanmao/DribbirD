@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.xjm.xxd.fastwidget.container.GsonWidgetGroupConfig;
+import com.xjm.xxd.fastwidget.container.IContainerEditor;
 import com.xjm.xxd.fastwidget.container.IGroupConfig;
 import com.xjm.xxd.fastwidget.widget.WidgetConfig;
 
@@ -26,6 +27,7 @@ public class EditWidgetManager implements IEditManager {
     private IEditView mView;
 
     private IGroupConfig mGroupConfig;
+    private IContainerEditor mEditor; // container交互的接口，用来控制外面widget控件的变动情况
 
     private List<WidgetConfig> mShownWidgetConfigs = new LinkedList<>();// 已经在展示的小工具集合
 
@@ -67,12 +69,37 @@ public class EditWidgetManager implements IEditManager {
     }
 
     @Override
-    public void onAddClicked(WidgetConfig config) {
+    public void setContainerEditor(IContainerEditor editor) {
+        mEditor = editor;
+    }
 
+    @Override
+    public void onAddClicked(WidgetConfig config) {
+        mGroupConfig.addConfig(config);
+        mGroupConfig.save();
+
+        mShownWidgetConfigs.add(config);
+
+        if (mEditor != null) {
+            mEditor.onWidgetAdded(config);
+        }
     }
 
     @Override
     public void onRemoveClicked(WidgetConfig config) {
+        mGroupConfig.removeConfig(config);
+        mGroupConfig.save();
+
+        mShownWidgetConfigs.remove(config);
+
+        if (mEditor != null) {
+            mEditor.onWidgetRemoved(config);
+        }
+
+    }
+
+    @Override
+    public void onDestroy() {
 
     }
 

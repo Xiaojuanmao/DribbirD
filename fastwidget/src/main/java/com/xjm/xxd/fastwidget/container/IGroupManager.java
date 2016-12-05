@@ -6,7 +6,7 @@ import com.xjm.xxd.fastwidget.widget.BaseWidget;
  * Created by queda on 2016/12/2.
  */
 
-interface IGroupManager {
+interface IGroupManager extends IContainerEditor {
 
     void bindContainer(IGroupContainer groupContainer);
 

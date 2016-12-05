@@ -11,8 +11,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
-import com.xjm.xxd.fastwidget.widget.BaseWidget;
-
 /**
  * 作为所有组件的父容器
  * 管理所有组件的生命周期
@@ -77,18 +75,8 @@ public class WidgetGroupContainer extends ScrollView
         mRootContainer.removeView(view);
     }
 
-    public void addWidget(BaseWidget baseWidget) {
-        mManager.addWidget(baseWidget, true);
-    }
-
-    public void saveWidgetConfigs() {
-        if (mManager != null) {
-            mManager.saveWidgetConfig();
-        }
-    }
-
-    public void removeWidget(BaseWidget baseWidget) {
-        mManager.removeWidget(baseWidget);
+    public IContainerEditor edit() {
+        return mManager;
     }
 
 }

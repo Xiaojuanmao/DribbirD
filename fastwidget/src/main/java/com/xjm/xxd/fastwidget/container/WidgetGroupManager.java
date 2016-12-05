@@ -34,31 +34,75 @@ public class WidgetGroupManager implements IGroupManager {
         mConfig = new GsonWidgetGroupConfig(mContextReference);
     }
 
+    /**
+     * 读取配置文件
+     * 逐个生成widget并显示
+     */
     private void initWithConfig() {
         List<WidgetConfig> configList = mConfig.getConfigs(false);
         if (!configList.isEmpty()) {
             for (WidgetConfig config : configList) {
-                String widgetClassName = config.getWidgetClassName();
-                if (!TextUtils.isEmpty(widgetClassName)) {
-                    try {
-                        Class clazz = Class.forName(widgetClassName);
-                        Object widgetObj = clazz.newInstance();
-                        if (widgetObj instanceof BaseWidget) {
-                            Log.e(TAG, "initWithConfig(), find widgetObj : " + widgetClassName + " use reflect");
-                            addWidget(((BaseWidget) widgetObj), false);
-                        }
-                    } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
-                        e.printStackTrace();
-                    }
+                BaseWidget baseWidget = generateBaseWidget(config);
+                if (baseWidget != null) {
+                    addWidget(baseWidget, false);
                 }
             }
         }
+    }
+
+    /**
+     * 通过反射来根据配置生成Widget
+     * @param config
+     * @return
+     */
+    private BaseWidget generateBaseWidget(WidgetConfig config) {
+        if (config == null) {
+            return null;
+        }
+        String widgetClassName = config.getWidgetClassName();
+        if (!TextUtils.isEmpty(widgetClassName)) {
+            try {
+                Class clazz = Class.forName(widgetClassName);
+                Object widgetObj = clazz.newInstance();
+                if (widgetObj instanceof BaseWidget) {
+                    Log.e(TAG, "initWithConfig(), find widgetObj : " + widgetClassName + " use reflect");
+                    return ((BaseWidget) widgetObj);
+                }
+            } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 
     @Override
     public void bindContainer(IGroupContainer groupContainer) {
         mContainer = groupContainer;
         initWithConfig();
+    }
+
+    @Override
+    public void onWidgetAdded(WidgetConfig widgetConfig) {
+        // 在EditWidgetView中添加了widget
+        if (widgetConfig == null) {
+            return;
+        }
+        BaseWidget baseWidget = generateBaseWidget(widgetConfig);
+        if (baseWidget != null) {
+            addWidget(baseWidget, true);
+        }
+    }
+
+    @Override
+    public void onWidgetRemoved(WidgetConfig widgetConfig) {
+        // 在EditWidgetView中移除了widget
+        if (widgetConfig == null) {
+            return;
+        }
+        BaseWidget baseWidget = generateBaseWidget(widgetConfig);
+        if (baseWidget != null) {
+            removeWidget(baseWidget);
+        }
     }
 
     @Override

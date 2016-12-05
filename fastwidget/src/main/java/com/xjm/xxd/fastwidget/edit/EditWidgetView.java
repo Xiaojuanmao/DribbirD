@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.xjm.xxd.fastwidget.R;
+import com.xjm.xxd.fastwidget.container.IContainerEditor;
 import com.xjm.xxd.fastwidget.widget.WidgetConfig;
 
 import java.lang.ref.WeakReference;
@@ -23,6 +24,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by queda on 2016/12/2.
@@ -34,6 +36,8 @@ public class EditWidgetView extends RelativeLayout implements IEditView {
     ImageView mEnsure;
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
+
+    private boolean mIsAnimating = false;
 
     private IEditManager mManager;
 
@@ -88,17 +92,37 @@ public class EditWidgetView extends RelativeLayout implements IEditView {
      * 对外公开的展示方法
      * 执行出场动画，异步获取数据并刷新界面
      */
-    public void show() {
+    public void show(IContainerEditor editor) {
         if (getVisibility() == GONE) {
-            mManager.loadWidgetConfig();
-            setVisibility(View.VISIBLE);
-            WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-            int height = wm.getDefaultDisplay().getHeight();
-            TranslateAnimation translateAnimation = new TranslateAnimation(0, 0, height, 0);
-            translateAnimation.setDuration(300);
-            translateAnimation.setInterpolator(new DecelerateInterpolator());
-            translateAnimation.setFillAfter(true);
-            startAnimation(translateAnimation);
+            if (!mIsAnimating) {
+                mIsAnimating = true;
+                mManager.setContainerEditor(editor);
+                setVisibility(View.VISIBLE);
+                mManager.loadWidgetConfig();
+                WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+                int height = wm.getDefaultDisplay().getHeight();
+                TranslateAnimation translateAnimation = new TranslateAnimation(0, 0, height, 0);
+                translateAnimation.setDuration(300);
+                translateAnimation.setInterpolator(new DecelerateInterpolator());
+                translateAnimation.setFillAfter(true);
+                translateAnimation.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        mIsAnimating = false;
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+                startAnimation(translateAnimation);
+            }
         }
     }
 
@@ -107,30 +131,47 @@ public class EditWidgetView extends RelativeLayout implements IEditView {
      * 执行退场动画
      */
     public void hide() {
-        WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-        int height = wm.getDefaultDisplay().getHeight();
-        TranslateAnimation translateAnimation = new TranslateAnimation(0, 0, 0, height);
-        translateAnimation.setDuration(300);
-        translateAnimation.setInterpolator(new AccelerateInterpolator());
-        translateAnimation.setFillAfter(true);
-        translateAnimation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
+        if (getVisibility() == VISIBLE) {
+            if (!mIsAnimating) {
+                mIsAnimating = true;
+                WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+                int height = wm.getDefaultDisplay().getHeight();
+                TranslateAnimation translateAnimation = new TranslateAnimation(0, 0, 0, height);
+                translateAnimation.setDuration(300);
+                translateAnimation.setInterpolator(new AccelerateInterpolator());
+                translateAnimation.setFillAfter(true);
+                translateAnimation.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
 
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        setVisibility(GONE);
+                        mIsAnimating = false;
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+                startAnimation(translateAnimation);
+                if (mManager != null) {
+                    mManager.onDestroy();
+                }
             }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                setVisibility(GONE);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-        startAnimation(translateAnimation);
+        }
     }
 
+    @OnClick(R.id.tool_bar_ensure)
+    void onViewClicked(View v) {
+        switch (v.getId()) {
+            case R.id.tool_bar_ensure:
+                hide();
+                break;
+        }
+    }
 
 }

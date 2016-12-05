@@ -74,4 +74,11 @@ public class WidgetConfig implements Serializable {
         return mWidgetClassName.equals(targetClassName);
     }
 
+    @Override
+    public int hashCode() {
+        final int PRIME = 31;
+        int result = 1;
+        result = PRIME * result + mWidgetClassName.hashCode();
+        return result;
+    }
 }

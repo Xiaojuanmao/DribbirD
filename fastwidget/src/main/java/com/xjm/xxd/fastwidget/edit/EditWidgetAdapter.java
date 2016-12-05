@@ -74,23 +74,23 @@ public class EditWidgetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         RecyclerView.ViewHolder result = null;
         switch (viewType) {
             case ITEM_TYPE_HEADER:
-                result = new HeaderViewHolder(mInflater.inflate(R.layout.item_edit_widget_header, null, false));
+                result = new HeaderViewHolder(mInflater.inflate(R.layout.item_edit_widget_header, parent, false));
                 break;
 
             case ITEM_TYPE_ADDED_TITLE:
-                result = new GroupViewHolder(mInflater.inflate(R.layout.item_edit_widget_group_header, null, false));
+                result = new GroupViewHolder(mInflater.inflate(R.layout.item_edit_widget_group_header, parent, false));
                 break;
 
             case ITEM_TYPE_ADDED:
-                result = new NormalViewHolder(mInflater.inflate(R.layout.item_edit_widget_normal, null, false), this);
+                result = new NormalViewHolder(mInflater.inflate(R.layout.item_edit_widget_normal, parent, false), this);
                 break;
 
             case ITEM_TYPE_NOT_ADD_TITLE:
-                result = new GroupViewHolder(mInflater.inflate(R.layout.item_edit_widget_group_header, null, false));
+                result = new GroupViewHolder(mInflater.inflate(R.layout.item_edit_widget_group_header, parent, false));
                 break;
 
             case ITEM_TYPE_NOT_ADD:
-                result = new NormalViewHolder(mInflater.inflate(R.layout.item_edit_widget_normal, null, false), this);
+                result = new NormalViewHolder(mInflater.inflate(R.layout.item_edit_widget_normal, parent, false), this);
                 break;
         }
         if (result == null) {
@@ -166,6 +166,7 @@ public class EditWidgetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     /**
      * 通过config来查找位置
      * 执行动画需要
+     *
      * @param config
      * @return
      */
@@ -190,14 +191,10 @@ public class EditWidgetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             return;
         }
         int toPos = 1 + getShownItemCount();
-
         boolean removeResult = mNotShownWidgetConfig.remove(config);
         if (removeResult) {
-
             mShownWidgetConfig.add(config);
-
             notifyItemMoved(fromPos, toPos);
-
             if (mItemCallback != null) {
                 mItemCallback.onAddClicked(config);
             }
@@ -207,10 +204,20 @@ public class EditWidgetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void onRemoveClicked(WidgetConfig config) {
 
-
-        if (mItemCallback != null) {
-            mItemCallback.onRemoveClicked(config);
+        int fromPos = getWidgetConfigPosition(config);
+        if (fromPos == -1) {
+            return;
         }
+        int toPos = 1 + getShownItemCount();
+        boolean removeResult = mShownWidgetConfig.remove(config);
+        if (removeResult) {
+            mNotShownWidgetConfig.add(0, config);
+            notifyItemMoved(fromPos, toPos);
+            if (mItemCallback != null) {
+                mItemCallback.onRemoveClicked(config);
+            }
+        }
+
     }
 
     public void bindShownWidgetConfigs(List<WidgetConfig> shownConfigs) {
