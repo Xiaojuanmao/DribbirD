@@ -24,6 +24,8 @@ public class NormalViewHolder extends RecyclerView.ViewHolder implements View.On
     ImageView mIcon;
     @BindView(R.id.edit_widget_normal_name)
     TextView mName;
+    @BindView(R.id.edit_widget_normal_drag)
+    ImageView mDrag;
 
     private boolean mIsAdded = false; // 用来标记当前的holder是否是add的状态
     private WidgetConfig mWidgetConfig;
@@ -42,8 +44,10 @@ public class NormalViewHolder extends RecyclerView.ViewHolder implements View.On
         mWidgetConfig = widgetConfig;
         if (mIsAdded) {
             mAction.setImageResource(R.drawable.ic_edit_widget_remove);
+            mDrag.setVisibility(View.VISIBLE);
         } else {
             mAction.setImageResource(R.drawable.ic_edit_widget_add);
+            mDrag.setVisibility(View.GONE);
         }
         if (mWidgetConfig != null) {
             mIcon.setImageResource(mWidgetConfig.getWidgetIconId());

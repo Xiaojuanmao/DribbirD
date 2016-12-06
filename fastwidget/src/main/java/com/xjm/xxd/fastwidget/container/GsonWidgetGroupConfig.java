@@ -13,6 +13,7 @@ import com.xjm.xxd.fastwidget.widget.WidgetConfig;
 
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Type;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -52,6 +53,14 @@ public class GsonWidgetGroupConfig implements IGroupConfig {
             return mConfigs.remove(config);
         }
         return false;
+    }
+
+    @Override
+    public void swapConfig(int firstPos, int secondPos) {
+        if (mConfigs != null && firstPos >= 0 && secondPos >= 0
+                && firstPos < mConfigs.size() && secondPos < mConfigs.size()) {
+            Collections.swap(mConfigs, firstPos, secondPos);
+        }
     }
 
     @NonNull

@@ -4,6 +4,8 @@ import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
+import com.xjm.xxd.fastwidget.edit.holder.NormalViewHolder;
+
 /**
  * Created by queda on 2016/12/5.
  */
@@ -30,7 +32,12 @@ public class EditItemTouchHelperCallback extends ItemTouchHelper.Callback {
         int fromPosition = viewHolder.getAdapterPosition();//得到拖动ViewHolder的position
         int toPosition = target.getAdapterPosition();//得到目标ViewHolder的position
 
-        if (!(viewHolder.getClass().equals(target.getClass()))) {
+        if (!(viewHolder instanceof NormalViewHolder) || !(target instanceof NormalViewHolder)) {
+            return false;
+        }
+        NormalViewHolder normalViewHolder = ((NormalViewHolder) viewHolder);
+        NormalViewHolder targetViewHolder = ((NormalViewHolder) target);
+        if (!(normalViewHolder.isAdded()) || (!(targetViewHolder.isAdded()))) {
             return false;
         }
 

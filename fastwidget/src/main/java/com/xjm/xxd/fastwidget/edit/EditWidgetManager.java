@@ -99,7 +99,12 @@ public class EditWidgetManager implements IEditManager {
 
     @Override
     public void onSwapItem(int firstPos, int secondPos) {
+        mGroupConfig.swapConfig(firstPos, secondPos);
+        mGroupConfig.save();
 
+        if (mEditor != null) {
+            mEditor.onWidgetSwap(firstPos, secondPos);
+        }
     }
 
     @Override

@@ -226,10 +226,10 @@ public class EditWidgetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         int firstType = getItemViewType(firstPos);
         int secondType = getItemViewType(secondPos);
 
-        if (firstType == secondType) {
-            Collections.swap(mShownWidgetConfig, firstPos, secondPos);
+        if (firstType == ITEM_TYPE_ADDED && secondType == ITEM_TYPE_ADDED) {
+            Collections.swap(mShownWidgetConfig, firstPos - 2, secondPos - 2);
             if (mItemCallback != null) {
-                mItemCallback.onSwapItem(firstPos, secondPos);
+                mItemCallback.onSwapItem(firstPos - 2, secondPos - 2);
             }
         }
     }

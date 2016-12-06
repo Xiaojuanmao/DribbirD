@@ -18,6 +18,9 @@ public interface IGroupConfig {
     // 从配置文件中删除一个widget信息
     boolean removeConfig(WidgetConfig config);
 
+    // 交换两个配置信息的位置
+    void swapConfig(int firstPos, int secondPos);
+
     // 从配置文件中取出添加过的widget信息
     @NonNull
     List<WidgetConfig> getConfigs(boolean isNeedReload);

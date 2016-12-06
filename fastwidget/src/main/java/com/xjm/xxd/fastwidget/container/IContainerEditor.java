@@ -20,4 +20,7 @@ public interface IContainerEditor {
     // 删除了一个widget
     void onWidgetRemoved(WidgetConfig widgetConfig);
 
+    // 交换了两个widget的位置
+    void onWidgetSwap(int firstPos, int secondPos);
+
 }

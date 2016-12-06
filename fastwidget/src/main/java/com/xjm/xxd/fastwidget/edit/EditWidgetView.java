@@ -73,7 +73,7 @@ public class EditWidgetView extends RelativeLayout implements IEditView {
         mManager.bindView(this);
         mAdapter = new EditWidgetAdapter(LayoutInflater.from(getContext()), mManager);
         mRecyclerView.setAdapter(mAdapter);
-        mTouchCallback = new EditItemTouchHelperCallback(mAdapter, mManager);
+        mTouchCallback = new EditItemTouchHelperCallback(mAdapter, mAdapter);
         mItemTouchHelper = new ItemTouchHelper(mTouchCallback);
         mItemTouchHelper.attachToRecyclerView(mRecyclerView);
         mRecyclerView.addOnItemTouchListener(new OnRecyclerItemClickListener(mRecyclerView) {

@@ -9,7 +9,9 @@ import com.xjm.xxd.fastwidget.widget.BaseWidget;
 import com.xjm.xxd.fastwidget.widget.WidgetConfig;
 
 import java.lang.ref.WeakReference;
-import java.util.LinkedHashMap;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +25,7 @@ public class WidgetGroupManager implements IGroupManager {
 
     private IGroupConfig mConfig;
 
+    private List<BaseWidget> mLinkedWidgets; // 存放着当前widget的顺序
     private Map<BaseWidget, View> mWidgetViewMap; // 管理widget和view对应的关系
     private WeakReference<Context> mContextReference;
 
@@ -30,7 +33,8 @@ public class WidgetGroupManager implements IGroupManager {
 
     public WidgetGroupManager(Context context) {
         mContextReference = new WeakReference<>(context);
-        mWidgetViewMap = new LinkedHashMap<>();
+        mWidgetViewMap = new HashMap<>();
+        mLinkedWidgets = new LinkedList<>();
         mConfig = new GsonWidgetGroupConfig(mContextReference);
     }
 
@@ -106,13 +110,36 @@ public class WidgetGroupManager implements IGroupManager {
     }
 
     @Override
+    public void onWidgetSwap(int firstPos, int secondPos) {
+        if (firstPos >= 0 && firstPos < mLinkedWidgets.size()
+                && secondPos >= 0 && secondPos < mLinkedWidgets.size()) {
+
+            BaseWidget firstWidget = mLinkedWidgets.get(firstPos);
+            BaseWidget secondWidget = mLinkedWidgets.get(secondPos);
+            if (firstWidget != null && secondWidget != null) {
+
+                // 交換數據源的位置
+                Collections.swap(mLinkedWidgets, firstPos, secondPos);
+
+                View firstView = mWidgetViewMap.get(firstWidget);
+                View secondView = mWidgetViewMap.get(secondWidget);
+
+                if (firstView != null && secondView != null) {
+                    // 交換view的位置
+                    mContainer.swapWidgetView(firstView, secondView);
+                }
+            }
+        }
+    }
+
+    @Override
     public void addWidget(BaseWidget widget, boolean isNeedAddToConfig) {
         if (widget == null) {
             Log.w(TAG, "addWidget(), widget is null");
             return;
         }
         if (mWidgetViewMap == null) {
-            mWidgetViewMap = new LinkedHashMap<>();
+            mWidgetViewMap = new HashMap<>();
             Log.w(TAG, "addWidget(), widget -> view map is null");
         }
         if (mWidgetViewMap.get(widget) != null) {
@@ -124,6 +151,7 @@ public class WidgetGroupManager implements IGroupManager {
             Log.w(TAG, "addWidget(), onCreate widget error");
             return;
         }
+        mLinkedWidgets.add(widget);
         mWidgetViewMap.put(widget, view);
         mContainer.addWidgetView(view);
         if (isNeedAddToConfig) {
@@ -139,13 +167,14 @@ public class WidgetGroupManager implements IGroupManager {
             return;
         }
         if (mWidgetViewMap == null) {
-            mWidgetViewMap = new LinkedHashMap<>();
+            mWidgetViewMap = new HashMap<>();
             Log.w(TAG, "removeWidget(), widget -> view map is null");
         }
         if (mWidgetViewMap.get(widget) == null) {
             Log.w(TAG, "removeWidget(), widget not exist");
             return;
         }
+        mLinkedWidgets.remove(widget);
         View viewNeedRemove = mWidgetViewMap.remove(widget);
         mContainer.removeWidgetView(viewNeedRemove);
         widget.onDestroy();

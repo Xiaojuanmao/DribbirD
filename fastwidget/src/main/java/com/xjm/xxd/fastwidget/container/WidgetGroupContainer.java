@@ -75,6 +75,24 @@ public class WidgetGroupContainer extends ScrollView
         mRootContainer.removeView(view);
     }
 
+    @Override
+    public void swapWidgetView(View firstView, View secondView) {
+        if (firstView == null || secondView == null) {
+            return;
+        }
+        int firstIndex = mRootContainer.indexOfChild(firstView);
+        int secondIndex = mRootContainer.indexOfChild(secondView);
+        mRootContainer.removeView(firstView);
+        mRootContainer.removeView(secondView);
+        if (firstIndex < secondIndex) {
+            mRootContainer.addView(secondView, firstIndex);
+            mRootContainer.addView(firstView, secondIndex);
+        } else {
+            mRootContainer.addView(firstView, secondIndex);
+            mRootContainer.addView(secondView, firstIndex);
+        }
+    }
+
     public IContainerEditor edit() {
         return mManager;
     }
