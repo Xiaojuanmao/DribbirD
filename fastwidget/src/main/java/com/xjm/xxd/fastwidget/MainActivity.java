@@ -2,6 +2,7 @@ package com.xjm.xxd.fastwidget;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        mEditView.setAdapter(new EditWidgetAdapter(LayoutInflater.from(this)));
+        mEditView.bindContainerEditor(mContainer.edit());
     }
 
     @Override
@@ -39,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case MENU_ID_MANAGE:
-                mEditView.show(mContainer.edit());
+                mEditView.show();
                 break;
         }
         return super.onOptionsItemSelected(item);

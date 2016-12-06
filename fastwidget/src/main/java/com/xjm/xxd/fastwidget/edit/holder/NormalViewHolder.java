@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xjm.xxd.fastwidget.R;
-import com.xjm.xxd.fastwidget.edit.EditWidgetItemCallback;
+import com.xjm.xxd.fastwidget.edit.adapter.EditWidgetItemCallback;
 import com.xjm.xxd.fastwidget.widget.WidgetConfig;
 
 import butterknife.BindView;

@@ -1,4 +1,4 @@
-package com.xjm.xxd.fastwidget.edit;
+package com.xjm.xxd.fastwidget.edit.adapter;
 
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;

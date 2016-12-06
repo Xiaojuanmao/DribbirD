@@ -1,4 +1,4 @@
-package com.xjm.xxd.fastwidget.edit;
+package com.xjm.xxd.fastwidget.edit.adapter;
 
 import com.xjm.xxd.fastwidget.widget.WidgetConfig;
 

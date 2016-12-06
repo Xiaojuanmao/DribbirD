@@ -5,7 +5,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
@@ -17,6 +16,9 @@ import android.widget.RelativeLayout;
 
 import com.xjm.xxd.fastwidget.R;
 import com.xjm.xxd.fastwidget.container.IContainerEditor;
+import com.xjm.xxd.fastwidget.edit.adapter.EditItemTouchHelperCallback;
+import com.xjm.xxd.fastwidget.edit.adapter.EditWidgetBaseAdapter;
+import com.xjm.xxd.fastwidget.edit.adapter.OnRecyclerItemClickListener;
 import com.xjm.xxd.fastwidget.edit.holder.NormalViewHolder;
 import com.xjm.xxd.fastwidget.widget.WidgetConfig;
 
@@ -42,7 +44,7 @@ public class EditWidgetView extends RelativeLayout implements IEditView {
 
     private IEditManager mManager;
 
-    private EditWidgetAdapter mAdapter;
+    private EditWidgetBaseAdapter mAdapter;
     private EditItemTouchHelperCallback mTouchCallback;
     private ItemTouchHelper mItemTouchHelper;
 
@@ -64,34 +66,8 @@ public class EditWidgetView extends RelativeLayout implements IEditView {
         ButterKnife.bind(this, view);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-    }
-
-    @Override
-    protected void onFinishInflate() {
-        super.onFinishInflate();
         mManager = new EditWidgetManager(new WeakReference<>(getContext()));
         mManager.bindView(this);
-        mAdapter = new EditWidgetAdapter(LayoutInflater.from(getContext()), mManager);
-        mRecyclerView.setAdapter(mAdapter);
-        mTouchCallback = new EditItemTouchHelperCallback(mAdapter, mAdapter);
-        mItemTouchHelper = new ItemTouchHelper(mTouchCallback);
-        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
-        mRecyclerView.addOnItemTouchListener(new OnRecyclerItemClickListener(mRecyclerView) {
-            @Override
-            public void onItemClick(RecyclerView.ViewHolder vh) {
-
-            }
-
-            @Override
-            public void onItemLongClick(RecyclerView.ViewHolder vh) {
-                if (vh instanceof NormalViewHolder) {
-                    NormalViewHolder viewHolder = ((NormalViewHolder) vh);
-                    if (viewHolder.isAdded()) {
-                        mItemTouchHelper.startDrag(vh);
-                    }
-                }
-            }
-        });
     }
 
     @Override
@@ -106,14 +82,51 @@ public class EditWidgetView extends RelativeLayout implements IEditView {
     }
 
     /**
+     * 设置adapter
+     * @param adapter
+     */
+    public void setAdapter(EditWidgetBaseAdapter adapter) {
+        if (adapter != null) {
+            mAdapter = adapter;
+            mAdapter.setEditWidgetItemCallback(mManager);
+            mRecyclerView.setAdapter(mAdapter);
+            mTouchCallback = new EditItemTouchHelperCallback(mAdapter, mAdapter);
+            mItemTouchHelper = new ItemTouchHelper(mTouchCallback);
+            mItemTouchHelper.attachToRecyclerView(mRecyclerView);
+            mRecyclerView.addOnItemTouchListener(new OnRecyclerItemClickListener(mRecyclerView) {
+                @Override
+                public void onItemClick(RecyclerView.ViewHolder vh) {
+
+                }
+
+                @Override
+                public void onItemLongClick(RecyclerView.ViewHolder vh) {
+                    if (vh instanceof NormalViewHolder) {
+                        NormalViewHolder viewHolder = ((NormalViewHolder) vh);
+                        if (viewHolder.isAdded()) {
+                            mItemTouchHelper.startDrag(vh);
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    public void bindContainerEditor(IContainerEditor editor) {
+        if (editor == null || mManager == null) {
+            throw new IllegalStateException("The editor or manager can not be null");
+        }
+        mManager.setContainerEditor(editor);
+    }
+
+    /**
      * 对外公开的展示方法
      * 执行出场动画，异步获取数据并刷新界面
      */
-    public void show(IContainerEditor editor) {
+    public void show() {
         if (getVisibility() == GONE) {
             if (!mIsAnimating) {
                 mIsAnimating = true;
-                mManager.setContainerEditor(editor);
                 setVisibility(View.VISIBLE);
                 mManager.loadWidgetConfig();
                 WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);

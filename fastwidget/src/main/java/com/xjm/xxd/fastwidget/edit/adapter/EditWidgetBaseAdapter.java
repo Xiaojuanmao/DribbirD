@@ -1,4 +1,4 @@
-package com.xjm.xxd.fastwidget.edit;
+package com.xjm.xxd.fastwidget.edit.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -9,9 +9,6 @@ import com.xjm.xxd.fastwidget.R;
 import com.xjm.xxd.fastwidget.edit.holder.GroupViewHolder;
 import com.xjm.xxd.fastwidget.edit.holder.HeaderViewHolder;
 import com.xjm.xxd.fastwidget.edit.holder.NormalViewHolder;
-import com.xjm.xxd.fastwidget.widget.NewsWidget;
-import com.xjm.xxd.fastwidget.widget.TimeWidget;
-import com.xjm.xxd.fastwidget.widget.WeatherWidget;
 import com.xjm.xxd.fastwidget.widget.WidgetConfig;
 
 import java.util.Collections;
@@ -27,7 +24,7 @@ import rx.schedulers.Schedulers;
  * Created by queda on 2016/12/5.
  */
 
-public class EditWidgetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements EditWidgetItemCallback {
+public abstract class EditWidgetBaseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements EditWidgetItemCallback {
 
     private static final int ITEM_TYPE_HEADER = 0; // 头部
     private static final int ITEM_TYPE_ADDED_TITLE = 1; // 已经被添加的组件头部
@@ -40,16 +37,17 @@ public class EditWidgetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private List<WidgetConfig> mShownWidgetConfig = new LinkedList<>(); // 已经处于展示状态的列表
     private List<WidgetConfig> mNotShownWidgetConfig = new LinkedList<>(); // 处于关闭状态的列表
-    private List<WidgetConfig> mAllWidgetConfig = new LinkedList<>(); // 全部组件的列表
+    protected List<WidgetConfig> mAllWidgetConfig = new LinkedList<>(); // 全部组件的列表
 
-    private static final String TAG = EditWidgetAdapter.class.getSimpleName();
+    private static final String TAG = EditWidgetBaseAdapter.class.getSimpleName();
 
-    public EditWidgetAdapter(LayoutInflater inflater, EditWidgetItemCallback callback) {
+    private EditWidgetBaseAdapter() {
+
+    }
+
+    public EditWidgetBaseAdapter(LayoutInflater inflater) {
         mInflater = inflater;
-        mItemCallback = callback;
-        mAllWidgetConfig.add(new WidgetConfig(WeatherWidget.WIDGET_NAME, WeatherWidget.WIDGET_ICON_ID, WeatherWidget.class.getCanonicalName()));
-        mAllWidgetConfig.add(new WidgetConfig(TimeWidget.WIDGET_NAME, TimeWidget.WIDGET_ICON_ID, TimeWidget.class.getCanonicalName()));
-        mAllWidgetConfig.add(new WidgetConfig(NewsWidget.WIDGET_NAME, NewsWidget.WIDGET_ICON_ID, NewsWidget.class.getCanonicalName()));
+        initAllWidgetConfigs();
     }
 
     @Override
@@ -95,7 +93,7 @@ public class EditWidgetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 break;
         }
         if (result == null) {
-            result = new NormalViewHolder(mInflater.inflate(R.layout.item_edit_widget_normal, null, false), this);
+            result = new NormalViewHolder(mInflater.inflate(R.layout.item_edit_widget_normal, parent, false), this);
         }
         return result;
     }
@@ -234,6 +232,10 @@ public class EditWidgetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
+    public void setEditWidgetItemCallback(EditWidgetItemCallback callback) {
+        mItemCallback = callback;
+    }
+
     public void bindShownWidgetConfigs(List<WidgetConfig> shownConfigs) {
 
         // TODO : 存在等待的情況，可能需要用進度條提示用戶
@@ -270,5 +272,10 @@ public class EditWidgetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     }
                 });
     }
+
+    /**
+     * 用来初始化全量的widget信息列表
+     */
+    protected abstract void initAllWidgetConfigs();
 
 }

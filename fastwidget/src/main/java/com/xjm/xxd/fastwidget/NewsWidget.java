@@ -1,4 +1,4 @@
-package com.xjm.xxd.fastwidget.widget;
+package com.xjm.xxd.fastwidget;
 
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -7,7 +7,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.xjm.xxd.fastwidget.R;
+import com.xjm.xxd.fastwidget.widget.BaseWidget;
+import com.xjm.xxd.fastwidget.widget.WidgetConfig;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
