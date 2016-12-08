@@ -11,6 +11,7 @@
         <item name="windowActionBarOverlay">true</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
+        <item name="drawerArrowStyle">@style/AppTheme.DrawerArrowToggle</item>
     </style>
 
     <style name="AppTheme" parent="BaseAppTheme">
@@ -20,6 +21,10 @@
     <style name="CustomActionMode" parent="@style/Widget.AppCompat.ActionMode">
         <item name="background">@color/colorPrimary</item>
         <item name="height">?attr/actionBarSize</item>
+    </style>
+
+    <style name="AppTheme.DrawerArrowToggle" parent="Base.Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@android:color/white</item>
     </style>
 
 </resources>
