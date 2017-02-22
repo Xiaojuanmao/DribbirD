@@ -40,58 +40,19 @@ public class LoginWebViewClient extends WebViewClient {
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
-        if (!TextUtils.isEmpty(url)) {
+        if (TextUtils.isEmpty(url)) {
+            // TODO : url is null
+        } else {
             // url is match with oauth request url
             if (TokenManager.isMatchRedirectUrl(url)) {
                 // get the return code
                 Uri uri = Uri.parse(url);
                 String returnCode = uri.getQueryParameter(ApiConstants.CODE);
-                if (!TextUtils.isEmpty(returnCode)) {
-                    // request for access token with return code
-                    if (mCallback != null && mCallback.get() != null) {
-                        mCallback.get().showLoading(R.string.being_authorized);
-                    }
-                    mAuthSubscription = Observable.just(returnCode)
-                            .map(new Func1<String, TokenBean>() {
-                                @Override
-                                public TokenBean call(String s) {
-                                    return TokenManager.requestForToken(s);
-                                }
-                            }).subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(new Action1<TokenBean>() {
-                                @Override
-                                public void call(TokenBean tokenBean) {
-                                    if (mCallback != null && mCallback.get() != null) {
-                                        mCallback.get().hideLoading();
-                                    }
-                                    if (tokenBean != null) {
-                                        // authentic success
-                                        if (mCallback != null && mCallback.get() != null) {
-                                            mCallback.get().loginSuccess(tokenBean);
-                                        }
-                                    } else {
-                                        // auth failed
-                                        if (mCallback != null && mCallback.get() != null) {
-                                            mCallback.get().loginFailed();
-                                        }
-                                    }
-                                }
-                            }, new Action1<Throwable>() {
-                                @Override
-                                public void call(Throwable throwable) {
-                                    Log.w(TAG, "LoginWebViewClient request for access token error ", throwable);
-                                    if (mCallback != null && mCallback.get() != null) {
-                                        mCallback.get().hideLoading();
-                                        mCallback.get().loginFailed();
-                                    }
-                                }
-                            });
-                }
-                return true;
+                processReturnCode(returnCode);
+            } else {
+                view.loadUrl(url);
             }
         }
-        view.loadUrl(url);
         return true;
     }
 
@@ -105,7 +66,52 @@ public class LoginWebViewClient extends WebViewClient {
         super.onPageFinished(view, url);
     }
 
-    public void onDestroy() {
+    private void processReturnCode(String returnCode) {
+        if (!TextUtils.isEmpty(returnCode)) {
+            // request for access token with return code
+            if (mCallback != null && mCallback.get() != null) {
+                mCallback.get().showLoading(R.string.being_authorized);
+            }
+            mAuthSubscription = Observable.just(returnCode)
+                    .map(new Func1<String, TokenBean>() {
+                        @Override
+                        public TokenBean call(String s) {
+                            return TokenManager.requestForToken(s);
+                        }
+                    }).subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Action1<TokenBean>() {
+                        @Override
+                        public void call(TokenBean tokenBean) {
+                            if (mCallback != null && mCallback.get() != null) {
+                                mCallback.get().hideLoading();
+                            }
+                            if (tokenBean != null) {
+                                // authentic success
+                                if (mCallback != null && mCallback.get() != null) {
+                                    mCallback.get().loginSuccess(tokenBean);
+                                }
+                            } else {
+                                // auth failed
+                                if (mCallback != null && mCallback.get() != null) {
+                                    mCallback.get().loginFailed();
+                                }
+                            }
+                        }
+                    }, new Action1<Throwable>() {
+                        @Override
+                        public void call(Throwable throwable) {
+                            Log.w(TAG, "LoginWebViewClient request for access token error ", throwable);
+                            if (mCallback != null && mCallback.get() != null) {
+                                mCallback.get().hideLoading();
+                                mCallback.get().loginFailed();
+                            }
+                        }
+                    });
+        }
+    }
+
+    void onDestroy() {
         if (mAuthSubscription != null && mAuthSubscription.isUnsubscribed()) {
             mAuthSubscription.unsubscribe();
         }

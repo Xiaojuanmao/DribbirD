@@ -6,5 +6,4 @@ package com.xjm.xxd.dribbird.view;
 
 public interface MainActivityView extends IView {
 
-
 }
