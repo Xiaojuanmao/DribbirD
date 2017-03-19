@@ -1,4 +1,4 @@
-package com.xjm.xxd.dribbird;
+package com.xjm.xxd.dribbird.mainpage;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,9 +9,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.xjm.xxd.dribbird.mainpage.IMainActivityPresenter;
+import com.xjm.xxd.dribbird.R;
 import com.xjm.xxd.dribbird.base.BaseActivity;
-import com.xjm.xxd.dribbird.mainpage.MainActivityView;
 import com.xjm.xxd.dribbird.utils.StatusBarCompat;
 
 import javax.inject.Inject;
@@ -43,6 +42,7 @@ public class MainActivity extends BaseActivity implements
 
         initViews();
 
+        mPresenter.start();
     }
 
     private void initViews() {

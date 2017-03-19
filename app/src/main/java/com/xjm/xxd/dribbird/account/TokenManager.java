@@ -23,6 +23,7 @@ import static com.xjm.xxd.dribbird.api.ApiConstants.EQUAL_MARK;
  *         date: 16-11-29
  *         email: daque@hustunique.com
  */
+
 public class TokenManager {
 
     private static String mOAuthUrl;
@@ -63,7 +64,7 @@ public class TokenManager {
      * return if there is a local token
      * @return
      */
-    public static boolean hasAvaliableToken() {
+    public static boolean hasAvailableToken() {
         String tokenBean = SharedPreferencesUtils.getDefaultString(SharedPreferConstants.TOKEN_BEAN, "");
         if (TextUtils.isEmpty(tokenBean)) {
             return false;

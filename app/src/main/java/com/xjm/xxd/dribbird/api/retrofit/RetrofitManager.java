@@ -1,9 +1,11 @@
 package com.xjm.xxd.dribbird.api.retrofit;
 
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.xjm.xxd.dribbird.api.ApiConstants;
+import com.xjm.xxd.dribbird.api.interceptor.TokenInterceptor;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -35,7 +37,6 @@ public class RetrofitManager {
         mGson = new Gson();
         mHttpClient = buildOkHttpClient();
         mRetrofit = buildRetrofit(ApiConstants.BASE_URL);
-
     }
 
     /**
@@ -65,7 +66,7 @@ public class RetrofitManager {
     }
 
     /**
-     * create logger for request
+     * 构造一个用于网络请求日志功能的拦截器
      * @return logger interceptor instance
      */
     private HttpLoggingInterceptor buildLoggingInterceptor() {
@@ -73,6 +74,19 @@ public class RetrofitManager {
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         return interceptor;
     }
+
+    /**
+     * 添加网络请求token的拦截器
+     */
+    public boolean addTokenInterceptor(String token) {
+        if (mHttpClient != null && !TextUtils.isEmpty(token)) {
+            return false;
+        }
+        TokenInterceptor tokenInterceptor = new TokenInterceptor(token);
+        mHttpClient.networkInterceptors().add(tokenInterceptor);
+        return true;
+    }
+
 
     public <T> T create(Class<T> clazz) {
         return mRetrofit.create(clazz);

@@ -2,6 +2,7 @@ package com.xjm.xxd.dribbird.di.component;
 
 import android.content.Context;
 
+import com.google.gson.Gson;
 import com.xjm.xxd.dribbird.DribApp;
 import com.xjm.xxd.dribbird.api.retrofit.DribbleApi;
 import com.xjm.xxd.dribbird.bus.RxBus;
@@ -22,6 +23,8 @@ public interface ApplicationComponent {
     DribApp app();
 
     Context context();
+
+    Gson gson();
 
     RxBus rxBus();
 

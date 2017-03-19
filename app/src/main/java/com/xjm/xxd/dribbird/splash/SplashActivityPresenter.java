@@ -2,7 +2,9 @@ package com.xjm.xxd.dribbird.splash;
 
 import android.util.Log;
 
+import com.xjm.xxd.dribbird.account.TokenBean;
 import com.xjm.xxd.dribbird.account.TokenManager;
+import com.xjm.xxd.dribbird.api.retrofit.RetrofitManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +41,7 @@ public class SplashActivityPresenter implements ISplashActivityPresenter {
         mSubscriptions.add(Observable.create(new Observable.OnSubscribe<Boolean>() {
             @Override
             public void call(Subscriber<? super Boolean> subscriber) {
-                boolean hasAvailableToken = TokenManager.hasAvaliableToken();
+                boolean hasAvailableToken = TokenManager.hasAvailableToken();
                 subscriber.onNext(hasAvailableToken);
                 subscriber.onCompleted();
             }
@@ -50,8 +52,13 @@ public class SplashActivityPresenter implements ISplashActivityPresenter {
                     @Override
                     public void call(Boolean aBoolean) {
                         if (aBoolean) {
-                            // token exist, jump to main page
+                            // 存在有效的token，设置好网络请求的token拦截器，跳转主页
+                            TokenBean tokenBean = TokenManager.getTokenBean();
+                            if (tokenBean != null) {
+                                RetrofitManager.getInstance().addTokenInterceptor(tokenBean.getAccessToken());
+                            }
                             mView.jumpToMainPage();
+
                             Log.w(TAG, "checkAccount(), token exist -> main page");
                         } else {
                             // token not exist, jump to login activity

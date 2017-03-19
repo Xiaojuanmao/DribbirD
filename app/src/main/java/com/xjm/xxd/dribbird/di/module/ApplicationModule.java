@@ -2,6 +2,7 @@ package com.xjm.xxd.dribbird.di.module;
 
 import android.content.Context;
 
+import com.google.gson.Gson;
 import com.xjm.xxd.dribbird.DribApp;
 import com.xjm.xxd.dribbird.api.retrofit.DribbleApi;
 import com.xjm.xxd.dribbird.api.retrofit.RetrofitManager;
@@ -20,9 +21,11 @@ import dagger.Provides;
 public class ApplicationModule {
 
     private final DribApp mApp;
+    private final Gson mGson;
 
     public ApplicationModule(DribApp app) {
         mApp = app;
+        mGson = new Gson();
     }
 
     @Provides
@@ -41,6 +44,12 @@ public class ApplicationModule {
     @Singleton
     RxBus provideRxBus() {
         return RxBus.getInstance();
+    }
+
+    @Provides
+    @Singleton
+    Gson provideGson() {
+        return mGson;
     }
 
     @Provides

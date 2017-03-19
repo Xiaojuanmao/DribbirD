@@ -19,5 +19,4 @@ public interface UserApi {
     @GET("users/{userId}")
     Observable<UserBean> getUserInfo(@Path("userId") String userId);
 
-
 }

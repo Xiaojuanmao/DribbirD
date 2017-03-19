@@ -9,4 +9,6 @@ import com.xjm.xxd.dribbird.base.IPresenter;
 
 public interface IMainActivityPresenter extends IPresenter<MainActivityView> {
 
+    void start();
+
 }

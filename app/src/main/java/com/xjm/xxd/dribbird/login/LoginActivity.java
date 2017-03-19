@@ -8,7 +8,7 @@ import android.text.TextUtils;
 import android.webkit.WebSettings;
 
 import com.xjm.xxd.dribbird.R;
-import com.xjm.xxd.dribbird.MainActivity;
+import com.xjm.xxd.dribbird.mainpage.MainActivity;
 import com.xjm.xxd.dribbird.base.BaseActivity;
 import com.xjm.xxd.dribbird.base.BaseDialog;
 import com.xjm.xxd.dribbird.widget.ProgressWebView;
