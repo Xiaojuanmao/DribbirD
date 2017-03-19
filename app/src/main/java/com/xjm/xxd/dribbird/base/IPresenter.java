@@ -1,6 +1,4 @@
-package com.xjm.xxd.dribbird.presenter;
-
-import com.xjm.xxd.dribbird.view.IView;
+package com.xjm.xxd.dribbird.base;
 
 /**
  * Created by queda on 2016/11/21.

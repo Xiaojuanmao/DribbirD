@@ -8,10 +8,10 @@ import android.text.TextUtils;
 import android.webkit.WebSettings;
 
 import com.xjm.xxd.dribbird.R;
-import com.xjm.xxd.dribbird.ui.MainActivity;
-import com.xjm.xxd.dribbird.ui.base.BaseActivity;
-import com.xjm.xxd.dribbird.ui.dialog.BaseDialog;
-import com.xjm.xxd.dribbird.ui.widget.ProgressWebView;
+import com.xjm.xxd.dribbird.MainActivity;
+import com.xjm.xxd.dribbird.base.BaseActivity;
+import com.xjm.xxd.dribbird.base.BaseDialog;
+import com.xjm.xxd.dribbird.widget.ProgressWebView;
 import com.xjm.xxd.dribbird.utils.ToastUtils;
 
 import javax.inject.Inject;
@@ -89,7 +89,7 @@ public class LoginActivity extends BaseActivity implements
             mBaseDialog = builder.build();
         }
         mBaseDialog.message(msg);
-        mBaseDialog.show(getSupportFragmentManager(), TAG);
+        mBaseDialog.show(getFragmentManager(), TAG);
     }
 
     @Override

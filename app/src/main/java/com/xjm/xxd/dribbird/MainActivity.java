@@ -1,4 +1,4 @@
-package com.xjm.xxd.dribbird.ui;
+package com.xjm.xxd.dribbird;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,10 +9,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.xjm.xxd.dribbird.R;
-import com.xjm.xxd.dribbird.presenter.activity.IMainActivityPresenter;
-import com.xjm.xxd.dribbird.ui.base.BaseActivity;
-import com.xjm.xxd.dribbird.view.MainActivityView;
+import com.xjm.xxd.dribbird.mainpage.IMainActivityPresenter;
+import com.xjm.xxd.dribbird.base.BaseActivity;
+import com.xjm.xxd.dribbird.mainpage.MainActivityView;
+import com.xjm.xxd.dribbird.utils.StatusBarCompat;
 
 import javax.inject.Inject;
 
@@ -29,8 +29,6 @@ public class MainActivity extends BaseActivity implements
     @BindView(R.id.navigation_view)
     NavigationView mNavigationView;
 
-    private ActionBarDrawerToggle mDrawerToggle;
-
     @Inject
     IMainActivityPresenter mPresenter;
 
@@ -38,6 +36,7 @@ public class MainActivity extends BaseActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        StatusBarCompat.compat(this);
         ButterKnife.bind(this);
         getActivityComponent().inject(this);
         mPresenter.bindIView(this);
@@ -65,7 +64,7 @@ public class MainActivity extends BaseActivity implements
                 }
             });
 
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
+        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerToggle.syncState();
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 

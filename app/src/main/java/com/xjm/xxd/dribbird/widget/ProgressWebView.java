@@ -1,4 +1,4 @@
-package com.xjm.xxd.dribbird.ui.widget;
+package com.xjm.xxd.dribbird.widget;
 
 import android.content.Context;
 import android.content.res.Resources;

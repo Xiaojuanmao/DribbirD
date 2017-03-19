@@ -1,7 +1,9 @@
 package com.xjm.xxd.dribbird.api.okhttp;
 
 /**
- * Created by queda on 2016/12/1.
+ * @author : xiaoxiaoda
+ * date: 16-11-26
+ * email: daque@hustunique.com
  */
 
 import android.support.annotation.NonNull;
@@ -19,10 +21,6 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-
-/**
- * wrap okhttp more easy to use
- */
 
 public class OkHttpManager {
 

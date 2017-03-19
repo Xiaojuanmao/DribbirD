@@ -3,11 +3,11 @@ package com.xjm.xxd.dribbird.di.module;
 import com.xjm.xxd.dribbird.di.PerActivity;
 import com.xjm.xxd.dribbird.login.ILoginActivityPresenter;
 import com.xjm.xxd.dribbird.login.LoginActivityPresenter;
-import com.xjm.xxd.dribbird.presenter.activity.IMainActivityPresenter;
-import com.xjm.xxd.dribbird.presenter.activity.MainActivityPresenter;
+import com.xjm.xxd.dribbird.mainpage.IMainActivityPresenter;
+import com.xjm.xxd.dribbird.mainpage.MainActivityPresenter;
 import com.xjm.xxd.dribbird.splash.ISplashActivityPresenter;
 import com.xjm.xxd.dribbird.splash.SplashActivityPresenter;
-import com.xjm.xxd.dribbird.ui.base.BaseActivity;
+import com.xjm.xxd.dribbird.base.BaseActivity;
 
 import dagger.Module;
 import dagger.Provides;

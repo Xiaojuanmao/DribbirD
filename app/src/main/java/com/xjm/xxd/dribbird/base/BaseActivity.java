@@ -1,4 +1,4 @@
-package com.xjm.xxd.dribbird.ui.base;
+package com.xjm.xxd.dribbird.base;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,7 +17,7 @@ import com.xjm.xxd.dribbird.di.module.ActivityModule;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
-    private final String TAG = getTag();
+    final String TAG = getTag();
 
     private ActivityComponent mActivityComponent;
 

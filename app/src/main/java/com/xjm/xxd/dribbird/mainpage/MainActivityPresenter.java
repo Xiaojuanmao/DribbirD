@@ -1,6 +1,4 @@
-package com.xjm.xxd.dribbird.presenter.activity;
-
-import com.xjm.xxd.dribbird.view.MainActivityView;
+package com.xjm.xxd.dribbird.mainpage;
 
 /**
  * Created by queda on 2016/11/21.

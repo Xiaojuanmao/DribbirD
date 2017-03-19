@@ -1,6 +1,6 @@
 package com.xjm.xxd.dribbird.splash;
 
-import com.xjm.xxd.dribbird.presenter.IPresenter;
+import com.xjm.xxd.dribbird.base.IPresenter;
 
 /**
  * Created by queda on 2016/12/3.

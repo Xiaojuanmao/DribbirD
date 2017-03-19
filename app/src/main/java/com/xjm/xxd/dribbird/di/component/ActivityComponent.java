@@ -4,7 +4,7 @@ import com.xjm.xxd.dribbird.di.PerActivity;
 import com.xjm.xxd.dribbird.di.module.ActivityModule;
 import com.xjm.xxd.dribbird.login.LoginActivity;
 import com.xjm.xxd.dribbird.splash.SplashActivity;
-import com.xjm.xxd.dribbird.ui.MainActivity;
+import com.xjm.xxd.dribbird.MainActivity;
 
 import dagger.Component;
 
