@@ -58,7 +58,6 @@ public class SplashActivityPresenter implements ISplashActivityPresenter {
                                 RetrofitManager.getInstance().addTokenInterceptor(tokenBean.getAccessToken());
                             }
                             mView.jumpToMainPage();
-
                             Log.w(TAG, "checkAccount(), token exist -> main page");
                         } else {
                             // token not exist, jump to login activity
