@@ -8,7 +8,9 @@ import com.xjm.xxd.dribbird.di.component.DaggerApplicationComponent;
 import com.xjm.xxd.dribbird.di.module.ApplicationModule;
 
 /**
- * Created by queda on 2016/11/21.
+ * User : xiaoxiaoda
+ * Date : 2016/11/21
+ * Email : wonderfulifeel@gmail.com
  */
 
 public class DribApp extends Application {

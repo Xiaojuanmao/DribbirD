@@ -1,6 +1,7 @@
 package com.xjm.xxd.dribbird.api.retrofit;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
@@ -35,8 +36,6 @@ public class RetrofitManager {
 
     private RetrofitManager() {
         mGson = new Gson();
-        mHttpClient = buildOkHttpClient();
-        mRetrofit = buildRetrofit(ApiConstants.BASE_URL);
     }
 
     /**
@@ -44,9 +43,12 @@ public class RetrofitManager {
      * with logger interceptor
      * @return httpclient instance
      */
-    private OkHttpClient buildOkHttpClient() {
+    private OkHttpClient buildOkHttpClient(@Nullable String token) {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        builder.addInterceptor(buildLoggingInterceptor());
+//        builder.addInterceptor(buildLoggingInterceptor());
+        if (!TextUtils.isEmpty(token)) {
+            builder.addNetworkInterceptor(new TokenInterceptor(token));
+        }
         return builder.build();
     }
 
@@ -78,13 +80,9 @@ public class RetrofitManager {
     /**
      * 添加网络请求token的拦截器
      */
-    public boolean addTokenInterceptor(String token) {
-        if (mHttpClient != null && !TextUtils.isEmpty(token)) {
-            return false;
-        }
-        TokenInterceptor tokenInterceptor = new TokenInterceptor(token);
-        mHttpClient.networkInterceptors().add(tokenInterceptor);
-        return true;
+    public void addTokenInterceptor(String token) {
+        mHttpClient = buildOkHttpClient(token);
+        mRetrofit = buildRetrofit(ApiConstants.BASE_URL);
     }
 
 

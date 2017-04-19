@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.xjm.xxd.dribbird.DribApp;
 import com.xjm.xxd.dribbird.api.retrofit.DribbleApi;
 import com.xjm.xxd.dribbird.api.retrofit.RetrofitManager;
+import com.xjm.xxd.dribbird.api.retrofit.UserApi;
 import com.xjm.xxd.dribbird.bus.RxBus;
 
 import javax.inject.Singleton;
@@ -56,6 +57,12 @@ public class ApplicationModule {
     @Singleton
     DribbleApi provideDribbleApi(RetrofitManager manager) {
         return manager.create(DribbleApi.class);
+    }
+
+    @Provides
+    @Singleton
+    UserApi provideUserApi(RetrofitManager manager) {
+        return manager.create(UserApi.class);
     }
 
     @Provides
