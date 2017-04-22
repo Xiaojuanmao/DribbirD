@@ -62,7 +62,7 @@ public class MainActivity extends BaseActivity implements
                     mDrawerLayout.closeDrawers();
                     return true;
                 }
-            });
+        });
 
         ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerToggle.syncState();

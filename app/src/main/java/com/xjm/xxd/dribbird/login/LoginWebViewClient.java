@@ -11,6 +11,8 @@ import com.xjm.xxd.dribbird.R;
 import com.xjm.xxd.dribbird.account.TokenBean;
 import com.xjm.xxd.dribbird.account.TokenManager;
 import com.xjm.xxd.dribbird.api.ApiConstants;
+import com.xjm.xxd.dribbird.api.retrofit.RetrofitManager;
+import com.xjm.xxd.dribbird.utils.RxUtils;
 
 import java.lang.ref.WeakReference;
 
@@ -78,8 +80,7 @@ public class LoginWebViewClient extends WebViewClient {
                         public TokenBean call(String s) {
                             return TokenManager.requestForToken(s);
                         }
-                    }).subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
+                    }).compose(RxUtils.<TokenBean>applyNetworkScheduler())
                     .subscribe(new Action1<TokenBean>() {
                         @Override
                         public void call(TokenBean tokenBean) {
@@ -87,6 +88,8 @@ public class LoginWebViewClient extends WebViewClient {
                                 mCallback.get().hideLoading();
                             }
                             if (tokenBean != null) {
+                                // 给Retrofit设置token
+                                RetrofitManager.getInstance().addTokenInterceptor(tokenBean.getAccessToken());
                                 // authentic success
                                 if (mCallback != null && mCallback.get() != null) {
                                     mCallback.get().loginSuccess(tokenBean);

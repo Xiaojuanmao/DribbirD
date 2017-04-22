@@ -5,6 +5,7 @@ import android.util.Log;
 import com.xjm.xxd.dribbird.account.TokenBean;
 import com.xjm.xxd.dribbird.account.TokenManager;
 import com.xjm.xxd.dribbird.api.retrofit.RetrofitManager;
+import com.xjm.xxd.dribbird.utils.RxUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,8 +47,7 @@ public class SplashActivityPresenter implements ISplashActivityPresenter {
                 subscriber.onCompleted();
             }
         }).delay(3, TimeUnit.SECONDS)
-                .observeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
+                .compose(RxUtils.<Boolean>applyNetworkScheduler())
                 .subscribe(new Action1<Boolean>() {
                     @Override
                     public void call(Boolean aBoolean) {

@@ -8,9 +8,11 @@ import com.xjm.xxd.dribbird.api.retrofit.UserApi;
 import com.xjm.xxd.dribbird.di.component.DaggerActivityComponent;
 import com.xjm.xxd.dribbird.di.component.DaggerApplicationComponent;
 import com.xjm.xxd.dribbird.model.UserBean;
+import com.xjm.xxd.dribbird.utils.RxUtils;
 
 import javax.inject.Inject;
 
+import rx.Observable;
 import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -23,6 +25,8 @@ import rx.schedulers.Schedulers;
 public class MainActivityPresenter implements IMainActivityPresenter {
 
     private MainActivityView mView;
+
+    private static final String TAG = MainActivityPresenter.class.getSimpleName();
 
     @Inject
     UserApi mUserApi;
@@ -39,19 +43,18 @@ public class MainActivityPresenter implements IMainActivityPresenter {
     @Override
     public void start() {
         mUserApi.getAuthenticatedUser()
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new Action1<UserBean>() {
-            @Override
-            public void call(UserBean userBean) {
-                Log.e("here", new Gson().toJson(userBean));
-            }
-        }, new Action1<Throwable>() {
-            @Override
-            public void call(Throwable throwable) {
-                Log.e("here", throwable.toString());
-            }
-        });
+                .compose(RxUtils.<UserBean>applyNetworkScheduler())
+                .subscribe(new Action1<UserBean>() {
+                    @Override
+                    public void call(UserBean userBean) {
+                        Log.e(TAG, new Gson().toJson(userBean));
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        Log.d(TAG, throwable.toString());
+                    }
+                });
     }
 
     @Override
