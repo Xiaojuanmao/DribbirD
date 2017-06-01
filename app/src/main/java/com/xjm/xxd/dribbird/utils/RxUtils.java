@@ -1,9 +1,13 @@
 package com.xjm.xxd.dribbird.utils;
 
-import rx.Observable;
-import rx.Observable.Transformer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import org.reactivestreams.Publisher;
+
+import io.reactivex.Flowable;
+import io.reactivex.FlowableTransformer;
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * User : xiaoxiaoda
@@ -13,18 +17,20 @@ import rx.schedulers.Schedulers;
 
 public class RxUtils {
 
-    public static <T> Transformer<T, T> applyNetworkScheduler() {
-        return (Transformer<T, T>) sNetworkScheduler;
+    public static <T> FlowableTransformer<T, T> applyNetworkScheduler() {
+        return (FlowableTransformer<T, T>) sNetworkScheduler;
     }
 
-    private static final Transformer<Observable, Observable> sNetworkScheduler
-            = new Transformer<Observable, Observable>() {
+    private static final FlowableTransformer<Observable, Observable> sNetworkScheduler
+            = new FlowableTransformer<Observable, Observable>() {
+
         @Override
-        public Observable<Observable> call(Observable<Observable> observableObservable) {
-            return observableObservable
+        public Publisher<Observable> apply(Flowable<Observable> flowable) {
+            return flowable
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread());
         }
+
     };
 
 }

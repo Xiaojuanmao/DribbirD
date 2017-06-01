@@ -5,15 +5,15 @@
         <item
             android:id="@+id/app_setting"
             android:title="@string/app_setting"
-            android:icon="@drawable/ic_app_setting_24dp"/>
+            android:icon="@mipmap/ic_launcher"/>
         <item
             android:id="@+id/app_setting_2"
             android:title="@string/app_setting"
-            android:icon="@drawable/ic_app_setting_24dp"/>
+            android:icon="@mipmap/ic_launcher"/>
         <item
             android:id="@+id/app_setting_3"
             android:title="@string/app_setting"
-            android:icon="@drawable/ic_app_setting_24dp"/>
+            android:icon="@mipmap/ic_launcher"/>
     </group>
 
 </menu>

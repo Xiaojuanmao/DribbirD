@@ -11,7 +11,7 @@ import com.xjm.xxd.dribbird.api.interceptor.TokenInterceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -61,7 +61,7 @@ public class RetrofitManager {
         Retrofit.Builder builder = new Retrofit.Builder();
         builder.client(mHttpClient)
                 .baseUrl(baseUrl)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(mGson));
 
         return builder.build();

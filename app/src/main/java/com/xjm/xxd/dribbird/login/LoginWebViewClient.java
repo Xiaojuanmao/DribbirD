@@ -14,14 +14,14 @@ import com.xjm.xxd.dribbird.api.ApiConstants;
 import com.xjm.xxd.dribbird.api.retrofit.RetrofitManager;
 import com.xjm.xxd.dribbird.utils.RxUtils;
 
+
 import java.lang.ref.WeakReference;
 
-import rx.Observable;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
+import io.reactivex.Flowable;
+import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 
 /**
  * @author : xiaoxiaoda
@@ -30,7 +30,7 @@ import rx.schedulers.Schedulers;
  */
 public class LoginWebViewClient extends WebViewClient {
 
-    private Subscription mAuthSubscription;
+    private Disposable mAuthDisposable;
 
     private WeakReference<LoginWebViewClientCallback> mCallback;
 
@@ -74,16 +74,16 @@ public class LoginWebViewClient extends WebViewClient {
             if (mCallback != null && mCallback.get() != null) {
                 mCallback.get().showLoading(R.string.being_authorized);
             }
-            mAuthSubscription = Observable.just(returnCode)
-                    .map(new Func1<String, TokenBean>() {
+            mAuthDisposable = Flowable.just(returnCode)
+                    .map(new Function<String, TokenBean>() {
                         @Override
-                        public TokenBean call(String s) {
+                        public TokenBean apply(String s) {
                             return TokenManager.requestForToken(s);
                         }
                     }).compose(RxUtils.<TokenBean>applyNetworkScheduler())
-                    .subscribe(new Action1<TokenBean>() {
+                    .subscribe(new Consumer<TokenBean>() {
                         @Override
-                        public void call(TokenBean tokenBean) {
+                        public void accept(TokenBean tokenBean) throws Exception {
                             if (mCallback != null && mCallback.get() != null) {
                                 mCallback.get().hideLoading();
                             }
@@ -101,9 +101,9 @@ public class LoginWebViewClient extends WebViewClient {
                                 }
                             }
                         }
-                    }, new Action1<Throwable>() {
+                    }, new Consumer<Throwable>() {
                         @Override
-                        public void call(Throwable throwable) {
+                        public void accept(Throwable throwable) {
                             Log.w(TAG, "LoginWebViewClient request for access token error ", throwable);
                             if (mCallback != null && mCallback.get() != null) {
                                 mCallback.get().hideLoading();
@@ -115,8 +115,8 @@ public class LoginWebViewClient extends WebViewClient {
     }
 
     void onDestroy() {
-        if (mAuthSubscription != null && mAuthSubscription.isUnsubscribed()) {
-            mAuthSubscription.unsubscribe();
+        if (mAuthDisposable != null && mAuthDisposable.isDisposed()) {
+            mAuthDisposable.dispose();
         }
     }
 

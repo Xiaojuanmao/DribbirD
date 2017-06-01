@@ -7,16 +7,20 @@ import com.xjm.xxd.dribbird.account.TokenManager;
 import com.xjm.xxd.dribbird.api.retrofit.RetrofitManager;
 import com.xjm.xxd.dribbird.utils.RxUtils;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.reactivestreams.Publisher;
+import org.reactivestreams.Subscriber;
+
 import java.util.concurrent.TimeUnit;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
+import io.reactivex.FlowableOnSubscribe;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by queda on 2016/12/3.
@@ -26,7 +30,7 @@ public class SplashActivityPresenter implements ISplashActivityPresenter {
 
     private SplashActivityView mView;
 
-    private List<Subscription> mSubscriptions;
+    private CompositeDisposable mCompositeDisposable;
 
     private static final String TAG = SplashActivityPresenter.class.getSimpleName();
 
@@ -34,23 +38,23 @@ public class SplashActivityPresenter implements ISplashActivityPresenter {
     @Override
     public void bindIView(SplashActivityView iView) {
         mView = iView;
-        mSubscriptions = new ArrayList<>();
+        mCompositeDisposable = new CompositeDisposable();
     }
 
     @Override
     public void checkAccount() {
-        mSubscriptions.add(Observable.create(new Observable.OnSubscribe<Boolean>() {
+        mCompositeDisposable.add(Flowable.create(new FlowableOnSubscribe<Boolean>() {
             @Override
-            public void call(Subscriber<? super Boolean> subscriber) {
+            public void subscribe(FlowableEmitter<Boolean> flowableEmitter) throws Exception {
                 boolean hasAvailableToken = TokenManager.hasAvailableToken();
-                subscriber.onNext(hasAvailableToken);
-                subscriber.onCompleted();
+                flowableEmitter.onNext(hasAvailableToken);
+                flowableEmitter.onComplete();
             }
-        }).delay(3, TimeUnit.SECONDS)
+        }, BackpressureStrategy.DROP).delay(3, TimeUnit.SECONDS)
                 .compose(RxUtils.<Boolean>applyNetworkScheduler())
-                .subscribe(new Action1<Boolean>() {
+                .subscribe(new Consumer<Boolean>() {
                     @Override
-                    public void call(Boolean aBoolean) {
+                    public void accept(Boolean aBoolean) {
                         if (aBoolean) {
                             // 存在有效的token，设置好网络请求的token拦截器，跳转主页
                             TokenBean tokenBean = TokenManager.getTokenBean();
@@ -65,9 +69,9 @@ public class SplashActivityPresenter implements ISplashActivityPresenter {
                             Log.w(TAG, "checkAccount(), token not exist -> login activity");
                         }
                     }
-                }, new Action1<Throwable>() {
+                }, new Consumer<Throwable>() {
                     @Override
-                    public void call(Throwable throwable) {
+                    public void accept(Throwable throwable) {
                         // exception, jump to login activity
                         Log.e(TAG, "checkAccount(), throwable : ", throwable);
                         mView.jumpToLoginActivity();
@@ -78,12 +82,8 @@ public class SplashActivityPresenter implements ISplashActivityPresenter {
 
     @Override
     public void onDestroy() {
-        if (mSubscriptions != null) {
-            for (Subscription subscription : mSubscriptions) {
-                if (subscription != null && subscription.isUnsubscribed()) {
-                    subscription.unsubscribe();
-                }
-            }
+        if (mCompositeDisposable != null && !mCompositeDisposable.isDisposed()) {
+            mCompositeDisposable.dispose();
         }
     }
 

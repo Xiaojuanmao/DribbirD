@@ -12,11 +12,8 @@ import com.xjm.xxd.dribbird.utils.RxUtils;
 
 import javax.inject.Inject;
 
-import rx.Observable;
-import rx.Scheduler;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
+import io.reactivex.functions.Consumer;
+
 
 /**
  * Created by queda on 2016/11/21.
@@ -44,17 +41,19 @@ public class MainActivityPresenter implements IMainActivityPresenter {
     public void start() {
         mUserApi.getAuthenticatedUser()
                 .compose(RxUtils.<UserBean>applyNetworkScheduler())
-                .subscribe(new Action1<UserBean>() {
-                    @Override
-                    public void call(UserBean userBean) {
-                        Log.e(TAG, new Gson().toJson(userBean));
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        Log.d(TAG, throwable.toString());
-                    }
-                });
+                .subscribe(new Consumer<UserBean>() {
+                            @Override
+                            public void accept(UserBean userBean) throws Exception {
+                                Log.e(TAG, new Gson().toJson(userBean));
+
+                            }
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                Log.d(TAG, throwable.toString());
+
+                            }
+                        });
     }
 
     @Override
