@@ -1,8 +1,9 @@
 package com.xjm.xxd.dribbird.bus;
 
 
-import io.reactivex.subjects.PublishSubject;
-import io.reactivex.subjects.Subject;
+import io.reactivex.Flowable;
+import io.reactivex.processors.FlowableProcessor;
+import io.reactivex.processors.PublishProcessor;
 
 /**
  * Created by queda on 2016/11/21.
@@ -12,10 +13,10 @@ public class RxBus{
 
     private static volatile RxBus mInstance;
 
-//    private final Subject<IBusEvent, IBusEvent> mActual;
+    private final FlowableProcessor<IBusEvent> mActual;
 
     private RxBus() {
-//        mActual = new SerializedSubject<>(PublishSubject.<IBusEvent>create());
+        mActual = PublishProcessor.<IBusEvent>create().toSerialized();
     }
 
     public static RxBus getInstance() {
@@ -28,12 +29,13 @@ public class RxBus{
         }
         return mInstance;
     }
-//
-//    public void postEvent(IBusEvent event) {
-//        mActual.onNext(event);
-//    }
-//
-//    public Observable<IBusEvent> getObservable() {
-//        return mActual.asObservable();
-//    }
+
+    public void postEvent(IBusEvent event) {
+        mActual.onNext(event);
+    }
+
+    public <T> Flowable<T> register(Class<T> clazz) {
+        return mActual.ofType(clazz);
+    }
+
 }
