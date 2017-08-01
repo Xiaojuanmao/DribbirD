@@ -8,7 +8,7 @@ import com.xjm.xxd.dribbird.api.retrofit.DribbleApi;
 import com.xjm.xxd.dribbird.api.retrofit.UserApi;
 import com.xjm.xxd.dribbird.bus.RxBus;
 import com.xjm.xxd.dribbird.di.module.ApplicationModule;
-import com.xjm.xxd.dribbird.mainpage.MainActivityPresenter;
+import com.xjm.xxd.dribbird.main.MainActivityPresenter;
 
 import javax.inject.Singleton;
 

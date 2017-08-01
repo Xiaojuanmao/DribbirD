@@ -1,12 +1,10 @@
-package com.xjm.xxd.dribbird.mainpage;
+package com.xjm.xxd.dribbird.main;
 
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.xjm.xxd.dribbird.DribApp;
 import com.xjm.xxd.dribbird.api.retrofit.UserApi;
-import com.xjm.xxd.dribbird.di.component.DaggerActivityComponent;
-import com.xjm.xxd.dribbird.di.component.DaggerApplicationComponent;
 import com.xjm.xxd.dribbird.model.UserBean;
 import com.xjm.xxd.dribbird.utils.RxUtils;
 

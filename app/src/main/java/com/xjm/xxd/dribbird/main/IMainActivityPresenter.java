@@ -1,4 +1,4 @@
-package com.xjm.xxd.dribbird.mainpage;
+package com.xjm.xxd.dribbird.main;
 
 
 import com.xjm.xxd.dribbird.base.IPresenter;
