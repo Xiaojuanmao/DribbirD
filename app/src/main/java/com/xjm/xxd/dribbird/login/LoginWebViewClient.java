@@ -89,7 +89,7 @@ public class LoginWebViewClient extends WebViewClient {
                             }
                             if (tokenBean != null) {
                                 // 给Retrofit设置token
-                                RetrofitManager.getInstance().addTokenInterceptor(tokenBean.getAccessToken());
+                                RetrofitManager.getInstance().addTokenInterceptor(tokenBean.accessToken);
                                 // authentic success
                                 if (mCallback != null && mCallback.get() != null) {
                                     mCallback.get().loginSuccess(tokenBean);

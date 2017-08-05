@@ -1,20 +1,16 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
+apply plugin: 'com.android.library'
 
 android {
-
-    def versionCodeDef = 1
-    def versionNameDef = "1.0"
-
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion rootProject.buildToolsVersion
+
+
     defaultConfig {
-        applicationId "com.xjm.xxd.dribbird"
-        minSdkVersion rootProject.compileSdkVersion
+        minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode versionCodeDef
-        versionName versionNameDef
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
     buildTypes {
         release {
@@ -24,8 +20,6 @@ android {
     }
 }
 
-apply from: rootProject.file('app/dependencies.gradle')
-
-repositories {
-    mavenCentral()
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
 }
