@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-
 android {
 
     def versionCodeDef = 1
@@ -23,9 +22,11 @@ android {
         }
     }
 }
-
 apply from: rootProject.file('app/dependencies.gradle')
-
 repositories {
     mavenCentral()
+}
+
+dependencies {
+    compile project(':framework')
 }
