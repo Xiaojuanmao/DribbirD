@@ -32,7 +32,6 @@ public class TokenManager {
 
     /**
      * build oauth2 authentication url
-     *
      * @return the url to auth
      */
     public static String getOAuth2Url() {
