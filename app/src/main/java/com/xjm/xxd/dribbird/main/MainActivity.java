@@ -13,8 +13,6 @@ import com.xjm.xxd.dribbird.R;
 import com.xjm.xxd.dribbird.base.BaseActivity;
 import com.xjm.xxd.dribbird.utils.StatusBarCompat;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -28,7 +26,6 @@ public class MainActivity extends BaseActivity implements
     @BindView(R.id.navigation_view)
     NavigationView mNavigationView;
 
-    @Inject
     IMainActivityPresenter mPresenter;
 
     @Override
@@ -37,7 +34,7 @@ public class MainActivity extends BaseActivity implements
         setContentView(R.layout.activity_main);
         StatusBarCompat.compat(this);
         ButterKnife.bind(this);
-        getActivityComponent().inject(this);
+        mPresenter = new MainActivityPresenter();
         mPresenter.bindIView(this);
 
         initViews();

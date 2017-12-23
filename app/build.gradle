@@ -27,12 +27,3 @@ apply from: rootProject.file('app/dependencies.gradle')
 repositories {
     mavenCentral()
 }
-
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-
-    implementation rootProject.deps.retrofit2Gson
-    implementation rootProject.deps.retrofit2RxJava
-    implementation rootProject.deps.okhttp3Logging
-    implementation rootProject.deps.kotlinStdLib
-}

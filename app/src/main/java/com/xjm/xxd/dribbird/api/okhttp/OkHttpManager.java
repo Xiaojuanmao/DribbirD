@@ -1,16 +1,12 @@
 package com.xjm.xxd.dribbird.api.okhttp;
 
-/**
- * @author : xiaoxiaoda
- * date: 16-11-26
- * email: daque@hustunique.com
- */
-
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.google.gson.Gson;
 import com.xjm.xxd.dribbird.DribApp;
+import com.xjm.xxd.dribbird.api.GsonManager;
+import com.xjm.xxd.dribbird.api.retrofit.RetrofitManager;
 
 import java.io.IOException;
 import java.util.Map;
@@ -23,6 +19,11 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+/**
+ * @author : xiaoxiaoda
+ *         date: 16-11-26
+ *         email: daque@hustunique.com
+ */
 public class OkHttpManager {
 
     private static OkHttpManager mInstance;
@@ -33,7 +34,7 @@ public class OkHttpManager {
     private OkHttpManager() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         mClient = builder.build();
-        mGson = DribApp.getInstance().getApplicationComponent().gson();
+        mGson = GsonManager.gson();
     }
 
     public static OkHttpManager getInstance() {

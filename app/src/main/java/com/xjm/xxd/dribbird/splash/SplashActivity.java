@@ -10,8 +10,6 @@ import com.xjm.xxd.dribbird.login.LoginActivity;
 import com.xjm.xxd.dribbird.main.MainActivity;
 import com.xjm.xxd.dribbird.base.BaseActivity;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -21,7 +19,6 @@ public class SplashActivity extends BaseActivity implements
     @BindView(R.id.splash_background)
     ImageView mImageBackground;
 
-    @Inject
     ISplashActivityPresenter mPresenter;
 
     @Override
@@ -34,7 +31,7 @@ public class SplashActivity extends BaseActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
-        getActivityComponent().inject(this);
+        mPresenter = new SplashActivityPresenter();
         mPresenter.bindIView(this);
 
         initViews();

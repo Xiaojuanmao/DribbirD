@@ -6,7 +6,11 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.xjm.xxd.dribbird.api.ApiConstants;
+import com.xjm.xxd.dribbird.api.GsonManager;
 import com.xjm.xxd.dribbird.api.interceptor.TokenInterceptor;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -25,6 +29,8 @@ public class RetrofitManager {
     private OkHttpClient mHttpClient;
     private Retrofit mRetrofit;
 
+    private Map<Class, Object> mApiMap;
+
     private static RetrofitManager mInstance;
 
     public static RetrofitManager getInstance() {
@@ -35,12 +41,13 @@ public class RetrofitManager {
     }
 
     private RetrofitManager() {
-        mGson = new Gson();
+        mGson = GsonManager.gson();
     }
 
     /**
      * create httpclient instance
      * with logger interceptor
+     *
      * @return httpclient instance
      */
     private OkHttpClient buildOkHttpClient(@Nullable String token) {
@@ -55,6 +62,7 @@ public class RetrofitManager {
     /**
      * create retrofit instance
      * according to httpclient、rx、gson ect
+     *
      * @return retrofit instance
      */
     private Retrofit buildRetrofit(@NonNull String baseUrl) {
@@ -69,6 +77,7 @@ public class RetrofitManager {
 
     /**
      * 构造一个用于网络请求日志功能的拦截器
+     *
      * @return logger interceptor instance
      */
     private HttpLoggingInterceptor buildLoggingInterceptor() {
@@ -85,8 +94,15 @@ public class RetrofitManager {
         mRetrofit = buildRetrofit(ApiConstants.INSTANCE.getBASE_URL());
     }
 
-
-    public <T> T create(Class<T> clazz) {
-        return mRetrofit.create(clazz);
+    public <T> T api(Class<T> clazz) {
+        if (mApiMap == null) {
+            mApiMap = new HashMap<>();
+        }
+        if (mApiMap.get(clazz) != null) {
+            return ((T) mApiMap.get(clazz));
+        }
+        T t = mRetrofit.create(clazz);
+        mApiMap.put(clazz, t);
+        return t;
     }
 }

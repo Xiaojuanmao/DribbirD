@@ -14,8 +14,6 @@ import com.xjm.xxd.dribbird.base.BaseDialog;
 import com.xjm.xxd.dribbird.widget.ProgressWebView;
 import com.xjm.xxd.dribbird.utils.ToastUtils;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -27,7 +25,6 @@ public class LoginActivity extends BaseActivity implements
     @BindView(R.id.web_view)
     ProgressWebView mWebView;
 
-    @Inject
     ILoginActivityPresenter mPresenter;
 
     private BaseDialog mBaseDialog;
@@ -40,7 +37,7 @@ public class LoginActivity extends BaseActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        getActivityComponent().inject(this);
+        mPresenter = new LoginActivityPresenter();
 
         initViews();
 

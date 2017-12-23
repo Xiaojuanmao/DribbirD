@@ -5,16 +5,18 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
 
-    compile rootProject.deps.androidAppCompat
-    compile rootProject.deps.androidDesignLibrary
+    implementation rootProject.deps.androidAppCompat
+    implementation rootProject.deps.androidDesignLibrary
 
-    compile rootProject.deps.butterKnife
+    implementation rootProject.deps.butterKnife
     annotationProcessor rootProject.deps.butterKnifeCompiler
     provided rootProject.deps.javaxAnnotation
 
-    compile rootProject.deps.dagger2
-    annotationProcessor rootProject.deps.daggerCompiler
+    implementation rootProject.deps.rxAndroid
 
-    compile rootProject.deps.rxAndroid
+    implementation rootProject.deps.retrofit2Gson
+    implementation rootProject.deps.retrofit2RxJava
+    implementation rootProject.deps.okhttp3Logging
+    implementation rootProject.deps.kotlinStdLib
 
 }
