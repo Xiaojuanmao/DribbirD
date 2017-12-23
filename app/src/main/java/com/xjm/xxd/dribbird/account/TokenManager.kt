@@ -56,7 +56,7 @@ object TokenManager {
                 if (tokenBean.isNullOrEmpty()) {
                     return null
                 }
-                val gson = OkHttpManager.getInstance().gson
+                val gson = OkHttpManager.instance.gson
                 try {
                     mTokenBean = gson.fromJson(tokenBean, TokenBean::class.java)
                 } catch (e: JsonSyntaxException) {
@@ -84,10 +84,10 @@ object TokenManager {
         if (tokenBean.isNullOrEmpty()) {
             return false
         }
-        val gson = OkHttpManager.getInstance().gson
+        val gson = OkHttpManager.instance.gson
         try {
             mTokenBean = gson.fromJson(tokenBean, TokenBean::class.java)
-        } catch (e: JsonSyntaxException) {
+        } catch (e: Throwable) {
             e.printStackTrace()
             return false
         }
@@ -103,11 +103,11 @@ object TokenManager {
         params.put(ApiConstants.CLIENT_ID, ApiConstants.DRIBBLE_CLIENT_ID)
         params.put(ApiConstants.CLIENT_SECRET, ApiConstants.DRIBBLE_CLIENT_SECRET)
         params.put(ApiConstants.CODE, returnCode!!)
-        val response = OkHttpManager.getInstance().postSync(
+        val response = OkHttpManager.instance.postSync(
                 ApiConstants.OAUTH_BASE_URL + ApiConstants.TOKEN,
                 params) ?: return null
         val responseBody = response.body() ?: return null
-        val gson = OkHttpManager.getInstance().gson
+        val gson = OkHttpManager.instance.gson
         val tokenBean = gson.fromJson(responseBody.charStream(), TokenBean::class.java)
         SharedPreferencesUtils.setDefaultString(SharedPreferConstants.TOKEN_BEAN, gson.toJson(tokenBean))
         return tokenBean

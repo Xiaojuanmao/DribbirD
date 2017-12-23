@@ -24,7 +24,7 @@ public class MainActivityPresenter implements IMainActivityPresenter {
     private UserApi mUserApi;
 
     public MainActivityPresenter() {
-        mUserApi = RetrofitManager.getInstance().api(UserApi.class);
+        mUserApi = RetrofitManager.Companion.getInstance().api(UserApi.class);
     }
 
     @Override

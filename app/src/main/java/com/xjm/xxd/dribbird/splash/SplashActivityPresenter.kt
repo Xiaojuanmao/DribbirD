@@ -32,7 +32,6 @@ class SplashActivityPresenter : ISplashActivityPresenter {
 
     private val mCompositeDisposable: CompositeDisposable by lazy { CompositeDisposable() }
 
-
     override fun bindIView(iView: SplashActivityView) {
         mView = iView
     }
@@ -46,11 +45,11 @@ class SplashActivityPresenter : ISplashActivityPresenter {
         }.delay(3, TimeUnit.SECONDS)
                 .compose(RxUtils.applyNetworkScheduler<Boolean>())
                 .subscribe({ aBoolean ->
-                    if (aBoolean!!) {
+                    if (aBoolean) {
                         // 存在有效的token，设置好网络请求的token拦截器，跳转主页
                         val tokenBean = TokenManager.tokenBean
-                        if (tokenBean != null) {
-                            RetrofitManager.getInstance().addTokenInterceptor(tokenBean.accessToken)
+                        tokenBean?.let {
+                            RetrofitManager.instance.addTokenInterceptor(it.accessToken)
                         }
                         mView!!.jumpToMainPage()
                         Log.w(TAG, "checkAccount(), token exist -> main page")
