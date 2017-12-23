@@ -15,9 +15,9 @@ import retrofit2.http.Path;
 public interface UserApi {
 
     @GET("user")
-    Flowable<UserBean> getAuthenticatedUser();
+    Observable<UserBean> getAuthenticatedUser();
 
     @GET("users/{userId}")
-    Flowable<UserBean> getUserInfo(@Path("userId") String userId);
+    Observable<UserBean> getUserInfo(@Path("userId") String userId);
 
 }

@@ -30,7 +30,7 @@ public class ProgressWebView extends WebView {
     }
 
     public ProgressWebView(Context context, AttributeSet attrs) {
-        this(context, attrs, Resources.getSystem().getIdentifier("webViewStyle","attr","android"));
+        this(context, attrs, Resources.getSystem().getIdentifier("webViewStyle", "attr", "android"));
     }
 
     public ProgressWebView(Context context, AttributeSet attrs, int defStyleAttr) {

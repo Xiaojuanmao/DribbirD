@@ -46,10 +46,10 @@ public class LoginWebViewClient extends WebViewClient {
             // TODO : url is null
         } else {
             // url is match with oauth request url
-            if (TokenManager.isMatchRedirectUrl(url)) {
+            if (TokenManager.INSTANCE.isMatchRedirectUrl(url)) {
                 // get the return code
                 Uri uri = Uri.parse(url);
-                String returnCode = uri.getQueryParameter(ApiConstants.CODE);
+                String returnCode = uri.getQueryParameter(ApiConstants.INSTANCE.getCODE());
                 processReturnCode(returnCode);
             } else {
                 view.loadUrl(url);
@@ -74,11 +74,11 @@ public class LoginWebViewClient extends WebViewClient {
             if (mCallback != null && mCallback.get() != null) {
                 mCallback.get().showLoading(R.string.being_authorized);
             }
-            mAuthDisposable = Flowable.just(returnCode)
+            mAuthDisposable = Observable.just(returnCode)
                     .map(new Function<String, TokenBean>() {
                         @Override
                         public TokenBean apply(String s) {
-                            return TokenManager.requestForToken(s);
+                            return TokenManager.INSTANCE.requestForToken(s);
                         }
                     }).compose(RxUtils.<TokenBean>applyNetworkScheduler())
                     .subscribe(new Consumer<TokenBean>() {

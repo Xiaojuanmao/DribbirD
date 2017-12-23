@@ -1,11 +1,5 @@
 package com.xjm.xxd.dribbird.api.retrofit;
 
-/**
- * @author : xiaoxiaoda
- *         date: 16-12-7
- *         email: daque@hustunique.com
- */
-
 import com.xjm.xxd.dribbird.model.BucketBean;
 import com.xjm.xxd.dribbird.model.BucketBriefInfoRsp;
 
@@ -19,6 +13,10 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 /**
+ * @author : xiaoxiaoda
+ * date: 16-12-7
+ * email: daque@hustunique.com
+ *
  * Api to manage bucket
  */
 public interface BucketApi {
@@ -46,7 +44,6 @@ public interface BucketApi {
     Flowable<Void> deleteBucket(
             @Path("bucketId") int bucketId
     );
-
 
 
 }

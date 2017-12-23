@@ -82,7 +82,7 @@ public class RetrofitManager {
      */
     public void addTokenInterceptor(String token) {
         mHttpClient = buildOkHttpClient(token);
-        mRetrofit = buildRetrofit(ApiConstants.BASE_URL);
+        mRetrofit = buildRetrofit(ApiConstants.INSTANCE.getBASE_URL());
     }
 
 

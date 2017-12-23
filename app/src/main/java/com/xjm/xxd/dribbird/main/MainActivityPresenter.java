@@ -12,7 +12,6 @@ import javax.inject.Inject;
 
 import io.reactivex.functions.Consumer;
 
-
 /**
  * Created by queda on 2016/11/21.
  */
@@ -40,18 +39,18 @@ public class MainActivityPresenter implements IMainActivityPresenter {
         mUserApi.getAuthenticatedUser()
                 .compose(RxUtils.<UserBean>applyNetworkScheduler())
                 .subscribe(new Consumer<UserBean>() {
-                            @Override
-                            public void accept(UserBean userBean) throws Exception {
-                                Log.e(TAG, new Gson().toJson(userBean));
+                    @Override
+                    public void accept(UserBean userBean) throws Exception {
+                        Log.e(TAG, new Gson().toJson(userBean));
 
-                            }
-                        }, new Consumer<Throwable>() {
-                            @Override
-                            public void accept(Throwable throwable) throws Exception {
-                                Log.d(TAG, throwable.toString());
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Log.d(TAG, throwable.toString());
 
-                            }
-                        });
+                    }
+                });
     }
 
     @Override

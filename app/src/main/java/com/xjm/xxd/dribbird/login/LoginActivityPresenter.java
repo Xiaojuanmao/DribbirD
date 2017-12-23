@@ -21,7 +21,7 @@ public class LoginActivityPresenter implements ILoginActivityPresenter {
 
     @Override
     public void init() {
-        mView.loadUrl(TokenManager.getOAuth2Url());
+        mView.loadUrl(TokenManager.INSTANCE.getOAuth2Url());
     }
 
     @Override

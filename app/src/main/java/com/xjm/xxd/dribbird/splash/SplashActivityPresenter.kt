@@ -38,16 +38,17 @@ class SplashActivityPresenter : ISplashActivityPresenter {
     }
 
     override fun checkAccount() {
-        mCompositeDisposable.add(Flowable.create(FlowableOnSubscribe<Boolean> { flowableEmitter ->
+
+        mCompositeDisposable.add(Observable.create<Boolean> { emitter ->
             val hasAvailableToken = TokenManager.hasAvailableToken()
-            flowableEmitter.onNext(hasAvailableToken)
-            flowableEmitter.onComplete()
-        }, BackpressureStrategy.DROP).delay(3, TimeUnit.SECONDS)
+            emitter.onNext(hasAvailableToken)
+            emitter.onComplete()
+        }.delay(3, TimeUnit.SECONDS)
                 .compose(RxUtils.applyNetworkScheduler<Boolean>())
                 .subscribe({ aBoolean ->
                     if (aBoolean!!) {
                         // 存在有效的token，设置好网络请求的token拦截器，跳转主页
-                        val tokenBean = TokenManager.getTokenBean()
+                        val tokenBean = TokenManager.tokenBean
                         if (tokenBean != null) {
                             RetrofitManager.getInstance().addTokenInterceptor(tokenBean.accessToken)
                         }
