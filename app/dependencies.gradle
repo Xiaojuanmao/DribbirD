@@ -16,9 +16,5 @@ dependencies {
     annotationProcessor rootProject.deps.daggerCompiler
 
     compile rootProject.deps.rxAndroid
-    compile rootProject.deps.retrofit2Gson
-    compile rootProject.deps.retrofit2RxJava
-    compile rootProject.deps.okhttp3Logging
-    compile rootProject.deps.kotlinStdLib
 
 }
