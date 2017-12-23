@@ -29,5 +29,4 @@ repositories {
 }
 
 dependencies {
-    compile project(':framework')
 }
