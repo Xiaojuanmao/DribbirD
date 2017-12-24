@@ -1,19 +1,11 @@
 package com.xjm.xxd.dribbird.account
 
-import android.text.TextUtils
-
-import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
-import com.xjm.xxd.dribbird.api.ApiConstants
-import com.xjm.xxd.dribbird.api.okhttp.OkHttpManager
+import com.xjm.xxd.framework.api.ApiConstants
+import com.xjm.xxd.framework.api.OkHttpManager
 import com.xjm.xxd.dribbird.utils.SharedPreferConstants
 import com.xjm.xxd.dribbird.utils.SharedPreferencesUtils
 import com.xjm.xxd.dribbird.utils.nullAsFalse
-
-import java.util.HashMap
-
-import okhttp3.Response
-import okhttp3.ResponseBody
 
 /**
  * @author : dada

@@ -1,4 +1,4 @@
-package com.xjm.xxd.dribbird.api.retrofit
+package com.xjm.xxd.dribbird.api
 
 import com.xjm.xxd.dribbird.model.UserBean
 

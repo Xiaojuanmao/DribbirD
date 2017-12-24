@@ -2,7 +2,7 @@ package com.xjm.xxd.dribbird.login;
 
 import android.support.annotation.StringRes;
 
-import com.xjm.xxd.dribbird.base.IView;
+import com.xjm.xxd.framework.base.IView;
 
 /**
  * Created by queda on 2016/12/2.

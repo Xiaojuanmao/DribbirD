@@ -1,6 +1,6 @@
 package com.xjm.xxd.dribbird.main;
 
-import com.xjm.xxd.dribbird.base.IView;
+import com.xjm.xxd.framework.base.IView;
 
 /**
  * Created by queda on 2016/11/21.

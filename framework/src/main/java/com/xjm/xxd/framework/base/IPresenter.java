@@ -1,4 +1,4 @@
-package com.xjm.xxd.dribbird.base;
+package com.xjm.xxd.framework.base;
 
 /**
  * Created by queda on 2016/11/21.

@@ -17,9 +17,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
-
 /**
  * Created by queda on 2016/12/4.
  */
@@ -58,10 +55,10 @@ public class BaseDialog extends DialogFragment {
         setMessage(mMessage);
         setCallback(mCallback);
         enableProgressbar(mHasProgressbar);
-        if (mProgressBar.getVisibility() == GONE && mMessageTv.getVisibility() == GONE) {
-            mMessageRoot.setVisibility(GONE);
+        if (mProgressBar.getVisibility() == View.GONE && mMessageTv.getVisibility() == View.GONE) {
+            mMessageRoot.setVisibility(View.GONE);
         } else {
-            mMessageRoot.setVisibility(VISIBLE);
+            mMessageRoot.setVisibility(View.VISIBLE);
         }
         return view;
     }
@@ -128,35 +125,35 @@ public class BaseDialog extends DialogFragment {
 
     private void enableMessage(boolean enable) {
         if (enable) {
-            mMessageTv.setVisibility(VISIBLE);
+            mMessageTv.setVisibility(View.VISIBLE);
         } else {
-            mMessageTv.setVisibility(GONE);
+            mMessageTv.setVisibility(View.GONE);
         }
     }
 
     private void enableProgressbar(boolean enable) {
         if (enable) {
-            mProgressBar.setVisibility(VISIBLE);
+            mProgressBar.setVisibility(View.VISIBLE);
             mHasProgressbar = true;
         } else {
-            mProgressBar.setVisibility(GONE);
+            mProgressBar.setVisibility(View.GONE);
             mHasProgressbar = false;
         }
     }
 
     private void enableTitle(boolean enable) {
         if (enable) {
-            mTitleRoot.setVisibility(VISIBLE);
+            mTitleRoot.setVisibility(View.VISIBLE);
         } else {
-            mTitleRoot.setVisibility(GONE);
+            mTitleRoot.setVisibility(View.GONE);
         }
     }
 
     private void enableManipulateRoot(boolean enable) {
         if (enable) {
-            mManipulateRoot.setVisibility(VISIBLE);
+            mManipulateRoot.setVisibility(View.VISIBLE);
         } else {
-            mManipulateRoot.setVisibility(GONE);
+            mManipulateRoot.setVisibility(View.GONE);
         }
     }
 

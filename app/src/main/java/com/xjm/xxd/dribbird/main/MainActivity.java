@@ -10,7 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.xjm.xxd.dribbird.R;
-import com.xjm.xxd.dribbird.base.BaseActivity;
+import com.xjm.xxd.framework.base.BaseActivity;
 import com.xjm.xxd.dribbird.utils.StatusBarCompat;
 
 import butterknife.BindView;

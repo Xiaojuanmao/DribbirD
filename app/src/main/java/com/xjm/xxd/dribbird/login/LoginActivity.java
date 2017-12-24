@@ -9,7 +9,7 @@ import android.webkit.WebSettings;
 
 import com.xjm.xxd.dribbird.R;
 import com.xjm.xxd.dribbird.main.MainActivity;
-import com.xjm.xxd.dribbird.base.BaseActivity;
+import com.xjm.xxd.framework.base.BaseActivity;
 import com.xjm.xxd.dribbird.base.BaseDialog;
 import com.xjm.xxd.dribbird.widget.ProgressWebView;
 import com.xjm.xxd.dribbird.utils.ToastUtils;

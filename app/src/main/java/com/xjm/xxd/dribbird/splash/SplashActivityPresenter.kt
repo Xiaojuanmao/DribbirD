@@ -2,25 +2,14 @@ package com.xjm.xxd.dribbird.splash
 
 import android.util.Log
 
-import com.xjm.xxd.dribbird.account.TokenBean
 import com.xjm.xxd.dribbird.account.TokenManager
-import com.xjm.xxd.dribbird.api.retrofit.RetrofitManager
+import com.xjm.xxd.framework.api.RetrofitManager
 import com.xjm.xxd.dribbird.utils.RxUtils
-
-import org.reactivestreams.Publisher
-import org.reactivestreams.Subscriber
 
 import java.util.concurrent.TimeUnit
 
-import io.reactivex.BackpressureStrategy
-import io.reactivex.Flowable
-import io.reactivex.FlowableEmitter
-import io.reactivex.FlowableOnSubscribe
 import io.reactivex.Observable
-import io.reactivex.ObservableEmitter
-import io.reactivex.ObservableOnSubscribe
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.Consumer
 
 /**
  * Created by queda on 2016/12/3.

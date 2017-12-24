@@ -1,13 +1,4 @@
-package com.xjm.xxd.dribbird.api.retrofit
-
-import android.text.TextUtils
-
-import com.google.gson.Gson
-import com.xjm.xxd.dribbird.api.ApiConstants
-import com.xjm.xxd.dribbird.api.GsonManager
-import com.xjm.xxd.dribbird.api.interceptor.TokenInterceptor
-
-import java.util.HashMap
+package com.xjm.xxd.framework.api
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

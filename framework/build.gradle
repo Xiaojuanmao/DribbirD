@@ -27,9 +27,15 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     testImplementation rootProject.deps.junit
-
-    implementation rootProject.deps.androidAppCompat
+    implementation rootProject.deps.kotlinStdLib
 
     androidTestImplementation(rootProject.deps.testRunner)
     androidTestImplementation(rootProject.deps.espresso)
+
+    implementation rootProject.deps.androidAppCompat
+
+    implementation rootProject.deps.retrofit2Gson
+    implementation rootProject.deps.retrofit2RxJava
+    
+    implementation rootProject.deps.okhttp3Logging
 }

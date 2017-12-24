@@ -1,9 +1,4 @@
-package com.xjm.xxd.dribbird.api.okhttp
-
-import com.google.gson.Gson
-import com.xjm.xxd.dribbird.DribApp
-import com.xjm.xxd.dribbird.api.GsonManager
-import com.xjm.xxd.dribbird.api.retrofit.RetrofitManager
+package com.xjm.xxd.framework.api
 
 import java.io.IOException
 

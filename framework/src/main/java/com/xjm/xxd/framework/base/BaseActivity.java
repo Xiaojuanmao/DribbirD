@@ -1,4 +1,4 @@
-package com.xjm.xxd.dribbird.base;
+package com.xjm.xxd.framework.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

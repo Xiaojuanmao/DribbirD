@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import com.xjm.xxd.dribbird.R;
 import com.xjm.xxd.dribbird.login.LoginActivity;
 import com.xjm.xxd.dribbird.main.MainActivity;
-import com.xjm.xxd.dribbird.base.BaseActivity;
+import com.xjm.xxd.framework.base.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

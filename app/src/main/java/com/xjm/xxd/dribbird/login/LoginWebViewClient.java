@@ -10,14 +10,13 @@ import android.webkit.WebViewClient;
 import com.xjm.xxd.dribbird.R;
 import com.xjm.xxd.dribbird.account.TokenBean;
 import com.xjm.xxd.dribbird.account.TokenManager;
-import com.xjm.xxd.dribbird.api.ApiConstants;
-import com.xjm.xxd.dribbird.api.retrofit.RetrofitManager;
+import com.xjm.xxd.framework.api.ApiConstants;
+import com.xjm.xxd.framework.api.RetrofitManager;
 import com.xjm.xxd.dribbird.utils.RxUtils;
 
 
 import java.lang.ref.WeakReference;
 
-import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
