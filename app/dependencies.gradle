@@ -7,6 +7,7 @@ dependencies {
 
     implementation rootProject.deps.androidAppCompat
     implementation rootProject.deps.androidDesignLibrary
+    implementation rootProject.deps.androidRecyclerView
 
     implementation rootProject.deps.butterKnife
     annotationProcessor rootProject.deps.butterKnifeCompiler

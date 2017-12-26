@@ -33,7 +33,9 @@ dependencies {
     androidTestImplementation(rootProject.deps.espresso)
 
     implementation rootProject.deps.androidAppCompat
+    implementation rootProject.deps.androidRecyclerView
 
+    implementation rootProject.deps.rxAndroid
     implementation rootProject.deps.retrofit2Gson
     implementation rootProject.deps.retrofit2RxJava
     

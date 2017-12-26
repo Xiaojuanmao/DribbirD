@@ -55,7 +55,7 @@ public class SplashActivity extends BaseActivity implements
 
     @Override
     public void jumpToLoginActivity() {
-        LoginActivity.open(this);
+        LoginActivity.Companion.open(this);
         finish();
     }
 

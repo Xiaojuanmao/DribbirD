@@ -6,7 +6,7 @@ import com.google.gson.Gson;
 import com.xjm.xxd.framework.api.RetrofitManager;
 import com.xjm.xxd.dribbird.api.UserApi;
 import com.xjm.xxd.dribbird.model.UserBean;
-import com.xjm.xxd.dribbird.utils.RxUtils;
+import com.xjm.xxd.framework.utils.RxUtils;
 
 import io.reactivex.functions.Consumer;
 

@@ -1,7 +1,6 @@
-package com.xjm.xxd.dribbird.utils
+package com.xjm.xxd.framework.utils
 
 import io.reactivex.*
-import org.reactivestreams.Publisher
 
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

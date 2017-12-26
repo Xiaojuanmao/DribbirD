@@ -4,7 +4,7 @@ import android.util.Log
 
 import com.xjm.xxd.dribbird.account.TokenManager
 import com.xjm.xxd.framework.api.RetrofitManager
-import com.xjm.xxd.dribbird.utils.RxUtils
+import com.xjm.xxd.framework.utils.RxUtils
 
 import java.util.concurrent.TimeUnit
 

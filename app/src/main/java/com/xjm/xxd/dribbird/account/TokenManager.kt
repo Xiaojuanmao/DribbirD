@@ -3,9 +3,8 @@ package com.xjm.xxd.dribbird.account
 import com.google.gson.JsonSyntaxException
 import com.xjm.xxd.framework.api.ApiConstants
 import com.xjm.xxd.framework.api.OkHttpManager
-import com.xjm.xxd.dribbird.utils.SharedPreferConstants
-import com.xjm.xxd.dribbird.utils.SharedPreferencesUtils
-import com.xjm.xxd.dribbird.utils.nullAsFalse
+import com.xjm.xxd.framework.data.CommonStore
+import com.xjm.xxd.framework.ext.nullAsFalse
 
 /**
  * @author : dada
@@ -44,8 +43,8 @@ object TokenManager {
     val tokenBean: TokenBean?
         get() {
             if (mTokenBean == null) {
-                val tokenBean = SharedPreferencesUtils.getDefaultString(SharedPreferConstants.TOKEN_BEAN, "")
-                if (tokenBean.isNullOrEmpty()) {
+                val tokenBean = CommonStore.tokenBean
+                if (tokenBean.isEmpty()) {
                     return null
                 }
                 val gson = OkHttpManager.instance.gson
@@ -72,8 +71,8 @@ object TokenManager {
      * @return
      */
     fun hasAvailableToken(): Boolean {
-        val tokenBean = SharedPreferencesUtils.getDefaultString(SharedPreferConstants.TOKEN_BEAN, "")
-        if (tokenBean.isNullOrEmpty()) {
+        val tokenBean = CommonStore.tokenBean
+        if (tokenBean.isEmpty()) {
             return false
         }
         val gson = OkHttpManager.instance.gson
@@ -101,7 +100,7 @@ object TokenManager {
         val responseBody = response.body() ?: return null
         val gson = OkHttpManager.instance.gson
         val tokenBean = gson.fromJson(responseBody.charStream(), TokenBean::class.java)
-        SharedPreferencesUtils.setDefaultString(SharedPreferConstants.TOKEN_BEAN, gson.toJson(tokenBean))
+        CommonStore.tokenBean = gson.toJson(tokenBean)
         return tokenBean
     }
 
