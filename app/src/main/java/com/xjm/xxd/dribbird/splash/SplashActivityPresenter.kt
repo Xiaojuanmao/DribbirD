@@ -15,7 +15,7 @@ import io.reactivex.disposables.CompositeDisposable
  * Created by queda on 2016/12/3.
  */
 
-class SplashActivityPresenter : ISplashActivityPresenter {
+class SplashActivityPresenter {
 
     private var mView: SplashActivityView? = null
 

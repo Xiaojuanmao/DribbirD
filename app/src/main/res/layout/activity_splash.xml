@@ -7,7 +7,7 @@
     tools:context="com.xjm.xxd.dribbird.splash.SplashActivity">
 
     <ImageView
-        android:id="@+id/splash_background"
+        android:id="@+id/iv_background"
         android:scaleType="centerCrop"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

@@ -1,5 +1,6 @@
 package com.xjm.xxd.dribbird.main;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -67,12 +68,12 @@ public class MainActivity extends BaseActivity implements
 
     }
 
-    public static void open(BaseActivity baseActivity) {
-        if (baseActivity == null) {
+    public static void open(Context context) {
+        if (context == null) {
             return;
         }
-        Intent intent = new Intent(baseActivity, MainActivity.class);
-        baseActivity.startActivity(intent);
+        Intent intent = new Intent(context, MainActivity.class);
+        context.startActivity(intent);
     }
 
 }

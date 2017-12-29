@@ -1,5 +1,6 @@
 package com.xjm.xxd.dribbird.login
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.StringRes
@@ -106,12 +107,12 @@ class LoginActivity : BaseActivity(), LoginActivityView {
 
         private val TAG = LoginActivity::class.java.simpleName
 
-        fun open(activity: BaseActivity?) {
-            if (activity == null) {
+        fun open(context: Context?) {
+            if (context == null) {
                 return
             }
-            val intent = Intent(activity, LoginActivity::class.java)
-            activity.startActivity(intent)
+            val intent = Intent(context, LoginActivity::class.java)
+            context.startActivity(intent)
         }
     }
 

@@ -11,9 +11,6 @@ import io.reactivex.disposables.Disposable
 
 abstract class BaseActivity : AppCompatActivity() {
 
-    protected val tag: String
-        get() = this.javaClass.simpleName
-
     private var mCompositeDisposable: CompositeDisposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

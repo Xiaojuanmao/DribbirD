@@ -8,12 +8,12 @@ import java.lang.ref.WeakReference
  * Created by queda on 2017/12/26.
  */
 
-abstract class BasePresenter<V : Viewer>: Presenter<V> {
+abstract class BasePresenter<V : Viewer> : Presenter<V> {
 
     protected var viewer: V? = null
-    get() {
-        return mViewerRef?.get()
-    }
+        get() {
+            return mViewerRef?.get()
+        }
 
     private var mViewerRef: WeakReference<V>? = null
 
@@ -21,15 +21,11 @@ abstract class BasePresenter<V : Viewer>: Presenter<V> {
 
     override fun attachViewer(v: V) {
         mViewerRef = WeakReference(v)
-        if (mCompositeDisposable == null) {
-            mCompositeDisposable = CompositeDisposable()
-        }
+        checkCompositeDisposable()
     }
 
     protected fun addDispose(disposable: Disposable) {
-        if (mCompositeDisposable == null) {
-            mCompositeDisposable = CompositeDisposable()
-        }
+        checkCompositeDisposable()
         mCompositeDisposable?.add(disposable)
     }
 
@@ -39,4 +35,11 @@ abstract class BasePresenter<V : Viewer>: Presenter<V> {
         mCompositeDisposable?.dispose()
         mCompositeDisposable = null
     }
+
+    private fun checkCompositeDisposable() {
+        if (mCompositeDisposable == null) {
+            mCompositeDisposable = CompositeDisposable()
+        }
+    }
+
 }
