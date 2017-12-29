@@ -9,20 +9,19 @@ import android.text.TextUtils
 
 import com.xjm.xxd.dribbird.R
 import com.xjm.xxd.dribbird.main.MainActivity
-import com.xjm.xxd.framework.base.BaseActivity
 import com.xjm.xxd.dribbird.base.BaseDialog
 import com.xjm.xxd.dribbird.widget.ProgressWebView
 
-import butterknife.ButterKnife
+import com.xjm.xxd.dribbird.account.TokenManager
+import com.xjm.xxd.framework.base.mvp.MVPActivity
 import com.xjm.xxd.framework.ext.bindView
 import com.xjm.xxd.framework.ext.toast
 
-class LoginActivity : BaseActivity(), LoginActivityView {
+class LoginActivity : MVPActivity<LoginActivityContract.Presenter, LoginActivityContract.Viewer>(),
+        LoginActivityContract.Viewer {
 
     private val mToolbar by bindView<Toolbar>(R.id.tool_bar)
     private val mWebView by bindView<ProgressWebView>(R.id.web_view)
-
-    private var mPresenter: ILoginActivityPresenter? = null
 
     private var mBaseDialog: BaseDialog? = null
     private var mWebViewClient: LoginWebViewClient? = null
@@ -30,21 +29,16 @@ class LoginActivity : BaseActivity(), LoginActivityView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        ButterKnife.bind(this)
-        mPresenter = LoginActivityPresenter()
 
         initViews()
 
-        mPresenter!!.bindIView(this)
-        mPresenter!!.init()
+        loadUrl(TokenManager.oAuth2Url)
     }
+
+    override fun createPresenter(): LoginActivityContract.Presenter = LoginActivityPresenter()
 
     override fun onDestroy() {
         super.onDestroy()
-        if (mPresenter != null) {
-            mPresenter!!.onDestroy()
-        }
-
         if (mWebViewClient != null) {
             mWebViewClient!!.onDestroy()
         }
@@ -56,7 +50,7 @@ class LoginActivity : BaseActivity(), LoginActivityView {
 
         val settings = mWebView.settings
         settings.javaScriptEnabled = true
-        mWebViewClient = LoginWebViewClient(mPresenter)
+        mWebViewClient = LoginWebViewClient(presenter())
         mWebView.setWebViewClient(mWebViewClient)
     }
 

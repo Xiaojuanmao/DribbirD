@@ -15,19 +15,11 @@ import io.reactivex.disposables.CompositeDisposable
  * Created by queda on 2016/12/3.
  */
 
-class SplashActivityPresenter {
-
-    private var mView: SplashActivityView? = null
-
-    private val mCompositeDisposable: CompositeDisposable by lazy { CompositeDisposable() }
-
-    override fun bindIView(iView: SplashActivityView) {
-        mView = iView
-    }
+class SplashActivityPresenter: SplashActivityContract.Presenter() {
 
     override fun checkAccount() {
 
-        mCompositeDisposable.add(Observable.create<Boolean> { emitter ->
+        addDispose(Observable.create<Boolean> { emitter ->
             val hasAvailableToken = TokenManager.hasAvailableToken()
             emitter.onNext(hasAvailableToken)
             emitter.onComplete()
@@ -40,27 +32,22 @@ class SplashActivityPresenter {
                         tokenBean?.let {
                             RetrofitManager.instance.addTokenInterceptor(it.accessToken)
                         }
-                        mView!!.jumpToMainPage()
+                        viewer?.jumpToMainPage()
                         Log.w(TAG, "checkAccount(), token exist -> main page")
                     } else {
                         // token not exist, jump to login activity
-                        mView!!.jumpToLoginActivity()
+                        viewer?.jumpToLoginActivity()
                         Log.w(TAG, "checkAccount(), token not exist -> login activity")
                     }
                 }) { throwable ->
                     // exception, jump to login activity
                     Log.e(TAG, "checkAccount(), throwable : ", throwable)
-                    mView!!.jumpToLoginActivity()
+                    viewer?.jumpToLoginActivity()
                 })
 
     }
 
-    override fun onDestroy() {
-        mCompositeDisposable.dispose()
-    }
-
     companion object {
-
         private val TAG = SplashActivityPresenter::class.java.simpleName
     }
 

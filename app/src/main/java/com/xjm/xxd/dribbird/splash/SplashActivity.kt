@@ -28,6 +28,8 @@ class SplashActivity : MVPActivity<SplashActivityContract.Presenter, SplashActiv
         presenter().checkAccount()
     }
 
+    override fun createPresenter(): SplashActivityContract.Presenter = SplashActivityPresenter()
+
     private fun initViews() {
         mIvBackground.alpha = 0.3f
         mIvBackground.setImageResource(R.drawable.bg_splash_activity)

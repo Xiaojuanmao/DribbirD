@@ -51,6 +51,6 @@ abstract class MVPActivity<out P : BasePresenter<V>, V : Viewer> : AppCompatActi
         return mPresenter!!
     }
 
-    internal abstract fun createPresenter(): P
+    protected abstract fun createPresenter(): P
 
 }
