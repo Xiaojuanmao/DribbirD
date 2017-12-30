@@ -1,9 +1,9 @@
 package com.xjm.xxd.dribbird.api
 
 import com.xjm.xxd.dribbird.model.BucketBean
-import com.xjm.xxd.dribbird.model.BucketBriefInfoRsp
+import com.xjm.xxd.dribbird.model.BucketBriefInfoResponse
+import io.reactivex.Observable
 
-import io.reactivex.Flowable
 import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -24,26 +24,26 @@ interface BucketApi {
     @GET("buckets/{bucketId}")
     fun getBucket(
             @Path("bucketId") bucketId: Int
-    ): Flowable<BucketBean>
+    ): Observable<BucketBean>
 
     @FormUrlEncoded
     @POST("buckets")
     fun createBucket(
             @Field("name") bucketName: String,
             @Field("description") bucketDesc: String
-    ): Flowable<BucketBriefInfoRsp>
+    ): Observable<BucketBriefInfoResponse>
 
     @PUT("buckets/{bucketId}")
     fun updateBucket(
             @Path("bucketId") bucketId: Int,
             @Field("name") bucketName: String,
             @Field("description") bucketDesc: String
-    ): Flowable<BucketBriefInfoRsp>
+    ): Observable<BucketBriefInfoResponse>
 
     @DELETE("buckets/{bucketId}")
     fun deleteBucket(
             @Path("bucketId") bucketId: Int
-    ): Flowable<Void>
+    ): Observable<Void>
 
 
 }
