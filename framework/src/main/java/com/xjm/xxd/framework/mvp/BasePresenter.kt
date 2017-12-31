@@ -1,4 +1,4 @@
-package com.xjm.xxd.framework.base.mvp
+package com.xjm.xxd.framework.mvp
 
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable

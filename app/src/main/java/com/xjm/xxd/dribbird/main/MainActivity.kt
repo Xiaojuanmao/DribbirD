@@ -9,7 +9,7 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.Toolbar
 import com.xjm.xxd.dribbird.R
 import com.xjm.xxd.dribbird.utils.StatusBarCompat
-import com.xjm.xxd.framework.base.mvp.MVPActivity
+import com.xjm.xxd.framework.mvp.MVPActivity
 import com.xjm.xxd.framework.ext.bindView
 
 class MainActivity : MVPActivity<MainActivityContract.Presenter, MainActivityContract.Viewer>(),

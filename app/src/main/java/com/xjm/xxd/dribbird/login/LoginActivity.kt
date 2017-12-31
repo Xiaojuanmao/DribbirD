@@ -13,7 +13,7 @@ import com.xjm.xxd.dribbird.base.BaseDialog
 import com.xjm.xxd.dribbird.widget.ProgressWebView
 
 import com.xjm.xxd.dribbird.account.TokenManager
-import com.xjm.xxd.framework.base.mvp.MVPActivity
+import com.xjm.xxd.framework.mvp.MVPActivity
 import com.xjm.xxd.framework.ext.bindView
 import com.xjm.xxd.framework.ext.toast
 

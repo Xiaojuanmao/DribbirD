@@ -25,10 +25,10 @@ object ApiConstants {
     val CODE = "code"
     val TOKEN = "token"
 
-    val DEFAULT_REDIRECT_URI_PRE = "http://xiaojuanmao.github.io"
+    val DEFAULT_REDIRECT_URI_PRE = "https://dribbble.com"
 
     // application api
-    val BASE_URL = "https://api.dribbble.com/v1/"
+    val BASE_URL = "https://api.dribbble.com/v2/"
     val USERS = "users"
 
 }

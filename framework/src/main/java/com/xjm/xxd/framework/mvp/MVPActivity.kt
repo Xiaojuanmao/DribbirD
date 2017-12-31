@@ -1,4 +1,4 @@
-package com.xjm.xxd.framework.base.mvp
+package com.xjm.xxd.framework.mvp
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
