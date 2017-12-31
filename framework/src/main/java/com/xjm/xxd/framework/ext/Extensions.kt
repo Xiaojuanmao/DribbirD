@@ -12,6 +12,10 @@ fun Boolean?.nullAsFalse(): Boolean {
     return this != null && this
 }
 
+fun Boolean?.nullAsTrue() : Boolean {
+    return this == null || this
+}
+
 fun toast(msg: CharSequence?) {
     msg?.let {
         Toast.makeText(BaseApp.instance.applicationContext, msg, Toast.LENGTH_SHORT).show()

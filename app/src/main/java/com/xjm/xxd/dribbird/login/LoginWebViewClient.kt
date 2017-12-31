@@ -12,16 +12,12 @@ import com.xjm.xxd.dribbird.account.TokenBean
 import com.xjm.xxd.dribbird.account.TokenManager
 import com.xjm.xxd.framework.api.ApiConstants
 import com.xjm.xxd.framework.api.RetrofitManager
-import com.xjm.xxd.framework.utils.RxUtils
-
-import java.lang.ref.WeakReference
+import com.xjm.xxd.framework.utils.rx.RxUtils
 
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import io.reactivex.functions.Consumer
-import io.reactivex.functions.Function
 
 /**
  * @author : xiaoxiaoda
@@ -75,8 +71,6 @@ class LoginWebViewClient(callback: LoginWebViewClientCallback) : WebViewClient()
                         override fun onNext(tokenBean: TokenBean?) {
                             mCallback?.hideLoading()
                             if (tokenBean != null) {
-                                // 给Retrofit设置token
-                                RetrofitManager.instance.addTokenInterceptor(tokenBean.accessToken)
                                 // authentic success
                                 mCallback?.loginSuccess(tokenBean)
                             } else {

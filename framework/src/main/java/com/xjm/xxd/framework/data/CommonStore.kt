@@ -10,7 +10,10 @@ import com.xjm.xxd.framework.BaseApp
 
 object CommonStore {
 
-    var tokenBean by CommonPreference("token_bean", "")
+    var currentOauthToken by CommonPreference("oauth_token", "")
+    var currentTokenBean by CommonPreference("token_bean", "")
+
+    var currentUserId by CommonPreference<String?>("current_user_id", null)
 
     private val mSharePreferences by lazy {
         BaseApp.instance.getSharedPreferences("common", Context.MODE_PRIVATE)

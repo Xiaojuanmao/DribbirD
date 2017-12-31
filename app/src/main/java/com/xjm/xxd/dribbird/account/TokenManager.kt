@@ -43,7 +43,7 @@ object TokenManager {
     val tokenBean: TokenBean?
         get() {
             if (mTokenBean == null) {
-                val tokenBean = CommonStore.tokenBean
+                val tokenBean = CommonStore.currentTokenBean
                 if (tokenBean.isEmpty()) {
                     return null
                 }
@@ -71,7 +71,7 @@ object TokenManager {
      * @return
      */
     fun hasAvailableToken(): Boolean {
-        val tokenBean = CommonStore.tokenBean
+        val tokenBean = CommonStore.currentTokenBean
         if (tokenBean.isEmpty()) {
             return false
         }
@@ -100,7 +100,8 @@ object TokenManager {
         val responseBody = response.body() ?: return null
         val gson = OkHttpManager.instance.gson
         val tokenBean = gson.fromJson(responseBody.charStream(), TokenBean::class.java)
-        CommonStore.tokenBean = gson.toJson(tokenBean)
+        CommonStore.currentOauthToken = tokenBean.accessToken ?: ""
+        CommonStore.currentTokenBean = gson.toJson(tokenBean)
         return tokenBean
     }
 

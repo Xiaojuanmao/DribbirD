@@ -18,18 +18,25 @@ class RetrofitManager private constructor() {
 
     private val mApiMap by lazy { hashMapOf<Class<*>, Any>() }
 
+
+    /**
+     * 添加网络请求token的拦截器
+     */
+    fun init() {
+        val httpClient = buildOkHttpClient()
+        mRetrofit = buildRetrofit(ApiConstants.BASE_URL, httpClient)
+    }
+
     /**
      * create httpclient instance
      * with logger interceptor
      *
      * @return httpclient instance
      */
-    private fun buildOkHttpClient(token: String?): OkHttpClient {
+    private fun buildOkHttpClient(): OkHttpClient {
         val builder = OkHttpClient.Builder()
-        //        builder.addInterceptor(buildLoggingInterceptor());
-        if (!token.isNullOrEmpty()) {
-            builder.addNetworkInterceptor(TokenInterceptor(token))
-        }
+//        builder.addInterceptor(buildLoggingInterceptor());
+        builder.addNetworkInterceptor(HeaderInterceptor())
         return builder.build()
     }
 
@@ -58,14 +65,6 @@ class RetrofitManager private constructor() {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
         return interceptor
-    }
-
-    /**
-     * 添加网络请求token的拦截器
-     */
-    fun addTokenInterceptor(token: String?) {
-        val httpClient = buildOkHttpClient(token)
-        mRetrofit = buildRetrofit(ApiConstants.BASE_URL, httpClient)
     }
 
     fun <T : Any> api(clazz: Class<T>): T {

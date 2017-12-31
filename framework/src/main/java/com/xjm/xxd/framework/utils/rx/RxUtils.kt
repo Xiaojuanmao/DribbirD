@@ -1,4 +1,4 @@
-package com.xjm.xxd.framework.utils
+package com.xjm.xxd.framework.utils.rx
 
 import io.reactivex.*
 

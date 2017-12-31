@@ -1,10 +1,9 @@
 package com.xjm.xxd.dribbird.login
 
 import android.support.annotation.StringRes
-import android.util.Log
 
 import com.xjm.xxd.dribbird.account.TokenBean
-import com.xjm.xxd.dribbird.account.TokenManager
+import com.xjm.xxd.framework.api.RetrofitManager
 
 /**
  * Created by queda on 2016/12/2.

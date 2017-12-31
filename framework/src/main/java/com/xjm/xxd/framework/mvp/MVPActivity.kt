@@ -2,6 +2,7 @@ package com.xjm.xxd.framework.mvp
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.xjm.xxd.framework.base.BaseActivity
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
@@ -9,7 +10,7 @@ import io.reactivex.disposables.Disposable
  * Created by queda on 2017/12/29.
  */
 
-abstract class MVPActivity<out P : BasePresenter<V>, V : Viewer> : AppCompatActivity() {
+abstract class MVPActivity<out P : BasePresenter<V>, V : Viewer> : BaseActivity() {
 
     private var mPresenter: P? = null
     private var mDisposable: CompositeDisposable? = null

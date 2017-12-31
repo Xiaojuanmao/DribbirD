@@ -4,12 +4,11 @@ import android.util.Log
 
 import com.xjm.xxd.dribbird.account.TokenManager
 import com.xjm.xxd.framework.api.RetrofitManager
-import com.xjm.xxd.framework.utils.RxUtils
+import com.xjm.xxd.framework.utils.rx.RxUtils
 
 import java.util.concurrent.TimeUnit
 
 import io.reactivex.Observable
-import io.reactivex.disposables.CompositeDisposable
 
 /**
  * Created by queda on 2016/12/3.
@@ -28,16 +27,12 @@ class SplashActivityPresenter: SplashActivityContract.Presenter() {
                 .subscribe({ aBoolean ->
                     if (aBoolean) {
                         // 存在有效的token，设置好网络请求的token拦截器，跳转主页
-                        val tokenBean = TokenManager.tokenBean
-                        tokenBean?.let {
-                            RetrofitManager.instance.addTokenInterceptor(it.accessToken)
-                        }
-                        viewer?.jumpToMainPage()
                         Log.w(TAG, "checkAccount(), token exist -> main page")
+                        viewer?.jumpToMainPage()
                     } else {
                         // token not exist, jump to login activity
-                        viewer?.jumpToLoginActivity()
                         Log.w(TAG, "checkAccount(), token not exist -> login activity")
+                        viewer?.jumpToLoginActivity()
                     }
                 }) { throwable ->
                     // exception, jump to login activity
