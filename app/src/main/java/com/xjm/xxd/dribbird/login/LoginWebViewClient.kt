@@ -34,7 +34,7 @@ class LoginWebViewClient(callback: LoginWebViewClientCallback) : WebViewClient()
         mCallback = callback
     }
 
-    override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+    override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
         if (TextUtils.isEmpty(url)) {
             // TODO : url is null
         } else {
@@ -45,17 +45,17 @@ class LoginWebViewClient(callback: LoginWebViewClientCallback) : WebViewClient()
                 val returnCode = uri.getQueryParameter(ApiConstants.CODE)
                 processReturnCode(returnCode)
             } else {
-                view.loadUrl(url)
+                view?.loadUrl(url)
             }
         }
         return true
     }
 
-    override fun onPageStarted(view: WebView, url: String, favicon: Bitmap) {
+    override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
         super.onPageStarted(view, url, favicon)
     }
 
-    override fun onPageFinished(view: WebView, url: String) {
+    override fun onPageFinished(view: WebView?, url: String?) {
         super.onPageFinished(view, url)
     }
 

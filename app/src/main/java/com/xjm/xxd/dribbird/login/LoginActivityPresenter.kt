@@ -3,7 +3,8 @@ package com.xjm.xxd.dribbird.login
 import android.support.annotation.StringRes
 
 import com.xjm.xxd.dribbird.account.TokenBean
-import com.xjm.xxd.framework.api.RetrofitManager
+import com.xjm.xxd.framework.api.GsonManager
+import com.xjm.xxd.framework.data.CommonStore
 
 /**
  * Created by queda on 2016/12/2.
@@ -20,6 +21,8 @@ class LoginActivityPresenter : LoginActivityContract.Presenter() {
     }
 
     override fun loginSuccess(tokenBean: TokenBean) {
+        CommonStore.currentOauthToken = tokenBean.accessToken ?: ""
+        CommonStore.currentTokenBean = GsonManager.gson().toJson(tokenBean)
         viewer?.loginSuccess()
     }
 

@@ -2,6 +2,7 @@ package com.xjm.xxd.dribbird.account
 
 import com.google.gson.JsonSyntaxException
 import com.xjm.xxd.framework.api.ApiConstants
+import com.xjm.xxd.framework.api.GsonManager
 import com.xjm.xxd.framework.api.OkHttpManager
 import com.xjm.xxd.framework.data.CommonStore
 import com.xjm.xxd.framework.ext.nullAsFalse
@@ -98,11 +99,7 @@ object TokenManager {
                 ApiConstants.OAUTH_BASE_URL + ApiConstants.TOKEN,
                 params) ?: return null
         val responseBody = response.body() ?: return null
-        val gson = OkHttpManager.instance.gson
-        val tokenBean = gson.fromJson(responseBody.charStream(), TokenBean::class.java)
-        CommonStore.currentOauthToken = tokenBean.accessToken ?: ""
-        CommonStore.currentTokenBean = gson.toJson(tokenBean)
-        return tokenBean
+        return GsonManager.gson().fromJson(responseBody.charStream(), TokenBean::class.java)
     }
 
 }
