@@ -17,29 +17,28 @@ abstract class BasePresenter<V : Viewer> : Presenter<V> {
 
     private var mViewerRef: WeakReference<V>? = null
 
-    private var mCompositeDisposable: CompositeDisposable? = null
+    private var mDisposable: CompositeDisposable? = null
 
     override fun attachViewer(v: V) {
         mViewerRef = WeakReference(v)
-        checkCompositeDisposable()
     }
 
     protected fun addDispose(disposable: Disposable) {
-        checkCompositeDisposable()
-        mCompositeDisposable?.add(disposable)
+        if (mDisposable == null) {
+            mDisposable = CompositeDisposable()
+        }
+        mDisposable?.add(disposable)
+    }
+
+    protected fun dispose() {
+        mDisposable?.dispose()
+        mDisposable = null
     }
 
     override fun detachViewer() {
+        dispose()
         mViewerRef?.clear()
         mViewerRef = null
-        mCompositeDisposable?.dispose()
-        mCompositeDisposable = null
-    }
-
-    private fun checkCompositeDisposable() {
-        if (mCompositeDisposable == null) {
-            mCompositeDisposable = CompositeDisposable()
-        }
     }
 
 }

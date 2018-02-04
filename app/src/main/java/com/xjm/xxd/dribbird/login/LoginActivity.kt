@@ -1,5 +1,6 @@
 package com.xjm.xxd.dribbird.login
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -9,7 +10,6 @@ import android.text.TextUtils
 
 import com.xjm.xxd.dribbird.R
 import com.xjm.xxd.dribbird.main.MainActivity
-import com.xjm.xxd.dribbird.base.BaseDialog
 import com.xjm.xxd.dribbird.widget.ProgressWebView
 
 import com.xjm.xxd.dribbird.account.TokenManager
@@ -23,7 +23,6 @@ class LoginActivity : MVPActivity<LoginActivityContract.Presenter, LoginActivity
     private val mToolbar by bindView<Toolbar>(R.id.tool_bar)
     private val mWebView by bindView<ProgressWebView>(R.id.web_view)
 
-    private var mBaseDialog: BaseDialog? = null
     private var mWebViewClient: LoginWebViewClient? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,41 +36,26 @@ class LoginActivity : MVPActivity<LoginActivityContract.Presenter, LoginActivity
 
     override fun createPresenter(): LoginActivityContract.Presenter = LoginActivityPresenter()
 
-    override fun onDestroy() {
-        super.onDestroy()
-        if (mWebViewClient != null) {
-            mWebViewClient!!.onDestroy()
-        }
-    }
-
+    @SuppressLint("SetJavaScriptEnabled")
     private fun initViews() {
         mToolbar.setTitle(R.string.title_login)
         setSupportActionBar(mToolbar)
-
         val settings = mWebView.settings
         settings.javaScriptEnabled = true
         mWebViewClient = LoginWebViewClient(presenter())
         mWebView.setWebViewClient(mWebViewClient)
     }
 
-    override fun loadUrl(url: String) {
-        if (TextUtils.isEmpty(url)) {
-            return
+    override fun loadUrl(url: String?) {
+        url?.let {
+            mWebView.loadUrl(it)
         }
-        mWebView.loadUrl(url)
     }
 
     override fun showLoading(msg: String) {
         if (TextUtils.isEmpty(msg)) {
             return
         }
-        if (mBaseDialog == null) {
-            val builder = BaseDialog.Builder()
-            builder.progressBar(true)
-            mBaseDialog = builder.build()
-        }
-        mBaseDialog!!.message(msg)
-        mBaseDialog!!.show(fragmentManager, TAG)
     }
 
     override fun showLoading(@StringRes strId: Int) {
@@ -82,9 +66,7 @@ class LoginActivity : MVPActivity<LoginActivityContract.Presenter, LoginActivity
     }
 
     override fun hideLoading() {
-        if (mBaseDialog != null && mBaseDialog!!.isVisible) {
-            mBaseDialog!!.dismiss()
-        }
+
     }
 
     override fun loginSuccess() {
@@ -97,16 +79,19 @@ class LoginActivity : MVPActivity<LoginActivityContract.Presenter, LoginActivity
         toast(R.string.authentication_failed)
     }
 
+    override fun onDestroy() {
+        mWebViewClient?.onDestroy()
+        super.onDestroy()
+    }
+
     companion object {
 
-        private val TAG = LoginActivity::class.java.simpleName
-
+        @JvmStatic
         fun open(context: Context?) {
-            if (context == null) {
-                return
+            context?.let {
+                val intent = Intent(it, LoginActivity::class.java)
+                it.startActivity(intent)
             }
-            val intent = Intent(context, LoginActivity::class.java)
-            context.startActivity(intent)
         }
     }
 

@@ -51,14 +51,6 @@ class LoginWebViewClient(callback: LoginWebViewClientCallback) : WebViewClient()
         return true
     }
 
-    override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-        super.onPageStarted(view, url, favicon)
-    }
-
-    override fun onPageFinished(view: WebView?, url: String?) {
-        super.onPageFinished(view, url)
-    }
-
     private fun processReturnCode(returnCode: String?) {
         if (!returnCode.isNullOrEmpty()) {
             // request for access token with return code

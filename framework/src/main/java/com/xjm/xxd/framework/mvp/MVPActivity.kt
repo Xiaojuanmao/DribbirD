@@ -1,7 +1,6 @@
 package com.xjm.xxd.framework.mvp
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import com.xjm.xxd.framework.base.BaseActivity
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -20,36 +19,36 @@ abstract class MVPActivity<out P : BasePresenter<V>, V : Viewer> : BaseActivity(
         if (this !is Viewer) {
             throw IllegalStateException("Viewer not implemented")
         }
-
         mPresenter = createPresenter()
         mPresenter?.attachViewer(this as V)
-
-        checkCompositeDisposable()
-    }
-
-    override fun onDestroy() {
-        mDisposable?.dispose()
-        mDisposable = null
-        mPresenter?.detachViewer()
-        super.onDestroy()
     }
 
     protected fun addDispose(disposable: Disposable) {
-        checkCompositeDisposable()
-        mDisposable?.add(disposable)
-    }
-
-    private fun checkCompositeDisposable() {
         if (mDisposable == null) {
             mDisposable = CompositeDisposable()
         }
+        mDisposable?.add(disposable)
+    }
+
+    protected fun dispose() {
+        mDisposable?.dispose()
+        mDisposable = null
     }
 
     protected fun presenter(): P {
-        if (mPresenter == null) {
-            mPresenter = createPresenter()
+        return if (mPresenter == null) {
+            val presenter = createPresenter()
+            mPresenter = presenter
+            presenter
+        } else {
+            mPresenter!!
         }
-        return mPresenter!!
+    }
+
+    override fun onDestroy() {
+        dispose()
+        mPresenter?.detachViewer()
+        super.onDestroy()
     }
 
     protected abstract fun createPresenter(): P

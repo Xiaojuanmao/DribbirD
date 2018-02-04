@@ -16,7 +16,7 @@ class LoginActivityContract {
 
     interface Viewer : com.xjm.xxd.framework.mvp.Viewer {
 
-        abstract fun loadUrl(url: String)
+        abstract fun loadUrl(url: String?)
 
         abstract fun showLoading(msg: String)
         abstract fun showLoading(@StringRes strId: Int)
