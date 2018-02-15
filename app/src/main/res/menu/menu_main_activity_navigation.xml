@@ -4,15 +4,15 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/app_setting"
-            android:title="@string/app_setting"
+            android:title="@string/setting"
             android:icon="@mipmap/ic_launcher"/>
         <item
             android:id="@+id/app_setting_2"
-            android:title="@string/app_setting"
+            android:title="@string/setting"
             android:icon="@mipmap/ic_launcher"/>
         <item
             android:id="@+id/app_setting_3"
-            android:title="@string/app_setting"
+            android:title="@string/setting"
             android:icon="@mipmap/ic_launcher"/>
     </group>
 

@@ -30,7 +30,7 @@ class MainActivity : MVPActivity<MainActivityContract.Presenter, MainActivityCon
     override fun createPresenter(): MainActivityContract.Presenter = MainActivityPresenter()
 
     private fun initViews() {
-        mToolbar.setTitle(R.string.main_activity_title)
+        mToolbar.setTitle(R.string.title_main_activity)
         setSupportActionBar(mToolbar)
 
         val ab = supportActionBar

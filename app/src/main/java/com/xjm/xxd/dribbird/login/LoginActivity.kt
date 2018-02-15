@@ -38,7 +38,7 @@ class LoginActivity : MVPActivity<LoginActivityContract.Presenter, LoginActivity
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun initViews() {
-        mToolbar.setTitle(R.string.title_login)
+        mToolbar.setTitle(R.string.title_login_activity)
         setSupportActionBar(mToolbar)
         val settings = mWebView.settings
         settings.javaScriptEnabled = true
