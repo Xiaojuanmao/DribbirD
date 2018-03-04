@@ -1,6 +1,7 @@
 package com.xjm.xxd.dribbird
 
-import com.xjm.xxd.framework.BaseApp
+import com.xjm.xxd.framework.api.RetrofitManager
+import com.xjm.xxd.skeleton.BaseApp
 
 /**
  * User : xiaoxiaoda
@@ -8,4 +9,11 @@ import com.xjm.xxd.framework.BaseApp
  * Email : wonderfulifeel@gmail.com
  */
 
-class DribApp : BaseApp()
+class DribApp : BaseApp() {
+
+    override fun onCreate() {
+        super.onCreate()
+        RetrofitManager.instance.init()
+    }
+
+}

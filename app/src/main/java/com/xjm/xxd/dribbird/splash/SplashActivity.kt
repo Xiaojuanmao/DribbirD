@@ -7,8 +7,8 @@ import android.widget.ImageView
 import com.xjm.xxd.dribbird.R
 import com.xjm.xxd.dribbird.login.LoginActivity
 import com.xjm.xxd.dribbird.main.MainActivity
+import com.xjm.xxd.framework.kotlinext.bindView
 import com.xjm.xxd.framework.mvp.MVPActivity
-import com.xjm.xxd.framework.ext.bindView
 
 class SplashActivity : MVPActivity<SplashActivityContract.Presenter, SplashActivityContract.Viewer>(),
         SplashActivityContract.Viewer {

@@ -5,7 +5,7 @@ import com.xjm.xxd.framework.api.ApiConstants
 import com.xjm.xxd.framework.api.GsonManager
 import com.xjm.xxd.framework.api.OkHttpManager
 import com.xjm.xxd.framework.data.CommonStore
-import com.xjm.xxd.framework.ext.nullAsFalse
+import com.xjm.xxd.skeleton.kotlinext.nullAsFalse
 
 /**
  * @author : dada

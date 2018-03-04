@@ -1,19 +1,15 @@
 package com.xjm.xxd.dribbird.login
 
-import android.graphics.Bitmap
 import android.net.Uri
 import android.text.TextUtils
 import android.util.Log
 import android.webkit.WebView
 import android.webkit.WebViewClient
-
 import com.xjm.xxd.dribbird.R
 import com.xjm.xxd.dribbird.account.TokenBean
 import com.xjm.xxd.dribbird.account.TokenManager
 import com.xjm.xxd.framework.api.ApiConstants
-import com.xjm.xxd.framework.api.RetrofitManager
 import com.xjm.xxd.framework.utils.rx.RxUtils
-
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.CompositeDisposable

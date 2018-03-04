@@ -1,4 +1,4 @@
-package com.xjm.xxd.framework.ext
+package com.xjm.xxd.skeleton.kotlinext
 
 fun <T> List<T>?.isNullOrEmpty() = this == null || this.isEmpty()
 

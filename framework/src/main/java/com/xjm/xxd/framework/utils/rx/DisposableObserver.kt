@@ -1,7 +1,7 @@
 package com.xjm.xxd.framework.utils.rx
 
 import android.support.annotation.CallSuper
-import com.xjm.xxd.framework.ext.nullAsTrue
+import com.xjm.xxd.skeleton.kotlinext.nullAsTrue
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 

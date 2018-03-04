@@ -1,8 +1,8 @@
-package com.xjm.xxd.framework.ext
+package com.xjm.xxd.skeleton.kotlinext
 
 import android.support.annotation.StringRes
 import android.widget.Toast
-import com.xjm.xxd.framework.BaseApp
+import com.xjm.xxd.skeleton.BaseApp
 
 /**
  * Created by queda on 2017/12/23.

@@ -1,9 +1,5 @@
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestImplementation(rootProject.deps.espresso, {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    testImplementation rootProject.deps.junit
 
     implementation rootProject.deps.androidAppCompat
     implementation rootProject.deps.androidDesignLibrary
