@@ -1,7 +1,6 @@
 package com.xjm.xxd.dribbird.main
 
-import com.xjm.xxd.framework.mvp.BasePresenter
-import com.xjm.xxd.framework.mvp.Viewer
+import com.xjm.xxd.skeleton.mvp.BasePresenter
 
 /**
  * Created by queda on 2017/12/29.
@@ -13,7 +12,7 @@ class MainActivityContract {
 
     }
 
-    interface Viewer: com.xjm.xxd.framework.mvp.Viewer {
+    interface Viewer: com.xjm.xxd.skeleton.mvp.Viewer {
 
     }
 

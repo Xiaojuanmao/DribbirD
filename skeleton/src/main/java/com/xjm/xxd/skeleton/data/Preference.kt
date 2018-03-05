@@ -1,4 +1,4 @@
-package com.xjm.xxd.framework.data
+package com.xjm.xxd.skeleton.data
 
 import android.content.SharedPreferences
 import kotlin.properties.ReadWriteProperty

@@ -1,8 +1,7 @@
 package com.xjm.xxd.dribbird.login
 
 import android.support.annotation.StringRes
-import com.xjm.xxd.framework.mvp.BasePresenter
-import com.xjm.xxd.framework.mvp.Viewer
+import com.xjm.xxd.skeleton.mvp.BasePresenter
 
 /**
  * Created by queda on 2017/12/29.
@@ -14,7 +13,7 @@ class LoginActivityContract {
 
     }
 
-    interface Viewer : com.xjm.xxd.framework.mvp.Viewer {
+    interface Viewer : com.xjm.xxd.skeleton.mvp.Viewer {
 
         abstract fun loadUrl(url: String?)
 

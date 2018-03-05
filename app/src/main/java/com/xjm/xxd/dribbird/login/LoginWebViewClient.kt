@@ -9,7 +9,7 @@ import com.xjm.xxd.dribbird.R
 import com.xjm.xxd.dribbird.account.TokenBean
 import com.xjm.xxd.dribbird.account.TokenManager
 import com.xjm.xxd.framework.api.ApiConstants
-import com.xjm.xxd.framework.utils.rx.RxUtils
+import com.xjm.xxd.skeleton.util.rx.RxUtils
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.CompositeDisposable

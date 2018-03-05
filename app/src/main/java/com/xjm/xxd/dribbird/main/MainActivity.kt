@@ -10,7 +10,7 @@ import android.support.v7.widget.Toolbar
 import com.xjm.xxd.dribbird.R
 import com.xjm.xxd.dribbird.utils.StatusBarCompat
 import com.xjm.xxd.framework.kotlinext.bindView
-import com.xjm.xxd.framework.mvp.MVPActivity
+import com.xjm.xxd.skeleton.mvp.MVPActivity
 
 class MainActivity : MVPActivity<MainActivityContract.Presenter, MainActivityContract.Viewer>(),
         MainActivityContract.Viewer {

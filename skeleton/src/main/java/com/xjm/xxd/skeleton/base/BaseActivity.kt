@@ -1,4 +1,4 @@
-package com.xjm.xxd.framework.base
+package com.xjm.xxd.skeleton.base
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity

@@ -1,7 +1,7 @@
-package com.xjm.xxd.framework.mvp
+package com.xjm.xxd.skeleton.mvp
 
 import android.os.Bundle
-import com.xjm.xxd.framework.base.BaseActivity
+import com.xjm.xxd.skeleton.base.BaseActivity
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 

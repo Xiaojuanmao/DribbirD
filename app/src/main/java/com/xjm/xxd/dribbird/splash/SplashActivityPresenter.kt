@@ -3,8 +3,7 @@ package com.xjm.xxd.dribbird.splash
 import android.util.Log
 
 import com.xjm.xxd.dribbird.account.TokenManager
-import com.xjm.xxd.framework.api.RetrofitManager
-import com.xjm.xxd.framework.utils.rx.RxUtils
+import com.xjm.xxd.skeleton.util.rx.RxUtils
 
 import java.util.concurrent.TimeUnit
 

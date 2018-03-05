@@ -3,6 +3,7 @@ package com.xjm.xxd.framework.data
 import android.content.Context
 import android.content.SharedPreferences
 import com.xjm.xxd.skeleton.BaseApp
+import com.xjm.xxd.skeleton.data.Preference
 
 /**
  * Created by queda on 2017/12/31.

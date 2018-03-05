@@ -1,9 +1,9 @@
-package com.xjm.xxd.framework.utils;
+package com.xjm.xxd.skeleton.util;
 
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.xjm.xxd.framework.BuildConfig;
+import com.xjm.xxd.skeleton.BuildConfig;
 
 public class DLog {
     public static void i(String msg) {

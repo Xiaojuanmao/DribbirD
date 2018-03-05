@@ -1,7 +1,6 @@
 package com.xjm.xxd.dribbird.splash
 
-import com.xjm.xxd.framework.mvp.BasePresenter
-import com.xjm.xxd.framework.mvp.Viewer
+import com.xjm.xxd.skeleton.mvp.BasePresenter
 
 /**
  * Created by queda on 2017/12/29.
@@ -16,7 +15,7 @@ class SplashActivityContract {
 
     }
     
-    interface Viewer: com.xjm.xxd.framework.mvp.Viewer {
+    interface Viewer: com.xjm.xxd.skeleton.mvp.Viewer {
 
         fun jumpToMainPage()
 

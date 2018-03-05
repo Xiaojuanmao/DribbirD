@@ -1,4 +1,4 @@
-package com.xjm.xxd.framework.utils.rx
+package com.xjm.xxd.skeleton.util.rx
 
 import android.support.annotation.CallSuper
 import com.xjm.xxd.skeleton.kotlinext.nullAsTrue

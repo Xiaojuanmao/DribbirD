@@ -14,7 +14,7 @@ import com.xjm.xxd.dribbird.widget.ProgressWebView
 
 import com.xjm.xxd.dribbird.account.TokenManager
 import com.xjm.xxd.framework.kotlinext.bindView
-import com.xjm.xxd.framework.mvp.MVPActivity
+import com.xjm.xxd.skeleton.mvp.MVPActivity
 import com.xjm.xxd.skeleton.kotlinext.toast
 
 class LoginActivity : MVPActivity<LoginActivityContract.Presenter, LoginActivityContract.Viewer>(),
