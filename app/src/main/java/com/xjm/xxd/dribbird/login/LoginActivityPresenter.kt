@@ -3,7 +3,7 @@ package com.xjm.xxd.dribbird.login
 import android.support.annotation.StringRes
 
 import com.xjm.xxd.dribbird.account.TokenBean
-import com.xjm.xxd.framework.api.GsonManager
+import com.xjm.xxd.framework.network.GsonManager
 import com.xjm.xxd.framework.data.CommonStore
 
 /**

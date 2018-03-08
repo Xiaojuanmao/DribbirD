@@ -8,7 +8,7 @@ import android.webkit.WebViewClient
 import com.xjm.xxd.dribbird.R
 import com.xjm.xxd.dribbird.account.TokenBean
 import com.xjm.xxd.dribbird.account.TokenManager
-import com.xjm.xxd.framework.api.ApiConstants
+import com.xjm.xxd.framework.network.ApiConstants
 import com.xjm.xxd.skeleton.util.rx.RxUtils
 import io.reactivex.Observable
 import io.reactivex.Observer

@@ -1,6 +1,7 @@
 package com.xjm.xxd.dribbird
 
-import com.xjm.xxd.framework.api.RetrofitManager
+import com.xjm.xxd.dribbird.api.ApiConstants
+import com.xjm.xxd.framework.network.RetrofitManager
 import com.xjm.xxd.skeleton.BaseApp
 
 /**
@@ -13,7 +14,7 @@ class DribApp : BaseApp() {
 
     override fun onCreate() {
         super.onCreate()
-        RetrofitManager.instance.init()
+        RetrofitManager.instance.init(ApiConstants.BASE_URL)
     }
 
 }

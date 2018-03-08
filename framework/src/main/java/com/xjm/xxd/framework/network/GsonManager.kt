@@ -1,4 +1,4 @@
-package com.xjm.xxd.framework.api
+package com.xjm.xxd.framework.network
 
 import com.google.gson.Gson
 

@@ -1,4 +1,4 @@
-package com.xjm.xxd.framework.api
+package com.xjm.xxd.framework.network.api
 
 import com.xjm.xxd.framework.data.CommonStore
 import java.io.IOException
@@ -14,11 +14,13 @@ import okhttp3.Response
 
 class HeaderInterceptor : Interceptor {
 
+    private val mOauthToken by lazy { CommonStore.currentOauthToken }
+
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
         val tokenRequest = originalRequest.newBuilder()
-                .addHeader(KEY_AUTH, "Bearer ${CommonStore.currentOauthToken}")
+                .addHeader(KEY_AUTH, "Bearer $mOauthToken")
                 .build()
         return chain.proceed(tokenRequest)
     }

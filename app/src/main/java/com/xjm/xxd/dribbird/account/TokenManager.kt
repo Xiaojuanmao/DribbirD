@@ -1,11 +1,10 @@
 package com.xjm.xxd.dribbird.account
 
 import com.google.gson.JsonSyntaxException
-import com.xjm.xxd.framework.api.ApiConstants
-import com.xjm.xxd.framework.api.GsonManager
-import com.xjm.xxd.framework.api.OkHttpManager
+import com.xjm.xxd.framework.network.ApiConstants
+import com.xjm.xxd.framework.network.GsonManager
+import com.xjm.xxd.framework.network.OkHttpManager
 import com.xjm.xxd.framework.data.CommonStore
-import com.xjm.xxd.skeleton.kotlinext.nullAsFalse
 
 /**
  * @author : dada

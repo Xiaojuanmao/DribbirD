@@ -1,5 +1,6 @@
-package com.xjm.xxd.framework.api
+package com.xjm.xxd.framework.network
 
+import com.xjm.xxd.framework.network.api.HeaderInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -18,13 +19,12 @@ class RetrofitManager private constructor() {
 
     private val mApiMap by lazy { hashMapOf<Class<*>, Any>() }
 
-
     /**
      * 添加网络请求token的拦截器
      */
-    fun init() {
+    fun init(baseUrl: String) {
         val httpClient = buildOkHttpClient()
-        mRetrofit = buildRetrofit(ApiConstants.BASE_URL, httpClient)
+        mRetrofit = buildRetrofit(baseUrl, httpClient)
     }
 
     /**
