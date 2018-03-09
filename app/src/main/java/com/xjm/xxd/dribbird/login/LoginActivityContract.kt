@@ -15,16 +15,17 @@ class LoginActivityContract {
 
     interface Viewer : com.xjm.xxd.skeleton.mvp.Viewer {
 
-        abstract fun loadUrl(url: String?)
+        fun loadUrl(url: String?)
 
-        abstract fun showLoading(msg: String)
-        abstract fun showLoading(@StringRes strId: Int)
+        fun showLoading(msg: String)
 
-        abstract fun hideLoading()
+        fun showLoading(@StringRes strId: Int)
 
-        abstract fun loginSuccess()
+        fun hideLoading()
 
-        abstract fun loginFailed()
+        fun loginSuccess()
+
+        fun loginFailed()
 
     }
 

@@ -8,7 +8,7 @@ import android.webkit.WebViewClient
 import com.xjm.xxd.dribbird.R
 import com.xjm.xxd.dribbird.account.TokenBean
 import com.xjm.xxd.dribbird.account.TokenManager
-import com.xjm.xxd.framework.network.ApiConstants
+import com.xjm.xxd.dribbird.api.ApiConstants
 import com.xjm.xxd.skeleton.util.rx.RxUtils
 import io.reactivex.Observable
 import io.reactivex.Observer
@@ -31,13 +31,11 @@ class LoginWebViewClient(callback: LoginWebViewClientCallback) : WebViewClient()
     }
 
     override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-        if (TextUtils.isEmpty(url)) {
-            // TODO : url is null
-        } else {
-            // url is match with oauth request url
+        url?.let {
             if (TokenManager.isMatchRedirectUrl(url)) {
-                // get the return code
+                // url is match with oauth request url
                 val uri = Uri.parse(url)
+                // get the return code
                 val returnCode = uri.getQueryParameter(ApiConstants.CODE)
                 processReturnCode(returnCode)
             } else {
@@ -48,7 +46,7 @@ class LoginWebViewClient(callback: LoginWebViewClientCallback) : WebViewClient()
     }
 
     private fun processReturnCode(returnCode: String?) {
-        if (!returnCode.isNullOrEmpty()) {
+        returnCode?.let {
             // request for access token with return code
             mCallback?.showLoading(R.string.being_authorized)
             Observable.just(returnCode)
@@ -57,7 +55,6 @@ class LoginWebViewClient(callback: LoginWebViewClientCallback) : WebViewClient()
                     .subscribe(object : Observer<TokenBean?> {
 
                         override fun onNext(tokenBean: TokenBean?) {
-                            mCallback?.hideLoading()
                             if (tokenBean != null) {
                                 // authentic success
                                 mCallback?.loginSuccess(tokenBean)
@@ -68,7 +65,7 @@ class LoginWebViewClient(callback: LoginWebViewClientCallback) : WebViewClient()
                         }
 
                         override fun onComplete() {
-
+                            mCallback?.hideLoading()
                         }
 
                         override fun onSubscribe(d: Disposable?) {

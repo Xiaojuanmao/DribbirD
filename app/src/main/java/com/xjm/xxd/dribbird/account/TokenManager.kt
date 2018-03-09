@@ -1,10 +1,11 @@
 package com.xjm.xxd.dribbird.account
 
 import com.google.gson.JsonSyntaxException
-import com.xjm.xxd.framework.network.ApiConstants
+import com.xjm.xxd.dribbird.api.ApiConstants
 import com.xjm.xxd.framework.network.GsonManager
 import com.xjm.xxd.framework.network.OkHttpManager
 import com.xjm.xxd.framework.data.CommonStore
+import com.xjm.xxd.skeleton.kotlinext.nullAsFalse
 
 /**
  * @author : dada
@@ -91,9 +92,9 @@ object TokenManager {
             return null
         }
         val params = hashMapOf<String, String>()
-        params.put(ApiConstants.CLIENT_ID, ApiConstants.DRIBBLE_CLIENT_ID)
-        params.put(ApiConstants.CLIENT_SECRET, ApiConstants.DRIBBLE_CLIENT_SECRET)
-        params.put(ApiConstants.CODE, returnCode!!)
+        params[ApiConstants.CLIENT_ID] = ApiConstants.DRIBBLE_CLIENT_ID
+        params[ApiConstants.CLIENT_SECRET] = ApiConstants.DRIBBLE_CLIENT_SECRET
+        params[ApiConstants.CODE] = returnCode!!
         val response = OkHttpManager.instance.postSync(
                 ApiConstants.OAUTH_BASE_URL + ApiConstants.TOKEN,
                 params) ?: return null
