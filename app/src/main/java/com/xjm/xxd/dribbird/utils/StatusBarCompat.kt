@@ -1,14 +1,12 @@
 package com.xjm.xxd.dribbird.utils
 
-import android.annotation.TargetApi
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import android.content.res.Resources
 import android.os.Build
 import android.support.annotation.ColorRes
 import android.view.View
 import android.view.ViewGroup
-
 import com.xjm.xxd.dribbird.R
 
 /**
@@ -20,6 +18,7 @@ object StatusBarCompat {
 
     private val COLOR_DEFAULT_ID = R.color.transparent
 
+    @SuppressLint("ObsoleteSdkInt")
     @JvmOverloads
     fun compat(activity: Activity?, @ColorRes statusColor: Int = COLOR_DEFAULT_ID) {
         if (activity == null) {
@@ -42,8 +41,7 @@ object StatusBarCompat {
 
     }
 
-
-    fun getStatusBarHeight(context: Context): Int {
+    private fun getStatusBarHeight(context: Context): Int {
         var result = 0
         val resourceId = context.resources.getIdentifier("status_bar_height", "dimen", "android")
         if (resourceId > 0) {

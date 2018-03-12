@@ -1,7 +1,5 @@
 package com.xjm.xxd.dribbird.login
 
-import android.support.annotation.StringRes
-
 import com.xjm.xxd.dribbird.account.TokenBean
 
 /**
@@ -10,7 +8,7 @@ import com.xjm.xxd.dribbird.account.TokenBean
 
 interface LoginWebViewClientCallback {
 
-    fun showLoading(@StringRes strId: Int)
+    fun showLoading(msg: String?)
 
     fun hideLoading()
 

@@ -12,8 +12,8 @@ import com.xjm.xxd.framework.data.CommonStore
 
 class LoginActivityPresenter : LoginActivityContract.Presenter() {
 
-    override fun showLoading(@StringRes strId: Int) {
-        viewer?.showLoading(strId)
+    override fun showLoading(msg: String?) {
+        viewer?.showLoading(msg)
     }
 
     override fun hideLoading() {

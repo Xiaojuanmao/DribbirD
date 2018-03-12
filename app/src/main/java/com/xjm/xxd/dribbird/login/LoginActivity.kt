@@ -4,24 +4,24 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.annotation.StringRes
 import android.support.v7.widget.Toolbar
 import android.text.TextUtils
-
 import com.xjm.xxd.dribbird.R
+import com.xjm.xxd.dribbird.account.TokenManager
 import com.xjm.xxd.dribbird.main.MainActivity
 import com.xjm.xxd.dribbird.widget.ProgressWebView
-
-import com.xjm.xxd.dribbird.account.TokenManager
 import com.xjm.xxd.framework.kotlinext.bindView
-import com.xjm.xxd.skeleton.mvp.MVPActivity
+import com.xjm.xxd.framework.widget.LoadingDialog
 import com.xjm.xxd.skeleton.kotlinext.toast
+import com.xjm.xxd.skeleton.mvp.MVPActivity
 
 class LoginActivity : MVPActivity<LoginActivityContract.Presenter, LoginActivityContract.Viewer>(),
         LoginActivityContract.Viewer {
 
     private val mToolbar by bindView<Toolbar>(R.id.tool_bar)
     private val mWebView by bindView<ProgressWebView>(R.id.web_view)
+
+    private var mLoadingDialogFragment: LoadingDialog? = null
 
     private var mWebViewClient: LoginWebViewClient? = null
 
@@ -40,10 +40,12 @@ class LoginActivity : MVPActivity<LoginActivityContract.Presenter, LoginActivity
     private fun initViews() {
         mToolbar.setTitle(R.string.title_login_activity)
         setSupportActionBar(mToolbar)
+
         val settings = mWebView.settings
         settings.javaScriptEnabled = true
+
         mWebViewClient = LoginWebViewClient(presenter())
-        mWebView.setWebViewClient(mWebViewClient)
+        mWebView.webViewClient = mWebViewClient
     }
 
     override fun loadUrl(url: String?) {
@@ -52,21 +54,23 @@ class LoginActivity : MVPActivity<LoginActivityContract.Presenter, LoginActivity
         }
     }
 
-    override fun showLoading(msg: String) {
+    override fun showLoading(msg: String?) {
         if (TextUtils.isEmpty(msg)) {
             return
         }
+        showLoadingDialog(msg)
     }
 
-    override fun showLoading(@StringRes strId: Int) {
-        if (strId <= 0) {
-            return
+    private fun showLoadingDialog(msg: String?) {
+        if (mLoadingDialogFragment == null) {
+            mLoadingDialogFragment = LoadingDialog()
         }
-        showLoading(getString(strId))
+        mLoadingDialogFragment?.setMessage(msg)
+        mLoadingDialogFragment?.show(supportFragmentManager, LOADING_DIALOG_FRAGMENT_TAG)
     }
 
     override fun hideLoading() {
-
+        mLoadingDialogFragment?.dismiss()
     }
 
     override fun loginSuccess() {
@@ -85,6 +89,8 @@ class LoginActivity : MVPActivity<LoginActivityContract.Presenter, LoginActivity
     }
 
     companion object {
+
+        const val LOADING_DIALOG_FRAGMENT_TAG = "LoadingDialog"
 
         @JvmStatic
         fun open(context: Context?) {

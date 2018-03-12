@@ -1,5 +1,6 @@
 package com.xjm.xxd.dribbird.account
 
+import android.net.Uri
 import com.google.gson.JsonSyntaxException
 import com.xjm.xxd.dribbird.api.ApiConstants
 import com.xjm.xxd.framework.network.GsonManager
@@ -63,8 +64,12 @@ object TokenManager {
         return !targetStr.isNullOrEmpty() && targetStr.equals(oAuth2Url)
     }
 
-    fun isMatchRedirectUrl(targetStr: String?): Boolean {
-        return !targetStr.isNullOrEmpty() && targetStr?.startsWith(ApiConstants.DEFAULT_REDIRECT_URI_PRE).nullAsFalse()
+    fun isMatchRedirectUrl(targetUrl: String?): Boolean {
+        return !targetUrl.isNullOrEmpty() && targetUrl?.startsWith(ApiConstants.DEFAULT_REDIRECT_URI_PRE).nullAsFalse()
+    }
+
+    fun isMatchRedirectUrl(targetUri: Uri?): Boolean {
+        return targetUri != null && targetUri.toString().startsWith(ApiConstants.DEFAULT_REDIRECT_URI_PRE)
     }
 
     /**

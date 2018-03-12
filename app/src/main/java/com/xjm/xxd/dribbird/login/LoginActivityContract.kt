@@ -17,9 +17,7 @@ class LoginActivityContract {
 
         fun loadUrl(url: String?)
 
-        fun showLoading(msg: String)
-
-        fun showLoading(@StringRes strId: Int)
+        fun showLoading(msg: String?)
 
         fun hideLoading()
 

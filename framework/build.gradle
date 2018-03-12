@@ -29,8 +29,9 @@ dependencies {
 
     implementation rootProject.deps.kotlinStdLib
 
-    implementation rootProject.deps.androidSupportV4Fragment
     implementation rootProject.deps.androidRecyclerView
+    implementation rootProject.deps.androidConstraintLayout
+    implementation rootProject.deps.androidSupportV4Fragment
 
     implementation rootProject.deps.rxAndroid
     implementation rootProject.deps.retrofit2Gson

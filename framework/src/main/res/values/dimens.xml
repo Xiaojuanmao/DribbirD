@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="common_text_large_primary">30sp</dimen>
+    <dimen name="common_text_large_secondary">25sp</dimen>
+    <dimen name="common_text_large_tertiary">20sp</dimen>
+
+    <dimen name="framework_text_normal_primary">18sp</dimen>
+    <dimen name="framework_text_normal_secondary">16sp</dimen>
+    <dimen name="framework_text_normal_tertiary">14sp</dimen>
+
+    <dimen name="framework_text_small_primary">13sp</dimen>
+    <dimen name="framework_text_small_secondary">12sp</dimen>
+    <dimen name="framework_text_small_tertiary">10sp</dimen>
+</resources>
