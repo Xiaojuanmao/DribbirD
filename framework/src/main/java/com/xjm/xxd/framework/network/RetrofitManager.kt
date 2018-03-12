@@ -72,7 +72,7 @@ class RetrofitManager private constructor() {
             return mApiMap[clazz] as T
         }
         val api = mRetrofit!!.create(clazz)
-        mApiMap.put(clazz, api)
+        mApiMap[clazz] = api
         return api
     }
 

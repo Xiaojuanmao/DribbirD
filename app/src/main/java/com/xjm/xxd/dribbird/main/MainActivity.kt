@@ -47,7 +47,7 @@ class MainActivity : MVPActivity<MainActivityContract.Presenter, MainActivityCon
 
         val mDrawerToggle = ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close)
         mDrawerToggle.syncState()
-        mDrawerLayout.setDrawerListener(mDrawerToggle)
+        mDrawerLayout.addDrawerListener(mDrawerToggle)
 
     }
 

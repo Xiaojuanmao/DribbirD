@@ -1,5 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android'
 
 android {
 
@@ -27,6 +29,7 @@ dependencies {
 
     implementation rootProject.deps.kotlinStdLib
 
+    implementation rootProject.deps.androidSupportV4Fragment
     implementation rootProject.deps.androidRecyclerView
 
     implementation rootProject.deps.rxAndroid
@@ -34,4 +37,7 @@ dependencies {
     implementation rootProject.deps.retrofit2RxJava
     
     implementation rootProject.deps.okhttp3Logging
+
+    implementation rootProject.deps.lego
+    kapt rootProject.deps.legoCompiler
 }
