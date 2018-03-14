@@ -27,6 +27,7 @@ dependencies {
     implementation rootProject.deps.androidAppCompat
 
     implementation rootProject.deps.rxAndroid
+    implementation rootProject.deps.rxRelay
     implementation rootProject.deps.retrofit2RxJava
     implementation rootProject.deps.retrofit2Gson
 }

@@ -9,6 +9,7 @@ rootProject.ext.butterKnifeVersion = "8.4.0"
 rootProject.ext.annotationVersion = "1.2"
 rootProject.ext.daggerVersion = "2.10"
 rootProject.ext.rxandroidVersion = "2.0.1"
+rootProject.ext.rxRelayVersion = "2.0.0"
 rootProject.ext.retrofitVersion = "2.3.0"
 rootProject.ext.okhttplogVersion = "3.8.1"
 rootProject.ext.legoVersion = "0.6.6"
@@ -36,6 +37,7 @@ rootProject.ext.deps = [
         okhttp3Logging          : "com.squareup.okhttp3:logging-interceptor:$okhttplogVersion",
 
         rxAndroid               : "io.reactivex.rxjava2:rxandroid:$rxandroidVersion",
+        rxRelay                 : "com.jakewharton.rxrelay2:rxrelay:$rxRelayVersion",
 
         kotlinStdLib            : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
 

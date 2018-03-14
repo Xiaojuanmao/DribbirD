@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.Toolbar
 import android.text.TextUtils
 import com.xjm.xxd.dribbird.R
@@ -11,7 +12,7 @@ import com.xjm.xxd.dribbird.account.TokenManager
 import com.xjm.xxd.dribbird.main.MainActivity
 import com.xjm.xxd.dribbird.widget.ProgressWebView
 import com.xjm.xxd.framework.kotlinext.bindView
-import com.xjm.xxd.framework.widget.LoadingDialog
+import com.xjm.xxd.framework.widget.DialogFactory
 import com.xjm.xxd.skeleton.kotlinext.toast
 import com.xjm.xxd.skeleton.mvp.MVPActivity
 
@@ -21,7 +22,8 @@ class LoginActivity : MVPActivity<LoginActivityContract.Presenter, LoginActivity
     private val mToolbar by bindView<Toolbar>(R.id.tool_bar)
     private val mWebView by bindView<ProgressWebView>(R.id.web_view)
 
-    private var mLoadingDialogFragment: LoadingDialog? = null
+    private var mLoadingDialog: AlertDialog? = null
+    private val mDialogFactory by lazy { DialogFactory() }
 
     private var mWebViewClient: LoginWebViewClient? = null
 
@@ -62,15 +64,13 @@ class LoginActivity : MVPActivity<LoginActivityContract.Presenter, LoginActivity
     }
 
     private fun showLoadingDialog(msg: String?) {
-        if (mLoadingDialogFragment == null) {
-            mLoadingDialogFragment = LoadingDialog()
-        }
-        mLoadingDialogFragment?.setMessage(msg)
-        mLoadingDialogFragment?.show(supportFragmentManager, LOADING_DIALOG_FRAGMENT_TAG)
+        mLoadingDialog?.dismiss()
+        mLoadingDialog = mDialogFactory.createLoadingDialog(this@LoginActivity, msg)
+        mLoadingDialog?.show()
     }
 
     override fun hideLoading() {
-        mLoadingDialogFragment?.dismiss()
+        mLoadingDialog?.dismiss()
     }
 
     override fun loginSuccess() {
@@ -84,6 +84,7 @@ class LoginActivity : MVPActivity<LoginActivityContract.Presenter, LoginActivity
     }
 
     override fun onDestroy() {
+        mLoadingDialog?.dismiss()
         mWebViewClient?.onDestroy()
         super.onDestroy()
     }

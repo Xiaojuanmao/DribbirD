@@ -2,7 +2,8 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:padding="10dp">
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -11,15 +12,18 @@
         android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/tv_loading_msg"
-        android:layout_width="wrap_content"
+        android:id="@+id/framework_tv_loading_msg"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="20dp"
-        android:gravity="center"
+        android:gravity="center_vertical|start"
+        android:paddingEnd="20dp"
+        android:paddingStart="20dp"
         android:text="@string/framework_loading"
-        android:textSize="@dimen/framework_text_normal_tertiary"
+        android:textSize="@dimen/framework_text_normal_secondary"
         app:layout_constraintBottom_toBottomOf="@id/progress_bar"
         app:layout_constraintLeft_toRightOf="@id/progress_bar"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/progress_bar" />
 
 </android.support.constraint.ConstraintLayout>
