@@ -3,10 +3,12 @@ package com.xjm.xxd.dribbird.utils
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.graphics.Color
 import android.os.Build
 import android.support.annotation.ColorRes
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import com.xjm.xxd.dribbird.R
 
 /**
@@ -16,7 +18,7 @@ import com.xjm.xxd.dribbird.R
 
 object StatusBarCompat {
 
-    private val COLOR_DEFAULT_ID = R.color.transparent
+    private const val COLOR_DEFAULT_ID = R.color.transparent
 
     @SuppressLint("ObsoleteSdkInt")
     @JvmOverloads
@@ -26,11 +28,14 @@ object StatusBarCompat {
         }
         val resources = activity.resources
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            activity.window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            activity.window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             activity.window.statusBarColor = resources.getColor(statusColor, null)
             return
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            activity.window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             val contentView = activity.findViewById(android.R.id.content) as ViewGroup
             val statusBarView = View(activity)
             val lp = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,

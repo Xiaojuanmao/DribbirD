@@ -33,22 +33,15 @@ class MainActivity : MVPActivity<MainActivityContract.Presenter, MainActivityCon
         mToolbar.setTitle(R.string.title_main_activity)
         setSupportActionBar(mToolbar)
 
-        val ab = supportActionBar
-        if (ab != null) {
-            ab.setHomeButtonEnabled(true)
-            ab.setDisplayHomeAsUpEnabled(true)
-        }
-
         mNavigationView.setNavigationItemSelectedListener { menuItem ->
             menuItem.isChecked = true
             mDrawerLayout.closeDrawers()
             true
         }
 
-        val mDrawerToggle = ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close)
-        mDrawerToggle.syncState()
-        mDrawerLayout.addDrawerListener(mDrawerToggle)
-
+        val drawerToggle = ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.open, R.string.close)
+        mDrawerLayout.addDrawerListener(drawerToggle)
+        drawerToggle.syncState()
     }
 
     companion object {
