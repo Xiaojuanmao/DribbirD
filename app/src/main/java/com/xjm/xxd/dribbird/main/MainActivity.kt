@@ -7,7 +7,10 @@ import android.support.design.widget.NavigationView
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.Toolbar
+import android.widget.ImageView
+import android.widget.TextView
 import com.xjm.xxd.dribbird.R
+import com.xjm.xxd.dribbird.model.UserModel
 import com.xjm.xxd.dribbird.utils.StatusBarCompat
 import com.xjm.xxd.framework.kotlinext.bindView
 import com.xjm.xxd.skeleton.mvp.MVPActivity
@@ -19,12 +22,17 @@ class MainActivity : MVPActivity<MainActivityContract.Presenter, MainActivityCon
     private val mToolbar by bindView<Toolbar>(R.id.tool_bar)
     private val mNavigationView by bindView<NavigationView>(R.id.navigation_view)
 
+    private val mIvUserAvatar by bindView<ImageView>(R.id.iv_navigation_header_user_avatar)
+    private val mTvUserName by bindView<TextView>(R.id.tv_navigation_header_nickname)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         StatusBarCompat.compat(this)
 
         initViews()
+
+        presenter().loadUserModel()
     }
 
     override fun createPresenter(): MainActivityContract.Presenter = MainActivityPresenter()
@@ -42,6 +50,12 @@ class MainActivity : MVPActivity<MainActivityContract.Presenter, MainActivityCon
         val drawerToggle = ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.open, R.string.close)
         mDrawerLayout.addDrawerListener(drawerToggle)
         drawerToggle.syncState()
+    }
+
+    override fun showUserModel(userModel: UserModel?) {
+        userModel?.let {
+            mTvUserName.text = it.name
+        }
     }
 
     companion object {

@@ -1,5 +1,6 @@
 package com.xjm.xxd.dribbird.main
 
+import com.xjm.xxd.dribbird.model.UserModel
 import com.xjm.xxd.skeleton.mvp.BasePresenter
 
 /**
@@ -9,10 +10,12 @@ import com.xjm.xxd.skeleton.mvp.BasePresenter
 class MainActivityContract {
 
     abstract class Presenter: BasePresenter<Viewer>() {
-
+        abstract fun loadUserModel()
     }
 
     interface Viewer: com.xjm.xxd.skeleton.mvp.Viewer {
+
+        fun showUserModel(userModel: UserModel?)
 
     }
 

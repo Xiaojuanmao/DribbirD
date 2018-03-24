@@ -79,11 +79,7 @@ class RetrofitManager private constructor() {
 
     companion object {
         @JvmStatic
-        val instance by lazy { Holder.INSTANCE }
-    }
-
-    private object Holder {
-        val INSTANCE = RetrofitManager()
+        val instance by lazy { RetrofitManager() }
     }
 
 }
