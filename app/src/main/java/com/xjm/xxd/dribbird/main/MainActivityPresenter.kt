@@ -2,7 +2,7 @@ package com.xjm.xxd.dribbird.main
 
 import com.xjm.xxd.dribbird.model.UserModel
 import com.xjm.xxd.dribbird.user.UserManager
-import com.xjm.xxd.framework.network.api.SubscriberCallback
+import com.xjm.xxd.dribbird.api.SubscriberCallback
 
 /**
  * Created by queda on 2016/11/21.

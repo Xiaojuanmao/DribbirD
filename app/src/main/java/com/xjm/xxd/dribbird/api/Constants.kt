@@ -1,4 +1,4 @@
-package com.xjm.xxd.framework.network.api
+package com.xjm.xxd.dribbird.api
 
 /**
  * Created by queda on 2018/3/8.

@@ -1,4 +1,4 @@
-package com.xjm.xxd.framework.network.api
+package com.xjm.xxd.dribbird.api
 
 import com.xjm.xxd.framework.network.GsonManager
 import io.reactivex.observers.DisposableObserver
@@ -41,7 +41,7 @@ abstract class SubscriberCallback<T> : DisposableObserver<T>() {
                     } else {
                         onApiError(httpException.code(), "${errorResponse.message}")
                     }
-                } catch (e: IOException) {
+                } catch (e: Throwable) {
                     onApiError(httpException.code(), httpException.message() ?: "")
                 }
             }

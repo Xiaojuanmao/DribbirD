@@ -1,4 +1,4 @@
-package com.xjm.xxd.framework.network.api
+package com.xjm.xxd.dribbird.api
 
 import com.google.gson.annotations.SerializedName
 
