@@ -9,7 +9,7 @@ import android.support.v7.widget.Toolbar
 import android.text.TextUtils
 import com.xjm.xxd.dribbird.R
 import com.xjm.xxd.dribbird.account.TokenManager
-import com.xjm.xxd.dribbird.main.MainActivity
+import com.xjm.xxd.dribbird.homepage.MainActivity
 import com.xjm.xxd.dribbird.widget.ProgressWebView
 import com.xjm.xxd.framework.kotlinext.bindView
 import com.xjm.xxd.framework.widget.DialogFactory

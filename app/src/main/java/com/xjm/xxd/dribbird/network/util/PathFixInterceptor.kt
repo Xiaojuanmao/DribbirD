@@ -1,5 +1,7 @@
-package com.xjm.xxd.dribbird.api
+package com.xjm.xxd.dribbird.network.util
 
+import com.xjm.xxd.dribbird.network.API_VERSION
+import com.xjm.xxd.dribbird.network.BASE_URL
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -13,7 +15,7 @@ class PathFixInterceptor: Interceptor {
         val builder = chain.request().newBuilder()
         val originRequest = chain.request()
         var requestUrl = originRequest.url().toString()
-        requestUrl = requestUrl.replace(ApiConstants.BASE_URL, "${ApiConstants.BASE_URL}${ApiConstants.API_VERSION}")
+        requestUrl = requestUrl.replace(BASE_URL, "$BASE_URL$API_VERSION")
         builder.url(requestUrl)
         return chain.proceed(builder.build())
     }

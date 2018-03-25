@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    tools:layout_editor_absoluteY="25dp">
 
     <ImageView
         android:id="@+id/iv_navigation_header_bg"
@@ -28,13 +29,15 @@
         app:layout_constraintLeft_toLeftOf="parent"
         tools:text="菜鸡啄瓜皮还想翻皮水" />
 
-    <ImageView
+    <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/iv_navigation_header_user_avatar"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginBottom="15dp"
-        android:src="@mipmap/ic_launcher"
+        app:fadeDuration="300"
         app:layout_constraintBottom_toTopOf="@id/tv_navigation_header_nickname"
-        app:layout_constraintLeft_toLeftOf="@id/tv_navigation_header_nickname" />
+        app:layout_constraintLeft_toLeftOf="@id/tv_navigation_header_nickname"
+        app:placeholderImage="@mipmap/ic_launcher"
+        app:roundAsCircle="true" />
 
 </android.support.constraint.ConstraintLayout>

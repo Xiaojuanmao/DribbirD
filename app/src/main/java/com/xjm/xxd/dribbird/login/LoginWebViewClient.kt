@@ -1,7 +1,5 @@
 package com.xjm.xxd.dribbird.login
 
-import android.net.Uri
-import android.text.TextUtils
 import android.util.Log
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
@@ -9,7 +7,7 @@ import android.webkit.WebViewClient
 import com.xjm.xxd.dribbird.R
 import com.xjm.xxd.dribbird.account.TokenBean
 import com.xjm.xxd.dribbird.account.TokenManager
-import com.xjm.xxd.dribbird.api.ApiConstants
+import com.xjm.xxd.dribbird.network.CODE
 import com.xjm.xxd.skeleton.util.ResourceUtil
 import com.xjm.xxd.skeleton.util.rx.RxUtils
 import io.reactivex.Observable
@@ -37,7 +35,7 @@ class LoginWebViewClient(callback: LoginWebViewClientCallback) : WebViewClient()
             val uri = it.url
             if (TokenManager.isMatchRedirectUrl(uri)) {
                 // get the return code
-                val returnCode = uri.getQueryParameter(ApiConstants.CODE)
+                val returnCode = uri.getQueryParameter(CODE)
                 processReturnCode(returnCode)
             } else {
                 view?.loadUrl(uri?.toString())

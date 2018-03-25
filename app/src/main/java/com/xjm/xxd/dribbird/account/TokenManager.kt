@@ -2,7 +2,7 @@ package com.xjm.xxd.dribbird.account
 
 import android.net.Uri
 import com.google.gson.JsonSyntaxException
-import com.xjm.xxd.dribbird.api.ApiConstants
+import com.xjm.xxd.dribbird.network.*
 import com.xjm.xxd.framework.network.GsonManager
 import com.xjm.xxd.framework.network.OkHttpManager
 import com.xjm.xxd.framework.data.CommonStore
@@ -27,16 +27,16 @@ object TokenManager {
     val oAuth2Url: String
         get() {
             if (mOAuthUrl.isEmpty()) {
-                val builder = StringBuilder(ApiConstants.OAUTH_BASE_URL)
-                builder.append(ApiConstants.AUTHORIZE)
-                        .append(ApiConstants.QUESTION_MARK)
-                        .append(ApiConstants.CLIENT_ID)
-                        .append(ApiConstants.EQUAL_MARK)
-                        .append(ApiConstants.DRIBBLE_CLIENT_ID)
-                        .append(ApiConstants.AND_MARK)
-                        .append(ApiConstants.REDIRECT_URI)
-                        .append(ApiConstants.EQUAL_MARK)
-                        .append(ApiConstants.DEFAULT_REDIRECT_URI_PRE)
+                val builder = StringBuilder(OAUTH_BASE_URL)
+                builder.append(AUTHORIZE)
+                        .append(QUESTION_MARK)
+                        .append(CLIENT_ID)
+                        .append(EQUAL_MARK)
+                        .append(DRIBBLE_CLIENT_ID)
+                        .append(AND_MARK)
+                        .append(REDIRECT_URI)
+                        .append(EQUAL_MARK)
+                        .append(DEFAULT_REDIRECT_URI_PRE)
                 mOAuthUrl = builder.toString()
             }
             return mOAuthUrl
@@ -65,11 +65,11 @@ object TokenManager {
     }
 
     fun isMatchRedirectUrl(targetUrl: String?): Boolean {
-        return !targetUrl.isNullOrEmpty() && targetUrl?.startsWith(ApiConstants.DEFAULT_REDIRECT_URI_PRE).nullAsFalse()
+        return !targetUrl.isNullOrEmpty() && targetUrl?.startsWith(DEFAULT_REDIRECT_URI_PRE).nullAsFalse()
     }
 
     fun isMatchRedirectUrl(targetUri: Uri?): Boolean {
-        return targetUri != null && targetUri.toString().startsWith(ApiConstants.DEFAULT_REDIRECT_URI_PRE)
+        return targetUri != null && targetUri.toString().startsWith(DEFAULT_REDIRECT_URI_PRE)
     }
 
     /**
@@ -97,11 +97,11 @@ object TokenManager {
             return null
         }
         val params = hashMapOf<String, String>()
-        params[ApiConstants.CLIENT_ID] = ApiConstants.DRIBBLE_CLIENT_ID
-        params[ApiConstants.CLIENT_SECRET] = ApiConstants.DRIBBLE_CLIENT_SECRET
-        params[ApiConstants.CODE] = returnCode!!
+        params[CLIENT_ID] = DRIBBLE_CLIENT_ID
+        params[CLIENT_SECRET] = DRIBBLE_CLIENT_SECRET
+        params[CODE] = returnCode!!
         val response = OkHttpManager.instance.postSync(
-                ApiConstants.OAUTH_BASE_URL + ApiConstants.TOKEN,
+                OAUTH_BASE_URL + TOKEN,
                 params) ?: return null
         val responseBody = response.body() ?: return null
         return GsonManager.gson().fromJson(responseBody.charStream(), TokenBean::class.java)

@@ -1,8 +1,9 @@
 package com.xjm.xxd.dribbird
 
-import com.xjm.xxd.dribbird.api.ApiConstants
-import com.xjm.xxd.dribbird.api.HeaderInterceptor
-import com.xjm.xxd.dribbird.api.PathFixInterceptor
+import com.facebook.drawee.backends.pipeline.Fresco
+import com.xjm.xxd.dribbird.network.BASE_URL
+import com.xjm.xxd.dribbird.network.util.HeaderInterceptor
+import com.xjm.xxd.dribbird.network.util.PathFixInterceptor
 import com.xjm.xxd.framework.network.RetrofitManager
 import com.xjm.xxd.skeleton.BaseApp
 
@@ -16,10 +17,11 @@ class DribApp : BaseApp() {
 
     override fun onCreate() {
         super.onCreate()
-        RetrofitManager.instance.init(ApiConstants.BASE_URL, arrayListOf(
+        Fresco.initialize(this)
+        RetrofitManager.instance.init(BASE_URL, arrayListOf(
                 HeaderInterceptor(),
-                PathFixInterceptor())
-        )
+                PathFixInterceptor()))
+
     }
 
 }

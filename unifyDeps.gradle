@@ -14,6 +14,8 @@ rootProject.ext.retrofitVersion = "2.3.0"
 rootProject.ext.okhttplogVersion = "3.8.1"
 rootProject.ext.legoVersion = "0.6.6"
 
+rootProject.ext.frescoVersion = "1.8.1"
+
 rootProject.ext.deps = [
 
         androidCardView         : "com.android.support:cardview-v7:$ANDROID_SUPPORT_LIBS_VERSION",
@@ -42,5 +44,7 @@ rootProject.ext.deps = [
         kotlinStdLib            : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
 
         lego                    : "com.github.Hackforid.Lego:lego:$legoVersion",
-        legoCompiler            : "com.github.Hackforid.Lego:lego-compiler:$legoVersion"
+        legoCompiler            : "com.github.Hackforid.Lego:lego-compiler:$legoVersion",
+
+        fresco                  : "com.facebook.fresco:fresco:$frescoVersion"
 ]

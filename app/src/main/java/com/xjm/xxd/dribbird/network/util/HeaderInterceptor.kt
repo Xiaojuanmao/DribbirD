@@ -1,4 +1,4 @@
-package com.xjm.xxd.dribbird.api
+package com.xjm.xxd.dribbird.network.util
 
 import com.xjm.xxd.framework.data.CommonStore
 import java.io.IOException

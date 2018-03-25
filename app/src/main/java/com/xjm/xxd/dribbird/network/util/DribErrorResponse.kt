@@ -1,6 +1,7 @@
-package com.xjm.xxd.dribbird.api
+package com.xjm.xxd.dribbird.network.util
 
 import com.google.gson.annotations.SerializedName
+import com.xjm.xxd.dribbird.network.api.DribErrorModel
 
 /**
  * Created by queda on 2018/3/8.

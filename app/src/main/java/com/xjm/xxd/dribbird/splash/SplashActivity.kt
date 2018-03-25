@@ -6,7 +6,7 @@ import android.view.WindowManager
 import android.widget.ImageView
 import com.xjm.xxd.dribbird.R
 import com.xjm.xxd.dribbird.login.LoginActivity
-import com.xjm.xxd.dribbird.main.MainActivity
+import com.xjm.xxd.dribbird.homepage.MainActivity
 import com.xjm.xxd.framework.kotlinext.bindView
 import com.xjm.xxd.skeleton.mvp.MVPActivity
 

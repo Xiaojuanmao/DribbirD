@@ -1,4 +1,4 @@
-package com.xjm.xxd.dribbird.api
+package com.xjm.xxd.dribbird.network.api
 
 /**
  * @author : xiaoxiaoda

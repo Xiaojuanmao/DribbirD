@@ -1,6 +1,6 @@
 package com.xjm.xxd.dribbird.user
 
-import com.xjm.xxd.dribbird.api.UserApi
+import com.xjm.xxd.dribbird.network.api.UserApi
 import com.xjm.xxd.dribbird.model.UserModel
 import com.xjm.xxd.framework.network.RetrofitManager
 import com.xjm.xxd.skeleton.util.rx.RxUtils

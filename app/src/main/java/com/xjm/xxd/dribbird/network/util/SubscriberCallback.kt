@@ -1,5 +1,7 @@
-package com.xjm.xxd.dribbird.api
+package com.xjm.xxd.dribbird.network.util
 
+import com.xjm.xxd.dribbird.network.ERROR_CODE_UNKNOWN
+import com.xjm.xxd.dribbird.network.ERROR_MSG_UNKNOWN
 import com.xjm.xxd.framework.network.GsonManager
 import io.reactivex.observers.DisposableObserver
 import retrofit2.HttpException
@@ -53,16 +55,24 @@ abstract class SubscriberCallback<T> : DisposableObserver<T>() {
         onFinish()
     }
 
-    abstract fun onSuccess(t: T)
+    open fun onSuccess(t: T) {
+        // empty
+    }
 
-    abstract fun onNetError()
+    open fun onNetError() {
+        // empty
+    }
 
-    abstract fun onApiError(errorCode: Int, errorMsg: String?)
+    open fun onApiError(errorCode: Int, errorMsg: String?) {
+        // empty
+    }
 
     /**
      * 在调用success或error函数之后
      * 最终都会调用一次finish
      */
-    abstract fun onFinish()
+    open fun onFinish() {
+        // empty
+    }
 
 }
