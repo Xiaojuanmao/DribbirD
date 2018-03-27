@@ -7,6 +7,7 @@ import android.support.design.widget.NavigationView
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.Toolbar
+import android.view.View
 import android.widget.TextView
 import com.facebook.drawee.view.SimpleDraweeView
 import com.xjm.xxd.dribbird.R
@@ -23,13 +24,13 @@ class MainActivity : MVPActivity<Presenter, Viewer>(),
     private val mToolbar by bindView<Toolbar>(R.id.tool_bar)
     private val mNavigationView by bindView<NavigationView>(R.id.navigation_view)
 
-    private val mIvUserAvatar by bindView<SimpleDraweeView>(R.id.iv_navigation_header_user_avatar)
-    private val mTvUserName by bindView<TextView>(R.id.tv_navigation_header_nickname)
+    private lateinit var mIvUserAvatar: SimpleDraweeView
+    private lateinit var mTvUserName: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         StatusBarCompat.compat(this)
+        setContentView(R.layout.activity_main)
 
         initViews()
 
@@ -42,6 +43,14 @@ class MainActivity : MVPActivity<Presenter, Viewer>(),
         mToolbar.setTitle(R.string.title_main_activity)
         setSupportActionBar(mToolbar)
 
+        val headerView = mNavigationView.inflateHeaderView(R.layout.layout_main_activity_navigation_header)
+        mNavigationView.inflateMenu(R.menu.menu_main_activity_navigation)
+        mIvUserAvatar = headerView.findViewById(R.id.iv_navigation_header_user_avatar)
+        mTvUserName = headerView.findViewById(R.id.tv_navigation_header_nickname)
+        mIvUserAvatar.setOnClickListener {
+            mDrawerLayout.closeDrawers()
+            UserProfileActivity.open(this@MainActivity)
+        }
         mNavigationView.setNavigationItemSelectedListener { menuItem ->
             menuItem.isChecked = true
             mDrawerLayout.closeDrawers()
@@ -51,11 +60,6 @@ class MainActivity : MVPActivity<Presenter, Viewer>(),
         val drawerToggle = ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.open, R.string.close)
         mDrawerLayout.addDrawerListener(drawerToggle)
         drawerToggle.syncState()
-
-        mIvUserAvatar.setOnClickListener {
-            UserProfileActivity.open(this@MainActivity)
-        }
-
     }
 
     override fun showUserModel(userModel: UserModel?) {

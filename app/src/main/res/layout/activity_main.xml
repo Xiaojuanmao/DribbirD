@@ -16,15 +16,13 @@
             android:id="@+id/tool_bar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            android:background="?attr/colorPrimary" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="HelloWorld"
+            android:text="@string/app_name"
             android:textSize="30sp" />
 
     </RelativeLayout>
@@ -34,8 +32,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/layout_main_activity_navigation_header"
-        app:menu="@menu/menu_main_activity_navigation" />
+        android:fitsSystemWindows="true" />
 
 </android.support.v4.widget.DrawerLayout>
