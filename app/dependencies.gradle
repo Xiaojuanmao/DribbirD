@@ -7,8 +7,6 @@ dependencies {
 
     implementation rootProject.deps.fresco
 
-    implementation rootProject.deps.butterKnife
-    annotationProcessor rootProject.deps.butterKnifeCompiler
     provided rootProject.deps.javaxAnnotation
 
     implementation rootProject.deps.rxAndroid

@@ -40,6 +40,4 @@ dependencies {
     
     implementation rootProject.deps.okhttp3Logging
 
-    implementation rootProject.deps.lego
-    kapt rootProject.deps.legoCompiler
 }

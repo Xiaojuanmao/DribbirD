@@ -5,14 +5,11 @@ rootProject.ext.targetSdkVersion = 26
 
 rootProject.ext.ANDROID_SUPPORT_LIBS_VERSION = "27.0.0"
 
-rootProject.ext.butterKnifeVersion = "8.4.0"
 rootProject.ext.annotationVersion = "1.2"
-rootProject.ext.daggerVersion = "2.10"
 rootProject.ext.rxandroidVersion = "2.0.1"
 rootProject.ext.rxRelayVersion = "2.0.0"
 rootProject.ext.retrofitVersion = "2.3.0"
 rootProject.ext.okhttplogVersion = "3.8.1"
-rootProject.ext.legoVersion = "0.6.6"
 
 rootProject.ext.frescoVersion = "1.8.1"
 
@@ -24,14 +21,9 @@ rootProject.ext.deps = [
         androidAnnotations      : "com.android.support:support-annotations:$ANDROID_SUPPORT_LIBS_VERSION",
         androidAppCompat        : "com.android.support:appcompat-v7:$ANDROID_SUPPORT_LIBS_VERSION",
         androidSupportV4Fragment: "com.android.support:support-fragment:$ANDROID_SUPPORT_LIBS_VERSION",
-        androidConstraintLayout : "com.android.support.constraint:constraint-layout:1.0.2",
+        androidConstraintLayout : "com.android.support.constraint:constraint-layout:1.1.3",
 
-        butterKnife             : "com.jakewharton:butterknife:$butterKnifeVersion",
-        butterKnifeCompiler     : "com.jakewharton:butterknife-compiler:$butterKnifeVersion",
         javaxAnnotation         : "javax.annotation:javax.annotation-api:$annotationVersion",
-
-        dagger2                 : "com.google.dagger:dagger:$daggerVersion",
-        daggerCompiler          : "com.google.dagger:dagger-compiler:$daggerVersion",
 
         retrofit2               : "com.squareup.retrofit2:retrofit:$retrofitVersion",
         retrofit2Gson           : "com.squareup.retrofit2:converter-gson:$retrofitVersion",
@@ -42,9 +34,6 @@ rootProject.ext.deps = [
         rxRelay                 : "com.jakewharton.rxrelay2:rxrelay:$rxRelayVersion",
 
         kotlinStdLib            : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
-
-        lego                    : "com.github.Hackforid.Lego:lego:$legoVersion",
-        legoCompiler            : "com.github.Hackforid.Lego:lego-compiler:$legoVersion",
 
         fresco                  : "com.facebook.fresco:fresco:$frescoVersion"
 ]
